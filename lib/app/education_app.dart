@@ -1,0 +1,47 @@
+import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/core/Router/route_string.dart';
+import 'package:education/core/get_it/get_it.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../core/Router/route.dart';
+import '../core/language/app_localizations_setup.dart';
+import '../core/style/theme/app_theme.dart';
+
+class EducationApp extends StatelessWidget {
+  const EducationApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<EducationCubit>(),
+      child: BlocBuilder<EducationCubit, EducationState>(
+        buildWhen: (previous, current) {
+          return previous != current;
+        },
+        builder: (context, state) {
+          return ScreenUtilInit(
+            designSize: const Size(375, 812),
+            minTextAdapt: true,
+            child: MaterialApp(
+              theme: context.read<EducationCubit>().isDark
+                  ? themeLight()
+                  : themeDark(),
+              locale: Locale(context.read<EducationCubit>().currentLangCode),
+              supportedLocales: AppLocalizationsSetup.supportedLocales,
+              localizationsDelegates:
+                  AppLocalizationsSetup.localizationsDelegates,
+              localeResolutionCallback:
+                  AppLocalizationsSetup.localeResolutionCallback,
+              debugShowCheckedModeBanner: false,
+              title: 'Education App',
+              onGenerateRoute: AppRoutes.onGenerateRoute,
+              initialRoute: StringRoute.onBoarding,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
