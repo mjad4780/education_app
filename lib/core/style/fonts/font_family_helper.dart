@@ -7,7 +7,7 @@ class FontFamilyHelper {
 
   static const String cairoArabic = 'Cairo';
 
-  static const String poppinsEnglish = 'Poppins';
+  static const String poppinsEnglish = 'Mulish';
 
   static String geLocalozedFontFamily() {
     if (getIt<CacheHelper>().getData(key: Keys.language) == 'en') {

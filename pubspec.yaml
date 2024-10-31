@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.4.2
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.10+1
   get_it: ^8.0.1
@@ -49,6 +50,7 @@ dependencies:
   url_launcher: ^6.3.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
   flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
@@ -66,7 +68,7 @@ flutter:
   assets:
     - lang/ar.json
     - lang/en.json
-  #   - images/a_dot_ham.jpeg
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
   # For details regarding adding assets from package dependencies, see
@@ -87,18 +89,37 @@ flutter:
         - asset: assets/fonts/arabic/cairo/Cairo-Regular.ttf
           weight: 400
     # English Font
-    - family: Poppins
+    - family: Mulish
       fonts:
-        - asset: assets/fonts/english/poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/english/poppins/Mulish-Bold.ttf
           weight: 700
-        - asset: assets/fonts/english/poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/english/poppins/Mulish-Medium.ttf
           weight: 500
-        - asset: assets/fonts/english/poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/english/poppins/Mulish-Regular.ttf
           weight: 400
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
-  # flutter_assets:
-  #  assets_path: assets/images/
-  #  output_path: lib/core/constans/
-  #  filename: icons.dart
-  #  field_prefix: null
+  # see https://flutter.dev/custom-fonts/#from-packages
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/Untitled design.png"
+  adaptive_icon_foreground: "assets/images/Untitled design.png" # Set the foreground image (same or different from image_path)
+
+  adaptive_icon_background: "#FFFFFF"
+
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+
+
+
+
+
+
+
+
+
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/utility/
+  filename: images_aseets.dart
+  field_prefix: null

@@ -1,6 +1,24 @@
 {
-    "language": "العربية",
-    "app_name": "Asroo Store",
-    "login": "Login"
-
+  "online_learning": "Online Learning",
+  "provide_classes": "We Provide Online Classes and Pre Recorded Lectures!",
+  "learn_anytime": "Learn from Anytime",
+  "book_or_save_lectures": "Book or Save the Lectures for Future",
+  "get_certificate": "Get Online Certificate",
+  "analyze_scores": "Analyse your scores and Track your results",
+  "no_account": "Don’t have an Account?",
+  "sign_up": "SIGN UP",
+  "getting_started": "Getting Started!",
+  "create_account": "Create an Account to Continue your allCourses",
+  "agree_terms": "Agree to Terms & Conditions",
+  "or_continue_with": "Or Continue With",
+  "already_have_account": "Already have an Account? SIGN IN",
+  "lets_sign_in": "Let’s Sign In!",
+  "login_to_continue": "Login to Your Account to Continue your Courses",
+  "forgot_password": "Forgot Password?",
+  "fill_profile": "Fill Your Profile",
+  "congratulations": "Congratulations",
+  "account_ready": "Your Account is Ready to Use. You will be redirected to the Home Page in a Few Seconds.",
+  "skip": "Skip",
+  "email": "Email",
+  "password": "Password"
 }

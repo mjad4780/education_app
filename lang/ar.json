@@ -1,6 +1,25 @@
 {
-    "language": "English",
-    "app_name": "متجر آسرو",
-    "login": "تسجيل الدخول"
-
-}
+    "online_learning": "التعليم عبر الإنترنت",
+    "provide_classes": "نقدم فصولًا عبر الإنترنت ودروسًا مسجلة مسبقاً!",
+    "learn_anytime": "تعلَّم في أي وقت",
+    "book_or_save_lectures": "احجز أو احفظ الدروس للمستقبل",
+    "get_certificate": "احصل على شهادة عبر الإنترنت",
+    "analyze_scores": "حلّل درجاتك وتابع نتائجك",
+    "no_account": "ليس لديك حساب؟",
+    "sign_up": "إنشاء حساب",
+    "getting_started": "لنبدأ!",
+    "create_account": "أنشئ حساباً للاستمرار في الدورات",
+    "agree_terms": "الموافقة على الشروط والأحكام",
+    "or_continue_with": "أو استمر باستخدام",
+    "already_have_account": "هل لديك حساب بالفعل؟ سجل الدخول",
+    "lets_sign_in": "هيا لنبدأ!",
+    "login_to_continue": "سجل الدخول إلى حسابك للاستمرار في الدورات",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "fill_profile": "املأ ملفك الشخصي",
+    "congratulations": "تهانينا",
+    "account_ready": "حسابك جاهز للاستخدام. سيتم توجيهك إلى الصفحة الرئيسية خلال ثوانٍ قليلة.",
+    "skip": "تخطي",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور"
+  }
+  
