@@ -9,7 +9,7 @@ extension Navigation on BuildContext {
   // images
 
   // style
-  TextStyle get textStyle => Theme.of(this).textTheme.displaySmall!;
+  TextTheme get textStyle => Theme.of(this).textTheme;
 
 //Language
   String translate(String langkey) {

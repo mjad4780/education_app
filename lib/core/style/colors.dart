@@ -1,40 +1,6 @@
 import 'package:flutter/material.dart';
 
-// class AppColor {
-//   static const Color primaryColor = Color(0xffe74c3c);
-//   static const Color secondColor = Color(0xffc0392b);
-//   static const Color red = Colors.red;
-//   static const Color orange = Colors.orange;
-
-//   static const Color grey = Color(0xff8e8e8e);
-//   static const Color black = Color(0xff000000);
-//   static const Color primaryColorblue = Color(0xff5DB1DF);
-//   static const Color backgroundcolor = Color(0xffF8F9FD);
-//   static const Color thirdColor = Color.fromARGB(255, 255, 179, 170);
-//   static const secondaryColor = Color(0xFF2A2D3E);
-//   static const bgColor = Color(0xFF212332);
-//   static const defaultPadding = 16.0;
-//   static const backgroundDarkBlue = Color(0xff061428);
-//   static const buttonBlue = Color(0xff415A77);
-//   static const blueGray = Color(0xff778DA9);
-//   static const textWhite = Color(0xffFFFFFF);
-//   static const errorRed = Color(0xffFF6E6E);
-//   static const darkOrange = Color(0xFFEC6813);
-//   static const lightOrange = Color(0xFFf8b89a);
-
-//   static const darkGrey = Color(0xFFA6A3A0);
-//   static const lightGrey = Color(0xFFE5E6E8);
-//   static const textColor1 = Color(0xff353047);
-//   static const textColor2 = Color(0xff6f687A);
-//   static const Color lightBlue = Color(0xFFF4F8FF);
-//   static const Color darkBlue = Color(0xFF242424);
-//   static const Color gray = Color(0xFF757575);
-//   static const Color lightGray = Color(0xFFC2C2C2);
-//   static const Color moreLightGray = Color(0xFFFDFDFF);
-//   static const Color moreLighterGray = Color(0xFFF5F5F5);
-// }
-
-class AppColor {
+class AppColorligth {
   static const Color moreLightGray = Color(0xFFFDFDFF);
   static const Color lighterGray = Color(0xFFEDEDED);
   static const Color mainBlue = Color(0xFF247CFF);
@@ -68,6 +34,43 @@ class AppColor {
   static const Color greySteel = Color(0xFFD5E2F5); // Steel Grey
   static const Color brown = Color(0xFF645033); // Brown
   static const Color greyMild = Color(0xFFDADADC); // Mild Grey
+}
 
-  // Add other colors similarly as needed
+class AppColorDarkMode {
+  static const Color moreLightGray = Color(0xFF1A1A1A); // بديل للأبيض تقريبًا
+  static const Color lighterGray = Color(0xFF2A2A2A); // رمادي فاتح داكن
+  static const Color mainBlue = Color(0xFF1B6BDB); // أزرق رئيسي داكن
+
+  static const Color primaryColor =
+      Color(0xFF202244); // لون أساسي داكن (يبقى كما هو)
+  static const Color black = Color(0xFFFFFFFF); // بديل للأبيض ليكون النص واضح
+  static const Color white = Color(0xFF000000); // بديل للأسود
+  static const Color lightBlue = Color(0xFF1D2E48); // أزرق فاتح داكن
+  static const Color greyDark =
+      Color(0xFFB8B8B8); // بديل للرمادي الداكن بلون أفتح قليلًا
+  static const Color blue = Color(0xFF81AFFF); // أزرق فاتح قليلًا للوضع الداكن
+  static const Color teal = Color(0xFF248F83); // لون أزرق مائل للأخضر
+  static const Color greyMedium = Color(0xFF4A4A4A); // رمادي متوسط داكن
+  static const Color greyLight = Color(0xFF3A3A3A); // رمادي فاتح داكن
+  static const Color blackSoft = Color(0xFF2B2B2B); // أسود ناعم
+  static const Color greyish = Color(0xFF6A6A6A); // رمادي داكن
+  static const Color greyLighter = Color(0xFF323232); // رمادي أفتح داكن
+  static const Color greyDark2 = Color(0xFF606060); // رمادي داكن جدًا
+  static const Color orangeBright =
+      Color(0xFFFF8A4D); // برتقالي فاتح بسطوع متوسط
+  static const Color yellowGold = Color(0xFFE4A924); // ذهبي داكن
+  static const Color orange = Color(0xFFFFB44A); // برتقالي فاتح قليلًا
+  static const Color yellowBright = Color(0xFFE5A100); // أصفر ساطع داكن
+  static const Color blueLight = Color(0xFF00466A); // أزرق فاتح داكن
+  static const Color maroon = Color(0xFF6A3B3B); // لون عنابي داكن
+  static const Color blueDark = Color(0xFF00337E); // أزرق داكن جدًا
+  static const Color yellowSoft = Color(0xFF403030); // أصفر ناعم جدًا
+  static const Color blueAccent = Color(0xFF2D8DFF); // أزرق فاتح معتدل
+  static const Color redBright = Color(0xFFDD4A44); // أحمر فاتح ساطع
+  static const Color greenBright = Color(0xFF5CC848); // أخضر فاتح
+  static const Color yellowLight = Color(0xFF4D4D4D); // أصفر فاتح داكن
+  static const Color greyDeep = Color(0xFF1A1A1A); // رمادي عميق داكن
+  static const Color greySteel = Color(0xFF3B4A5A); // رمادي ستيل داكن
+  static const Color brown = Color(0xFF7A5F45); // بني داكن
+  static const Color greyMild = Color(0xFF5C5C5C); // رمادي معتدل داكن
 }

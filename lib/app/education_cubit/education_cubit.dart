@@ -10,11 +10,13 @@ part 'education_state.dart';
 class EducationCubit extends Cubit<EducationState> {
   EducationCubit() : super(EducationInitial());
 
-  bool isDark = true;
+  bool isDark = getIt<CacheHelper>().getData(key: Keys.themeMode) ?? false;
 
-  String currentLangCode = 'ar';
+  String currentLangCode =
+      getIt<CacheHelper>().getData(key: Keys.language) ?? 'en';
 
 //Theme Mode
+
   Future<void> changeAppThemeMode({bool? sharedMode}) async {
     if (sharedMode != null) {
       isDark = sharedMode;
@@ -29,9 +31,15 @@ class EducationCubit extends Cubit<EducationState> {
     }
   }
 
+  Future<void> changeFullAppThemeMode({bool? sharedMode}) async {
+    if (getIt<CacheHelper>().getData(key: Keys.themeMode) == null) {
+      changeAppThemeMode();
+    }
+  }
+
 //Language Change
   void getSavedLanguage() {
-    currentLangCode = getIt<CacheHelper>().getData(key: Keys.language) ?? 'en';
+    currentLangCode = getIt<CacheHelper>().getData(key: Keys.language) ?? 'ar';
 
     emit(LanguageChange(locale: Locale(currentLangCode)));
   }
