@@ -1,7 +1,9 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/language/lang_keys.dart';
+import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/Router/route_string.dart';
@@ -50,31 +52,7 @@ class LoginScrean extends StatelessWidget {
                             .copyWith(color: Colors.grey),
                       )),
                   verticalSpace(30),
-                  Form(
-                    child: Column(
-                      children: [
-                        AppTextFormField(
-                          hintText: context.translate(LangKeys.email),
-                          validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                !AppRegex.isEmailValid(value)) {
-                              return 'Please enter a valid email';
-                            }
-                          },
-                        ),
-                        verticalSpace(22),
-                        AppTextFormField(
-                          hintText: context.translate(LangKeys.password),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a valid password';
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  const EmailAndPassword(),
                   verticalSpace(14),
                   Align(
                     alignment: Alignment.centerRight,
@@ -85,7 +63,9 @@ class LoginScrean extends StatelessWidget {
                   verticalSpace(14),
                   AppTextButton(
                     buttonText: context.translate(LangKeys.signin),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<LoginCubit>().emitLoginState();
+                    },
                     textStyle: const TextStyle(),
                   ),
                   verticalSpace(20),
@@ -141,5 +121,56 @@ class LoginScrean extends StatelessWidget {
         ),
       ),
     ));
+  }
+}
+
+class EmailAndPassword extends StatelessWidget {
+  const EmailAndPassword({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      autovalidateMode: context.read<LoginCubit>().autovalidateMode,
+      key: context.read<LoginCubit>().formkey,
+      child: Column(
+        children: [
+          AppTextFormField(
+            controller: context.read<LoginCubit>().email,
+            hintText: context.translate(LangKeys.email),
+            validator: (value) {
+              if (value == null ||
+                  value.isEmpty ||
+                  !AppRegex.isEmailValid(value)) {
+                return 'Please enter a valid email';
+              }
+            },
+          ),
+          verticalSpace(22),
+          BlocSelector<LoginCubit, LoginState, bool>(
+            selector: (LoginState state) =>
+                state is IsObscureText ? state.isObscureText : true,
+            builder: (context, isObscureText) {
+              return AppTextFormField(
+                controller: context.read<LoginCubit>().password,
+                isObscureText: isObscureText,
+                suffixIcon: GestureDetector(
+                  onTap: () =>
+                      context.read<LoginCubit>().isObscureTextPassword(),
+                  child: Icon(
+                    isObscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
+                ),
+                hintText: context.translate(LangKeys.password),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a valid password';
+                  }
+                },
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

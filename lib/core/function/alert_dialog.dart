@@ -41,3 +41,17 @@ void testAlert(BuildContext context, String title, String body) {
         return alert;
       });
 }
+
+void warring(BuildContext context, String title, String body) {
+  var alert = AlertDialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    title: Text(title),
+    content: Text(body),
+  );
+
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      });
+}

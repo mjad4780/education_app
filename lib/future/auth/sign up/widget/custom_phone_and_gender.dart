@@ -1,8 +1,10 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../../widget/custom_dropdown.dart';
+import '../logic/cubit/sign_up_cubit.dart';
 
 class CustomPhoneAndGender extends StatelessWidget {
   const CustomPhoneAndGender({super.key});
@@ -16,6 +18,7 @@ class CustomPhoneAndGender extends StatelessWidget {
                 color: context.color.white,
                 borderRadius: BorderRadius.circular(15)),
             child: IntlPhoneField(
+              controller: context.read<SignUpCubit>().phone,
               disableLengthCheck: true,
               decoration: const InputDecoration(
                 labelText: 'Phone Number',
@@ -24,17 +27,15 @@ class CustomPhoneAndGender extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(15))),
               ),
               initialCountryCode: 'EG',
-              onChanged: (phone) {
-                print(phone.completeNumber);
-              },
+              onChanged: (phone) {},
             )),
         const SizedBox(height: 16),
         // Gender Field
         CustomDropdown(
-          displayItem: (p0) {
-            return p0;
+          displayItem: (value) {
+            return value;
           },
-          onChanged: (p0) {},
+          onChanged: (value) => context.read<SignUpCubit>().gender = value,
           items: const ['Male', 'Femle'],
           hintText: 'Gender',
         ),

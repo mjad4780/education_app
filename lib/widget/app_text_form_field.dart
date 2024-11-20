@@ -74,7 +74,7 @@ class AppTextFormField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(22.0),
         ),
-        // hintStyle: hintStyle ?? TextStyles.font14LightGrayRegular,
+        errorStyle: context.textStyle.bodyMedium!.copyWith(color: Colors.red),
         hintText: hintText,
         suffixIcon: suffixIcon,
         fillColor: backgroundColor ?? context.color.moreLightGray,
