@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,16 +32,16 @@ class AppTextButton extends StatelessWidget {
       style: ButtonStyle(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
+            borderRadius: BorderRadius.circular(borderRadius ?? 30.0),
           ),
         ),
         backgroundColor: WidgetStatePropertyAll(
-          backgroundColor ?? context.color.primaryColor,
+          backgroundColor ?? context.color.blue,
         ),
         padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.symmetric(
-            horizontal: horizontalPadding?.w ?? 12.w,
-            vertical: verticalPadding?.h ?? 14.h,
+            horizontal: horizontalPadding?.w ?? 11.w,
+            vertical: verticalPadding?.h ?? 4.h,
           ),
         ),
         fixedSize: WidgetStateProperty.all(
@@ -48,9 +49,31 @@ class AppTextButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Text(
-        buttonText,
-        style: textStyle,
+      child: Row(
+        children: [
+          const Spacer(),
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              buttonText,
+              style: context.textStyle.headlineMedium!
+                  .copyWith(color: context.color.white, fontSize: 19),
+            ),
+          ),
+          const Spacer(),
+          Container(
+            width: width(context) / 9,
+            height: height(context),
+            decoration: BoxDecoration(
+                color: context.color.white,
+                borderRadius: BorderRadius.circular(60)),
+            child: Icon(
+              Icons.arrow_forward,
+              color: context.color.blue,
+              size: 28,
+            ),
+          ),
+        ],
       ),
     );
   }

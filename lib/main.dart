@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:education/app/education_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,5 +14,10 @@ void main() async {
   setupServise();
   await getIt<CacheHelper>().init();
   await ScreenUtil.ensureScreenSize();
-  runApp(const EducationApp());
+  //   await Supabase.initialize(
+  //   url: SUPABASE_URL,
+  //   anonKey: SUPABASE_ANON_KEY,
+  // );
+  runApp(DevicePreview(
+      enabled: false, builder: (context) => const EducationApp()));
 }

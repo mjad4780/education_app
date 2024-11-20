@@ -20,5 +20,10 @@
   "account_ready": "Your Account is Ready to Use. You will be redirected to the Home Page in a Few Seconds.",
   "skip": "Skip",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "sign_in": "SIGN IN",
+  "name":"Name",
+  "last":"Last Name",
+  "Continue":"Continue"
+
 }

@@ -3,7 +3,7 @@ class LangKeys {
   static const String appName = 'app_name';
   static const String login = 'login';
   static const String welcome = 'welcome';
-  static const String email = 'your_email';
+  static const String email = 'email';
   static const String password = 'password';
   static const String validEmail = 'valid_email';
   static const String validPasswrod = 'valid_passwrod';
@@ -13,9 +13,17 @@ class LangKeys {
   static const String signUpWelcome = 'sign_up_welcome';
   static const String signUp = 'sign_up';
   static const String youHaveAccount = 'you_have_account';
-  static const String fullName = 'full_name';
+  static const String fullName = 'name';
   static const String validName = 'valid_name';
   static const String validPickImage = 'valid_pick_image';
+  static const String letssignin = 'lets_sign_in';
+  static const String logintocontinue = 'login_to_continue';
+  static const String forgotpassword = 'forgot_password';
+  static const String signin = 'sign_in';
+  static const String orContinue = 'or_continue_with';
+  static const String noAccount = 'no_account';
+  static const String last = 'last';
+
   static const String imageUploaded = 'image_uploaded';
   static const String imageRemoved = 'image_removed';
   static const String chooseProducts = 'choose_products';
@@ -37,4 +45,5 @@ class LangKeys {
   static const String unsubscribedToNotifications =
       'unsubscribed_to_notifications';
   static const String viewAll = 'view_all';
+  static const String continu = 'Continue';
 }

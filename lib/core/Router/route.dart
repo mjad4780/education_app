@@ -2,6 +2,7 @@ import 'package:education/core/Router/route_string.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
+import '../../future/auth/sign up/sign_up.dart';
 import 'base_routes.dart';
 
 class AppRoutes {
@@ -19,7 +20,7 @@ class AppRoutes {
         );
       case StringRoute.signUp:
         return BaseRoute(
-          page: const LoginScrean(),
+          page: const SignUpScreen(),
         );
       case StringRoute.checkcode:
         return BaseRoute(

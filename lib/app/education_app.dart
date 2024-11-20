@@ -6,7 +6,6 @@ import 'package:education/utility/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:developer';
 
 import '../core/Router/route.dart';
 import '../core/language/app_localizations_setup.dart';
@@ -17,7 +16,6 @@ class EducationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('printtttttttttttttt');
     return BlocProvider(
       create: (context) => getIt<EducationCubit>()..changeFullAppThemeMode(),
       child: BlocBuilder<EducationCubit, EducationState>(
