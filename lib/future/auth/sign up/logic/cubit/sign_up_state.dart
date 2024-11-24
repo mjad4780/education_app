@@ -16,3 +16,17 @@ final class ProfileImageSignUp extends SignUpState {
 
   ProfileImageSignUp({required this.profileImage});
 }
+
+////
+final class SignupLoading extends SignUpState {}
+
+final class SignupSuccess extends SignUpState {
+  final String successString;
+
+  SignupSuccess({required this.successString});
+}
+
+final class SignupFailure extends SignUpState {
+  final String message;
+  SignupFailure({required this.message});
+}

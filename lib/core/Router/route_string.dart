@@ -3,5 +3,5 @@ abstract class StringRoute {
 
   static const String login = 'login';
   static const String signUp = 'signup';
-  static const String checkcode = 'checkcode';
+  static const String home = 'Home';
 }

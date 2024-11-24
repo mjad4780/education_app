@@ -16,11 +16,10 @@ void main() async {
   setupServise();
   await getIt<CacheHelper>().init();
   await ScreenUtil.ensureScreenSize();
-  //   await Supabase.initialize(
-  //   url: SUPABASE_URL,
-  //   anonKey: SUPABASE_ANON_KEY,
-  // );
-  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
+  await Supabase.initialize(
+    url: supabaseUrl,
+    anonKey: supabaseKey,
+  );
 
   runApp(DevicePreview(
       enabled: false, builder: (context) => const EducationApp()));

@@ -1,8 +1,8 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
-import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
+import 'package:education/future/home/home_scean.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,10 +20,7 @@ class AppRoutes {
 
       case StringRoute.login:
         return BaseRoute(
-          page: BlocProvider(
-            create: (context) => getIt<LoginCubit>(),
-            child: const LoginScrean(),
-          ),
+          page: const LoginScrean(),
         );
       case StringRoute.signUp:
         return BaseRoute(
@@ -32,10 +29,12 @@ class AppRoutes {
             child: const SignUpScreen(),
           ),
         );
-      case StringRoute.checkcode:
+
+      case StringRoute.home:
         return BaseRoute(
-          page: const LoginScrean(),
+          page: const HomeScrean(),
         );
+
       default:
         return BaseRoute(page: const Scaffold());
     }

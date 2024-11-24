@@ -39,10 +39,13 @@ class EducationApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Education App',
               onGenerateRoute: AppRoutes.onGenerateRoute,
-              initialRoute:
-                  getIt<CacheHelper>().getData(key: Keys.onboarding) != null
-                      ? StringRoute.login
-                      : StringRoute.onBoarding,
+              initialRoute: getIt<CacheHelper>()
+                          .getData(key: Keys.onboarding) !=
+                      null
+                  ? getIt<CacheHelper>().getData(key: Keys.isLoggedIn) ?? false
+                      ? StringRoute.home
+                      : StringRoute.login
+                  : StringRoute.onBoarding,
             ),
           );
         },

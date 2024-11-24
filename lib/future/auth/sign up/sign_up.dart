@@ -10,6 +10,7 @@ import '../../../widget/app_text_form_field.dart';
 
 import 'widget/custom_phone_and_gender.dart';
 import 'widget/image_profile_sign_up.dart';
+import 'widget/signin_google_bloc_listener.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -105,21 +106,19 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
 
-                // Phone Number Field
                 verticalSpace(15),
 
                 const CustomPhoneAndGender(),
 
                 const SizedBox(height: 32),
-                // Continue Button
 
                 AppTextButton(
                   buttonText: context.translate(LangKeys.continu),
-                  onPressed: () {
-                    context.read<SignUpCubit>().emitSignUpState(context);
-                  },
+                  onPressed: () =>
+                      context.read<SignUpCubit>().emitsignUp(context),
                   textStyle: const TextStyle(),
                 ),
+                const SignUpBlocListener()
               ],
             ),
           ),

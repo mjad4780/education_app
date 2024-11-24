@@ -8,7 +8,6 @@ import '../logic/cubit/sign_up_cubit.dart';
 
 class ImageProfileBloc extends StatelessWidget {
   const ImageProfileBloc({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocSelector<SignUpCubit, SignUpState, File?>(
@@ -18,7 +17,9 @@ class ImageProfileBloc extends StatelessWidget {
         return ImageProfile(
           imageFile: profileImage,
           labelText: 'image',
-          onTap: () => context.read<SignUpCubit>().chooseimagegaler(),
+          onTap: () async {
+            await context.read<SignUpCubit>().chooseimagegaler();
+          },
         );
       },
     );

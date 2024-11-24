@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class Launching extends StatelessWidget {
@@ -170,3 +172,23 @@ class Launching extends StatelessWidget {
     );
   }
 }
+
+
+
+
+// class SignInPage extends StatelessWidget {
+ 
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Sign In')),
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: _signInWithGoogle,
+//           child: Text('Sign In with Google'),
+//         ),
+//       ),
+//     );
+//   }
+// }
