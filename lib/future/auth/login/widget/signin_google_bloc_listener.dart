@@ -2,9 +2,9 @@ import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/Router/route_string.dart';
-import '../../../core/function/build_error_or_success_bar.dart';
-import 'logic/cubit/login_cubit.dart';
+import '../../../../core/Router/route_string.dart';
+import '../../../../core/function/build_error_or_success_bar.dart';
+import '../logic/cubit/login_cubit.dart';
 
 class SignInGoogleBlocListener extends StatelessWidget {
   const SignInGoogleBlocListener({

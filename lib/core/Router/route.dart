@@ -7,6 +7,8 @@ import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
+import '../../future/main/screan_main.dart';
+import '../../future/splash/ui/screens/splash_screen.dart';
 import 'base_routes.dart';
 
 class AppRoutes {
@@ -34,7 +36,15 @@ class AppRoutes {
         return BaseRoute(
           page: const HomeScrean(),
         );
+      case StringRoute.splash:
+        return BaseRoute(
+          page: const SplashScreen(),
+        );
 
+      case StringRoute.main:
+        return BaseRoute(
+          page: MainView(),
+        );
       default:
         return BaseRoute(page: const Scaffold());
     }

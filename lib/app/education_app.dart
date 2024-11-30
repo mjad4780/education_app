@@ -43,7 +43,7 @@ class EducationApp extends StatelessWidget {
                           .getData(key: Keys.onboarding) !=
                       null
                   ? getIt<CacheHelper>().getData(key: Keys.isLoggedIn) ?? false
-                      ? StringRoute.home
+                      ? StringRoute.main
                       : StringRoute.login
                   : StringRoute.onBoarding,
             ),

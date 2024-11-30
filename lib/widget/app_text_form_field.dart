@@ -13,12 +13,15 @@ class AppTextFormField extends StatelessWidget {
   final String hintText;
   final bool? isObscureText;
   final Widget? suffixIcon;
+  final Widget? prfixIcon;
+
   final Color? backgroundColor;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final Function(String?) validator;
   const AppTextFormField({
     super.key,
+    this.prfixIcon,
     this.contentPadding,
     this.focusedBorder,
     this.enabledBorder,
@@ -40,7 +43,9 @@ class AppTextFormField extends StatelessWidget {
       autofillHints: autofillHints,
       keyboardType: keyboardType,
       controller: controller,
+
       decoration: InputDecoration(
+        prefixIcon: prfixIcon,
         isDense: true,
         contentPadding: contentPadding ??
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
@@ -80,6 +85,7 @@ class AppTextFormField extends StatelessWidget {
         fillColor: backgroundColor ?? context.color.moreLightGray,
         filled: true,
       ),
+
       obscureText: isObscureText ?? false,
       // style: TextStyles.font14DarkBlueMedium,
       validator: (value) {

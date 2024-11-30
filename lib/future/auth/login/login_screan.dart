@@ -11,7 +11,7 @@ import '../../../core/Router/route_string.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../utility/images_aseets.dart';
 import '../../../widget/app_text_button.dart';
-import 'signin_google_bloc_listener.dart';
+import 'widget/signin_google_bloc_listener.dart';
 import 'widget/email_and_password.dart';
 import 'widget/login_bloc_listener.dart';
 

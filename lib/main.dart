@@ -21,6 +21,6 @@ void main() async {
     anonKey: supabaseKey,
   );
 
-  runApp(DevicePreview(
-      enabled: false, builder: (context) => const EducationApp()));
+  runApp(
+      DevicePreview(enabled: true, builder: (context) => const EducationApp()));
 }

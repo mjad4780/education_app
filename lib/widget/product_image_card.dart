@@ -49,7 +49,7 @@ class ImageProfile extends StatelessWidget {
                 backgroundColor: context.color.teal,
                 radius: 17,
                 child: SvgPicture.asset(
-                  Assets.imagesEditimage,
+                  Assets.imagesEditImage,
                 ),
               ),
             ),
