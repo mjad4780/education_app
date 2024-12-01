@@ -2,7 +2,8 @@ import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
-import 'package:education/future/home/home_scean.dart';
+import 'package:education/future/home/ui/castegories_screan.dart';
+import 'package:education/future/home/ui/home_scean.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,11 @@ class AppRoutes {
 
       case StringRoute.main:
         return BaseRoute(
-          page: MainView(),
+          page: const MainView(),
+        );
+      case StringRoute.categories:
+        return BaseRoute(
+          page: const CategoreisScrean(),
         );
       default:
         return BaseRoute(page: const Scaffold());

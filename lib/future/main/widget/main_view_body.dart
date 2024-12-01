@@ -4,7 +4,7 @@ import 'package:education/future/profile/screan_profile.dart';
 import 'package:education/future/transaction/screan_transaction.dart';
 import 'package:flutter/material.dart';
 
-import '../../home/home_scean.dart';
+import '../../home/ui/home_scean.dart';
 
 class MainViewBody extends StatelessWidget {
   const MainViewBody({

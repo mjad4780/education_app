@@ -7,7 +7,6 @@ class Assets {
 
   static const String buttom = "assets/images/buttom.svg";
   static const String top = "assets/images/top.svg";
-
   static const String images01LAUNCHING = "assets/images/01_LAUNCHING.jpg";
 
   /// Assets for images01home
@@ -111,4 +110,14 @@ class Assets {
   /// assets/images/Untitled design.png
   static const String imagesUntitledDesign =
       "assets/images/Untitled design.png";
+
+  ////////////////categories
+  static const String seo = "assets/images/categories/04seo.svg";
+  static const String graphic = "assets/images/categories/02graphic.svg";
+  static const String wep = "assets/images/categories/03web.svg";
+  static const String bank = "assets/images/categories/05bank.svg";
+  static const String personal = "assets/images/categories/06personal.svg";
+  static const String office = "assets/images/categories/07office.svg";
+  static const String hr = "assets/images/categories/08hr.svg";
+  static const String D = "assets/images/categories/013D.svg";
 }

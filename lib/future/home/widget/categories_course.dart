@@ -1,6 +1,8 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/Router/route_string.dart';
+
 class CustomCategoriesCourse extends StatelessWidget {
   const CustomCategoriesCourse({super.key});
 
@@ -19,11 +21,14 @@ class CustomCategoriesCourse extends StatelessWidget {
               const Spacer(),
               Row(
                 children: [
-                  Text('SEE ALL',
-                      textAlign: TextAlign.right,
-                      style: context.textStyle.titleLarge!.copyWith(
-                          color: context.color.blue,
-                          fontWeight: FontWeight.w800)),
+                  GestureDetector(
+                    onTap: () => context.pushName(StringRoute.categories),
+                    child: Text('SEE ALL',
+                        textAlign: TextAlign.right,
+                        style: context.textStyle.titleLarge!.copyWith(
+                            color: context.color.blue,
+                            fontWeight: FontWeight.w800)),
+                  ),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: context.color.blue,
