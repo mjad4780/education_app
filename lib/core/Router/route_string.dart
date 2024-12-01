@@ -8,4 +8,6 @@ abstract class StringRoute {
   static const String main = 'main';
   static const String splash = 'splash';
   static const String categories = 'CategoreisScrean';
+  static const String courseDetailsScrean = 'CourseDetailsScrean';
+  static const String poluparScrean = 'PoluparScrean';
 }

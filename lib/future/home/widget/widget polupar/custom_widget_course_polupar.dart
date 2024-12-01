@@ -1,30 +1,25 @@
-import 'dart:developer';
-
-import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/helpers/spacing.dart';
-import '../../../utility/images_aseets.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../utility/images_aseets.dart';
 
-class CustomWidgetCourse extends StatelessWidget {
-  const CustomWidgetCourse({super.key});
+class CustomWidgetPoluparCourse extends StatelessWidget {
+  const CustomWidgetPoluparCourse({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width(context) / 1.5 * 2,
-      height: height(context) / 4 + 2,
+      width: width(context),
+      height: height(context),
       child: CarouselView(
-          itemExtent: 250,
-          onTap: (value) => value == 0
-              ? context.pushName(StringRoute.courseDetailsScrean)
-              : log(value.toString()),
-          shrinkExtent: 250,
+          scrollDirection: Axis.vertical,
+          itemExtent: 160,
+          shrinkExtent: 160,
           children: List.generate(
-            3,
-            (int i) => Column(
+            5,
+            (int i) => Row(
               children: [
                 Expanded(
                   // flex: 2,
@@ -62,60 +57,78 @@ class CustomWidgetCourse extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 1, vertical: 1),
+                              horizontal: 11, vertical: 11),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              // const Spacer(),
                               Text('Graphic Design',
                                   style:
                                       context.textStyle.labelMedium!.copyWith(
                                     color: context.color.orangeBright,
                                     fontWeight: FontWeight.w700,
                                   )),
+                              const Spacer(),
                               SvgPicture.asset(
                                 Assets.noActiveSave,
                                 height: 20,
                               ),
+                              // const Spacer(),
                             ],
                           ),
                         ),
+                        const Spacer(),
                         Align(
                           // alignment: Alignment.centerLeft,
                           child: Text('Graphic Design Advanced',
+                              overflow: TextOverflow.ellipsis,
                               style: context.textStyle.headlineSmall!.copyWith(
                                 color: context.color.primaryColor,
                               )),
                         ),
-                        verticalSpace(10),
-                        Row(
-                          children: [
-                            const Spacer(),
-                            Text('  850/-',
+                        const Spacer(),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 11),
+                            child: Text('850/-',
                                 style: context.textStyle.titleMedium!.copyWith(
                                   color: context.color.blue,
                                   fontWeight: FontWeight.w800,
                                 )),
-                            const Spacer(),
-                            Text('|',
-                                style: context.textStyle.titleLarge!
-                                    .copyWith(color: context.color.black)),
-                            const Spacer(),
+                          ),
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            const Spacer(
+                              flex: 2,
+                            ),
                             SvgPicture.asset(
                               Assets.imagesStar,
                             ),
                             Text('4.2',
                                 style: context.textStyle.displayLarge!.copyWith(
                                     color: context.color.primaryColor)),
-                            const Spacer(),
+                            const Spacer(
+                              flex: 1,
+                            ),
                             Text('|',
                                 style: context.textStyle.titleLarge!
                                     .copyWith(color: context.color.black)),
-                            const Spacer(),
+                            const Spacer(
+                              flex: 1,
+                            ),
                             Text('7830 Std',
                                 style: context.textStyle.displayLarge!.copyWith(
-                                    color: context.color.primaryColor))
+                                    color: context.color.primaryColor)),
+                            const Spacer(
+                              flex: 2,
+                            ),
                           ],
                         ),
+                        const Spacer()
                       ],
                     ),
                   ),

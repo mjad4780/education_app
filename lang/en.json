@@ -25,7 +25,8 @@
   "name":"Name",
   "last":"Last Name",
   "Continue":"Continue",
-  
+  "Enroll_Course":"Enroll Course ",
+
   "search": "Search for...",
   "todays_special": "Today’s Special",
   "get_discount": "Get a Discount for Every Course Order only Valid for Today!",

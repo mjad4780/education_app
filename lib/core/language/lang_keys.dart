@@ -1,5 +1,6 @@
 class LangKeys {
   static const String revio = 'revio';
+  static const String enroll = 'Enroll_Course';
 
   static const String language = 'language';
   static const String appName = 'app_name';

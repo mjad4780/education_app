@@ -8,6 +8,8 @@ import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
+import '../../future/course detaias/course_details.dart';
+import '../../future/home/ui/polupar_screan.dart';
 import '../../future/main/screan_main.dart';
 import '../../future/splash/ui/screens/splash_screen.dart';
 import 'base_routes.dart';
@@ -49,6 +51,14 @@ class AppRoutes {
       case StringRoute.categories:
         return BaseRoute(
           page: const CategoreisScrean(),
+        );
+      case StringRoute.courseDetailsScrean:
+        return BaseRoute(
+          page: const CourseDetailsScrean(),
+        );
+      case StringRoute.poluparScrean:
+        return BaseRoute(
+          page: const PoluparScrean(),
         );
       default:
         return BaseRoute(page: const Scaffold());

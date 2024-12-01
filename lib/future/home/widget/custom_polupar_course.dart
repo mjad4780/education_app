@@ -1,6 +1,8 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/Router/route_string.dart';
+
 class CustomPoluparCourse extends StatelessWidget {
   const CustomPoluparCourse({super.key});
 
@@ -17,25 +19,27 @@ class CustomPoluparCourse extends StatelessWidget {
                   style: context.textStyle.headlineMedium!
                       .copyWith(color: context.color.primaryColor)),
               const Spacer(),
-              Row(
-                children: [
-                  Text(
-                    'SEE ALL',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: context.color.blue,
-                      fontSize: 14,
-                      fontFamily: 'Mulish',
-                      fontWeight: FontWeight.w800,
-                      height: 0,
-                    ),
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: context.color.blue,
-                  )
-                ],
-              )
+              GestureDetector(
+                  onTap: () => context.pushName(StringRoute.poluparScrean),
+                  child: Row(
+                    children: [
+                      Text(
+                        'SEE ALL',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          color: context.color.blue,
+                          fontSize: 14,
+                          fontFamily: 'Mulish',
+                          fontWeight: FontWeight.w800,
+                          height: 0,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: context.color.blue,
+                      )
+                    ],
+                  ))
             ],
           ),
         ),

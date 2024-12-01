@@ -120,4 +120,11 @@ class Assets {
   static const String office = "assets/images/categories/07office.svg";
   static const String hr = "assets/images/categories/08hr.svg";
   static const String D = "assets/images/categories/013D.svg";
+  ////////iconvideo
+  static const String pouse = "assets/images/Icon veido/Fill 1pouse.svg";
+  static const String videoblue =
+      "assets/images/Icon veido/Fill 1viedoblue.svg";
+  static const String time = "assets/images/Icon veido/Group 5time.svg";
+  static const String iconvideo = "assets/images/Icon veido/ICONvedio.svg";
+  static const String video = "assets/images/Icon veido/Videoviedo.svg";
 }
