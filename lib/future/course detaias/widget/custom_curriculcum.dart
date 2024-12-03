@@ -1,4 +1,4 @@
-import 'package:education/core/helpers/spacing.dart';
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,8 +10,7 @@ class CustomCurriculcum extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
-          // mainAxisSize: MainAxisSize.min,
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -20,44 +19,34 @@ class CustomCurriculcum extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: 'Section 01 - ',
-                    style: TextStyle(
-                      color: Color(0xFF202244),
-                      fontSize: 15,
-                      fontFamily: 'Jost',
+                    style: context.textStyle.titleMedium!.copyWith(
+                      color: const Color(0xFF202244),
                       fontWeight: FontWeight.w600,
-                      height: 0,
                     ),
                   ),
                   TextSpan(
                     text: 'Introducation',
-                    style: TextStyle(
-                      color: Color(0xFF0961F5),
-                      fontSize: 15,
-                      fontFamily: 'Jost',
+                    style: context.textStyle.titleMedium!.copyWith(
+                      color: const Color(0xFF0961F5),
                       fontWeight: FontWeight.w600,
-                      height: 0,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 3),
+            const SizedBox(width: 3),
             Text(
               '25 Mins',
               textAlign: TextAlign.right,
-              style: TextStyle(
-                color: Color(0xFF0961F5),
-                fontSize: 12,
-                fontFamily: 'Mulish',
+              style: context.textStyle.titleSmall!.copyWith(
+                color: const Color(0xFF0961F5),
                 fontWeight: FontWeight.w800,
-                height: 0,
               ),
             ),
           ],
         ),
-        // verticalSpace(2),
         SizedBox(
-          height: height(context) / 3.3,
+          height: MediaQuery.of(context).size.height / 3.3,
           child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) => Column(
@@ -74,49 +63,41 @@ class CustomCurriculcum extends StatelessWidget {
                           side: BorderSide(width: 2, color: Color(0xFFE8F1FF)),
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           '01',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Color(0xFF202244),
-                            fontSize: 14,
-                            fontFamily: 'Jost',
+                          style: context.textStyle.titleSmall!.copyWith(
+                            color: const Color(0xFF202244),
                             fontWeight: FontWeight.w600,
-                            height: 0,
                           ),
                         ),
                       ),
                     ),
-                    const Column(
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Why Using Graphic De..',
-                          style: TextStyle(
-                            color: Color(0xFF202244),
-                            fontSize: 16,
-                            fontFamily: 'Jost',
-                            fontWeight: FontWeight.w600,
-                            height: 0,
+                          style: context.textStyle.headlineSmall!.copyWith(
+                            color: const Color(0xFF202244),
                           ),
                         ),
                         Text(
                           '15 Mins',
-                          style: TextStyle(
-                            color: Color(0xFF545454),
-                            fontSize: 13,
-                            fontFamily: 'Mulish',
+                          style: context.textStyle.displaySmall!.copyWith(
+                            color: const Color(0xFF545454),
                             fontWeight: FontWeight.w700,
-                            height: 0,
                           ),
                         ),
                       ],
                     ),
                     const Spacer(),
-                    SvgPicture.asset(Assets.videoblue)
+                    SvgPicture.asset(Assets.videoblue),
                   ],
                 ),
-                const Divider()
+                const Divider(),
               ],
             ),
           ),

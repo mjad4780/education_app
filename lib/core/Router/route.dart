@@ -54,7 +54,7 @@ class AppRoutes {
         );
       case StringRoute.courseDetailsScrean:
         return BaseRoute(
-          page: const CourseDetailsScrean(),
+          page: const CourseDetailsScreen(),
         );
       case StringRoute.poluparScrean:
         return BaseRoute(
