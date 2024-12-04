@@ -9,8 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
 import '../../future/course detaias/course_details.dart';
+import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
 import '../../future/main/screan_main.dart';
+import '../../future/mentor detalais/mentor_detalias.dart';
 import '../../future/splash/ui/screens/splash_screen.dart';
 import 'base_routes.dart';
 
@@ -59,6 +61,14 @@ class AppRoutes {
       case StringRoute.poluparScrean:
         return BaseRoute(
           page: const PoluparScrean(),
+        );
+      case StringRoute.mentorScreen:
+        return BaseRoute(
+          page: const MentorScreen(),
+        );
+      case StringRoute.mentorDetalias:
+        return BaseRoute(
+          page: const MentorDetails(),
         );
       default:
         return BaseRoute(page: const Scaffold());

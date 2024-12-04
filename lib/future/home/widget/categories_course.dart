@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/language/lang_keys.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/Router/route_string.dart';
@@ -15,7 +16,7 @@ class CustomCategoriesCourse extends StatelessWidget {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Categories',
+              Text(context.translate(LangKeys.categories),
                   style: context.textStyle.headlineMedium!
                       .copyWith(color: context.color.primaryColor)),
               const Spacer(),
@@ -23,7 +24,7 @@ class CustomCategoriesCourse extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => context.pushName(StringRoute.categories),
-                    child: Text('SEE ALL',
+                    child: Text(context.translate(LangKeys.seeAll),
                         textAlign: TextAlign.right,
                         style: context.textStyle.titleLarge!.copyWith(
                             color: context.color.blue,

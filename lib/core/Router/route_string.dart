@@ -10,4 +10,6 @@ abstract class StringRoute {
   static const String categories = 'CategoreisScrean';
   static const String courseDetailsScrean = 'CourseDetailsScrean';
   static const String poluparScrean = 'PoluparScrean';
+  static const String mentorScreen = 'MentorScreen';
+  static const String mentorDetalias = 'MentorDetalias';
 }

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../core/helpers/spacing.dart';
 
 class ActionTabs extends StatelessWidget {
-  const ActionTabs({super.key});
-
+  const ActionTabs({super.key, this.one, this.two});
+  final String? one, two;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,7 +20,7 @@ class ActionTabs extends StatelessWidget {
               ),
             ),
             child: Text(
-              'About',
+              one ?? 'About',
               textAlign: TextAlign.center,
               style: context.textStyle.titleMedium!.copyWith(
                 color: const Color(0xFF202244),
@@ -33,7 +33,7 @@ class ActionTabs extends StatelessWidget {
             height: height(context) / 23,
             decoration: const BoxDecoration(color: Color(0xFFE8F1FF)),
             child: Text(
-              'Curriculcum',
+              two ?? 'Curriculcum',
               textAlign: TextAlign.center,
               style: context.textStyle.titleMedium!.copyWith(
                 color: const Color(0xFF202244),

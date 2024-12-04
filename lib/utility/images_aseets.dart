@@ -127,4 +127,5 @@ class Assets {
   static const String time = "assets/images/Icon veido/Group 5time.svg";
   static const String iconvideo = "assets/images/Icon veido/ICONvedio.svg";
   static const String video = "assets/images/Icon veido/Videoviedo.svg";
+  static const String like = "assets/images/Icon veido/like.svg";
 }

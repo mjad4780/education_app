@@ -1,6 +1,9 @@
+import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/language/lang_keys.dart';
 
 class CustomMentor extends StatelessWidget {
   const CustomMentor({super.key});
@@ -14,17 +17,20 @@ class CustomMentor extends StatelessWidget {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Top Mentor',
+              Text(context.translate(LangKeys.topMentors),
                   style: context.textStyle.headlineMedium!
                       .copyWith(color: context.color.primaryColor)),
               const Spacer(),
               Row(
                 children: [
-                  Text('SEE ALL',
-                      textAlign: TextAlign.right,
-                      style: context.textStyle.titleLarge!.copyWith(
-                          color: context.color.blue,
-                          fontWeight: FontWeight.w800)),
+                  GestureDetector(
+                    onTap: () => context.pushName(StringRoute.mentorScreen),
+                    child: Text(context.translate(LangKeys.seeAll),
+                        textAlign: TextAlign.right,
+                        style: context.textStyle.titleLarge!.copyWith(
+                            color: context.color.blue,
+                            fontWeight: FontWeight.w800)),
+                  ),
                   Icon(
                     Icons.arrow_forward_ios,
                     color: context.color.blue,
@@ -42,6 +48,7 @@ class CustomMentor extends StatelessWidget {
                 backgroundColor: context.color.greyLight,
                 itemExtent: 120,
                 shrinkExtent: 120,
+                onTap: (value) => context.pushName(StringRoute.mentorDetalias),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(4),
