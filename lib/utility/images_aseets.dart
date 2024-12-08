@@ -111,6 +111,12 @@ class Assets {
   static const String imagesUntitledDesign =
       "assets/images/Untitled design.png";
 
+  static const String iconarrive = "assets/images/Iconarrive.svg";
+
+  static const String success = "assets/images/++.svg";
+  static const String xx = "assets/images/xx.svg";
+  static const String completed = "assets/images/true.svg";
+
   ////////////////categories
   static const String seo = "assets/images/categories/04seo.svg";
   static const String graphic = "assets/images/categories/02graphic.svg";

@@ -20,7 +20,6 @@ class _MainViewState extends State<MainView> {
       bottomNavigationBar: CustomBottomNavigationBar(
         onItemTapped: (index) {
           currentViewIndex = index;
-
           setState(() {});
         },
       ),

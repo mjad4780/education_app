@@ -1,5 +1,6 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/core/language/lang_keys.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,7 +30,8 @@ class PoluparScrean extends StatelessWidget {
           SvgPicture.asset(Assets.imagesSearchGray),
           horizontalSpace(13)
         ],
-        title: Text("Popular Courses", style: context.textStyle.bodyLarge),
+        title: Text(context.translate(LangKeys.popularCourses),
+            style: context.textStyle.bodyLarge),
       ),
       body: SafeArea(
           child: SingleChildScrollView(
