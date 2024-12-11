@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -13,9 +15,11 @@ class LoginRepo {
       if (response.result == true) {
         return right(response.messege);
       } else {
+        log('dd${response.messege}');
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
+      log(e.message);
       return left(ServerFailure(e.message));
     }
   }

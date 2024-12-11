@@ -1,4 +1,5 @@
 {
     "powermode.presets": "flames",
-    "powermode.enabled": true
+    "powermode.enabled": true,
+    "cmake.sourceDirectory": "C:/Users/user/Desktop/education/linux"
 }

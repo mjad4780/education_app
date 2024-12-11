@@ -8,6 +8,7 @@ import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
+import '../../future/chats/widget/screen_detalias_chat.dart';
 import '../../future/course detaias/course_details.dart';
 import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
@@ -69,6 +70,10 @@ class AppRoutes {
       case StringRoute.mentorDetalias:
         return BaseRoute(
           page: const MentorDetails(),
+        );
+      case StringRoute.screenChatsDetalias:
+        return BaseRoute(
+          page: const ScreenChatsDetalias(),
         );
       default:
         return BaseRoute(page: const Scaffold());

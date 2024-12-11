@@ -117,6 +117,11 @@ class Assets {
   static const String xx = "assets/images/xx.svg";
   static const String completed = "assets/images/true.svg";
 
+  // chats
+  static const String addImage = "assets/images/add_image.svg";
+  static const String phoneBlack = "assets/images/phone_black.svg";
+  static const String microvon = "assets/images/microvon.svg";
+
   ////////////////categories
   static const String seo = "assets/images/categories/04seo.svg";
   static const String graphic = "assets/images/categories/02graphic.svg";

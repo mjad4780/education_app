@@ -16,8 +16,8 @@ class SearchApp extends StatelessWidget {
       child: AppTextFormField(
         prfixIcon: SvgPicture.asset(
           Assets.serach,
-          width: 2,
-          height: 2,
+          // width: 2,
+          // height: 2,
         ),
         hintText: context.translate(LangKeys.search),
         validator: (p0) {},
