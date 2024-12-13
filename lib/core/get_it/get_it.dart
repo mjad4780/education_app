@@ -2,6 +2,7 @@
 
 import 'package:education/app/education_cubit/education_cubit.dart';
 import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
+import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -44,5 +45,6 @@ void setupServise() {
 
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
 
-  //
+  // profile
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit());
 }

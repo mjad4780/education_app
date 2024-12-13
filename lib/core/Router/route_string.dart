@@ -13,4 +13,6 @@ abstract class StringRoute {
   static const String mentorScreen = 'MentorScreen';
   static const String mentorDetalias = 'MentorDetalias';
   static const String screenChatsDetalias = "ScreenChatsDetalias";
+  static const String screenEditProfile = "ScreenEditProfile";
+  static const String screenLanguage = "ScreenLanguage";
 }

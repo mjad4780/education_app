@@ -1,26 +1,26 @@
 import 'dart:io';
 
+import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utility/images_aseets.dart';
 import '../../../../widget/product_image_card.dart';
-import '../logic/cubit/sign_up_cubit.dart';
 
-class ImageProfileBloc extends StatelessWidget {
-  const ImageProfileBloc({super.key});
+class ImageEditProfileBloc extends StatelessWidget {
+  const ImageEditProfileBloc({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SignUpCubit, SignUpState, File?>(
+    return BlocSelector<ProfileCubit, ProfileState, File?>(
       selector: (state) =>
           state is ProfileImageSignUp ? state.profileImage : null,
       builder: (context, profileImage) {
         return ImageProfile(
-          imageSvg: Assets.imagesEditImage,
+          imageSvg: Assets.photos,
           imageFile: profileImage,
           labelText: 'image',
           onTap: () async {
-            await context.read<SignUpCubit>().chooseimagegaler();
+            await context.read<ProfileCubit>().chooseimagegaler();
           },
         );
       },

@@ -7,6 +7,7 @@ class CategoriesProfile extends StatelessWidget {
       {super.key, required this.image, required this.title, this.onTap});
   final String image, title;
   final Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,16 +32,51 @@ class CategoriesProfile extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 )),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: Colors.black,
-              size: 25,
+          Visibility(
+            visible: rr(title), // title == 'notifications' ? true : false,
+            child: Switch(
+                activeColor: context.color.blue,
+                activeTrackColor: const Color(0xFFE8F1FF),
+                splashRadius: 22,
+                hoverColor: const Color(0xFFE8F1FF),
+                inactiveTrackColor: const Color(0xFFE8F1FF),
+                value: true,
+                focusNode: FocusNode(),
+                onChanged: (value) {}),
+          ),
+          Visibility(
+            visible: rr2(title),
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: Colors.black,
+                size: 25,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
           ),
         ],
       ),
     );
+  }
+
+  rr(String title) {
+    if (title == 'notifications') {
+      return true;
+    } else if (title == 'dark_mode') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  rr2(String title) {
+    if (title == 'notifications') {
+      return false;
+    } else if (title == 'dark_mode') {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

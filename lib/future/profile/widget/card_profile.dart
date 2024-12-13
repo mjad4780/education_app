@@ -1,3 +1,5 @@
+import 'package:education/core/Router/route_string.dart';
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/helpers/spacing.dart';
@@ -43,10 +45,11 @@ class CardProfile extends StatelessWidget {
                 height: 0,
               ),
             ),
-            verticalSpace(50),
-            const CategoriesProfile(
+            verticalSpace(20),
+            CategoriesProfile(
               image: Assets.iconProfile,
               title: LangKeys.editProfile,
+              onTap: () => context.pushName(StringRoute.screenEditProfile),
             ),
             const CategoriesProfile(
               image: Assets.trans,
@@ -60,9 +63,10 @@ class CardProfile extends StatelessWidget {
               image: Assets.security,
               title: LangKeys.security,
             ),
-            const CategoriesProfile(
+            CategoriesProfile(
               image: Assets.language,
               title: LangKeys.language,
+              onTap: () => context.pushName(StringRoute.screenLanguage),
             ),
             const CategoriesProfile(
               image: Assets.dark,

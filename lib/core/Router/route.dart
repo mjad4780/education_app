@@ -5,6 +5,7 @@ import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
 import 'package:education/future/home/ui/castegories_screan.dart';
 import 'package:education/future/home/ui/home_scean.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
+import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
@@ -14,6 +15,8 @@ import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
 import '../../future/main/screan_main.dart';
 import '../../future/mentor detalais/mentor_detalias.dart';
+import '../../future/profile/ui/screen_edit_profile.dart';
+import '../../future/profile/ui/screen_language.dart';
 import '../../future/splash/ui/screens/splash_screen.dart';
 import 'base_routes.dart';
 
@@ -74,6 +77,17 @@ class AppRoutes {
       case StringRoute.screenChatsDetalias:
         return BaseRoute(
           page: const ScreenChatsDetalias(),
+        );
+      case StringRoute.screenLanguage:
+        return BaseRoute(
+          page: const ScreenLanguage(),
+        );
+      case StringRoute.screenEditProfile:
+        return BaseRoute(
+          page: BlocProvider(
+            create: (context) => getIt<ProfileCubit>(),
+            child: const ScreenEditProfile(),
+          ),
         );
       default:
         return BaseRoute(page: const Scaffold());

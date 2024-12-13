@@ -59,21 +59,12 @@ class ScreanProfile extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )),
-              Positioned(
-                top: 90,
-                right: width(context) / 3.2,
-                child: InkWell(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    // backgroundColor: context.color.teal,
-                    radius: 17,
-                    child: SvgPicture.asset(
-                      Assets.photos,
+                    child: CircleAvatar(
+                      child: SvgPicture.asset(
+                        Assets.imagesAvatar,
+                      ),
                     ),
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         ],

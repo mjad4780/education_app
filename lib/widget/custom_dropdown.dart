@@ -19,33 +19,34 @@ class CustomDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: context.color.white, borderRadius: BorderRadius.circular(18)),
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: DropdownButtonFormField<T>(
-          // dropdownColor: context.color.blue,
-
-          decoration: InputDecoration(
-            hoverColor: context.color.blue,
-            labelText: hintText,
-            hintText: hintText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18.0),
-            ),
+    return
+        // Container(
+        //   decoration: BoxDecoration(
+        //       color: context.color.white, borderRadius: BorderRadius.circular(18)),
+        //   child:
+        Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: DropdownButtonFormField<T>(
+        decoration: InputDecoration(
+          hoverColor: context.color.blue,
+          labelText: hintText,
+          hintText: hintText,
+          border: OutlineInputBorder(
+            gapPadding: 2,
+            borderSide: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(18.0),
           ),
-          items: items.map((T value) {
-            return DropdownMenuItem<T>(
-              value: value,
-              child:
-                  Text(displayItem(value)), // Use displayItem to get the text
-            );
-          }).toList(),
-          onChanged: onChanged,
-          validator: validator,
         ),
+        items: items.map((T value) {
+          return DropdownMenuItem<T>(
+            value: value,
+            child: Text(displayItem(value)), // Use displayItem to get the text
+          );
+        }).toList(),
+        onChanged: onChanged,
+        validator: validator,
       ),
+      // ),
     );
   }
 }

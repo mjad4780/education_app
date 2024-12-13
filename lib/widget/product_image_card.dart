@@ -12,6 +12,7 @@ class ImageProfile extends StatelessWidget {
   final File? imageFile;
   final VoidCallback onTap;
   final double? size;
+  final String imageSvg;
   const ImageProfile({
     super.key,
     required this.labelText,
@@ -19,6 +20,7 @@ class ImageProfile extends StatelessWidget {
     this.size,
     required this.onTap,
     this.imageUrlForUpdateImage,
+    required this.imageSvg,
   });
 
   @override
@@ -26,19 +28,33 @@ class ImageProfile extends StatelessWidget {
     return Center(
       child: Stack(
         children: [
-          CircleAvatar(
-            radius: 60,
-            backgroundColor: context.color.lightBlue,
-            backgroundImage: (imageFile != null)
-                ? FileImage(
-                    imageFile!,
-                  )
-                : null,
-            child: (imageFile == null)
-                ? SvgPicture.asset(
-                    Assets.imagesPerson,
-                  )
-                : null,
+          Container(
+            width: 110,
+            height: 110,
+            decoration: const ShapeDecoration(
+              color: Color(0xFFD7D7D7),
+              shape: OvalBorder(
+                side: BorderSide(
+                  width: 4,
+                  strokeAlign: BorderSide.strokeAlignOutside,
+                  color: Color(0xFF167F71),
+                ),
+              ),
+            ),
+            child: CircleAvatar(
+              radius: 60,
+              backgroundColor: context.color.lightBlue,
+              backgroundImage: (imageFile != null)
+                  ? FileImage(
+                      imageFile!,
+                    )
+                  : null,
+              child: (imageFile == null)
+                  ? SvgPicture.asset(
+                      Assets.imagesPerson,
+                    )
+                  : null,
+            ),
           ),
           Positioned(
             bottom: 2,
@@ -48,9 +64,7 @@ class ImageProfile extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: context.color.teal,
                 radius: 17,
-                child: SvgPicture.asset(
-                  Assets.imagesEditImage,
-                ),
+                child: SvgPicture.asset(imageSvg),
               ),
             ),
           ),
