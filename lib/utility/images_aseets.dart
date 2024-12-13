@@ -139,4 +139,20 @@ class Assets {
   static const String iconvideo = "assets/images/Icon veido/ICONvedio.svg";
   static const String video = "assets/images/Icon veido/Videoviedo.svg";
   static const String like = "assets/images/Icon veido/like.svg";
+
+  ////////////////profile
+  static const String dark = "assets/images/dark_mode.svg";
+  static const String facebook = "assets/images/facebook.svg";
+  static const String help = "assets/images/help_center.svg";
+  static const String infite = "assets/images/infite_frindes.svg";
+  static const String language = "assets/images/language.svg";
+  static const String notificationblack =
+      "assets/images/notification_black.svg";
+  static const String photos = "assets/images/photos.svg";
+  static const String security = "assets/images/security.svg";
+  static const String trueCon = "assets/images/true_con.svg";
+  static const String whatsap = "assets/images/whatsap.svg";
+  static const String iconProfile = "assets/images/icon_profile.svg";
+  static const String terms = "assets/images/terms.svg";
+  static const String trans = "assets/images/trans.svg";
 }

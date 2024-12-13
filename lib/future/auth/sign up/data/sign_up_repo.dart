@@ -36,6 +36,4 @@ class SignUpRepo {
       return left(ServerFailure(e.message));
     }
   }
-
-  uu() async {}
 }
