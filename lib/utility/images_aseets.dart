@@ -155,4 +155,6 @@ class Assets {
   static const String iconProfile = "assets/images/icon_profile.svg";
   static const String terms = "assets/images/terms.svg";
   static const String trans = "assets/images/trans.svg";
+  static const String videoi = 'assets/images/4.mp4';
+  static const String videoii = 'assets/images/i.mp4';
 }

@@ -1,7 +1,9 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/language/lang_keys.dart';
@@ -13,17 +15,20 @@ class CourseDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          const CourseHeader(),
-          const CourseDetailsCard(),
-          Positioned(
-            right: 34,
-            top: height(context) * 0.30,
-            child: SvgPicture.asset(Assets.video),
-          ),
-        ],
+    return BlocProvider(
+      create: (context) => VideoCourseCubit(),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            const CourseHeader(),
+            const CourseDetailsCard(),
+            Positioned(
+              right: 34,
+              top: height(context) * 0.30,
+              child: SvgPicture.asset(Assets.video),
+            ),
+          ],
+        ),
       ),
     );
   }

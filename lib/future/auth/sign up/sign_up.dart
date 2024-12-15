@@ -30,7 +30,10 @@ class SignUpScreen extends StatelessWidget {
             context.pop();
           },
         ),
-        title: Text("Fill Your Profile", style: context.textStyle.bodyLarge),
+        title: Text(
+            context.translate(LangKeys.fillprofile) //"Fill Your Profile"
+            ,
+            style: context.textStyle.bodyLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

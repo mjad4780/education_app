@@ -6,6 +6,7 @@ import '../course_details.dart';
 import 'action_tabs.dart';
 import 'course_stats_row.dart';
 import 'custom_curriculcum.dart';
+import 'custom_video_course.dart';
 
 class CourseHeader extends StatelessWidget {
   const CourseHeader({super.key});
@@ -19,9 +20,9 @@ class CourseHeader extends StatelessWidget {
       child: Container(
         height: height(context) / 2.8,
         decoration: BoxDecoration(
-          color: Colors.black,
           borderRadius: BorderRadius.circular(11),
         ),
+        child: const VideoApp(),
       ),
     );
   }

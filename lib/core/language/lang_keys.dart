@@ -77,6 +77,8 @@ class LangKeys {
   static const String graphicDesignAdvertisement =
       'graphic_design_advertisement';
   static const String filter = 'filter';
+  static const String fillprofile = 'fill_profile';
+
   static const String clear = 'clear';
   static const String subcategories = 'subcategories';
   static const String levels = 'levels';

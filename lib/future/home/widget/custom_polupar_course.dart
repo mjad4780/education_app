@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/utility/list_categories_courses.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/Router/route_string.dart';
@@ -14,7 +15,6 @@ class CustomPoluparCourse extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.translate(LangKeys.popularCourses),
                   style: context.textStyle.headlineMedium!
@@ -42,21 +42,31 @@ class CustomPoluparCourse extends StatelessWidget {
         ConstrainedBox(
           constraints:
               const BoxConstraints(maxWidth: double.infinity, maxHeight: 55),
-          child: CarouselView(
-              backgroundColor: const Color(0xFF167F71),
-              itemSnapping: true,
-              itemExtent: 150,
-              shrinkExtent: 150,
-              children: List.generate(
-                10,
-                (int i) => Center(
-                  child: Text('Personal developer',
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: List.generate(
+              listCategoriesCouse(context).length,
+              (int i) => Container(
+                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                padding: const EdgeInsets.all(6),
+                decoration: ShapeDecoration(
+                  color: const Color(0xFF167F71),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                constraints: const BoxConstraints(maxHeight: 55),
+                child: Center(
+                  child: Text(listCategoriesCouse(context)[i],
                       textAlign: TextAlign.center,
                       style: context.textStyle.displaySmall!.copyWith(
                           color: context.color.white,
                           fontWeight: FontWeight.w700)),
                 ),
-              )),
+              ),
+            )),
+          ),
         ),
       ],
     );

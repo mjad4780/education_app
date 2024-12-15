@@ -1,5 +1,6 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/language/lang_keys.dart';
+import 'package:education/utility/list_categories_courses.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/Router/route_string.dart';
@@ -14,7 +15,6 @@ class CustomCategoriesCourse extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(context.translate(LangKeys.categories),
                   style: context.textStyle.headlineMedium!
@@ -42,24 +42,19 @@ class CustomCategoriesCourse extends StatelessWidget {
         SizedBox(
             width: double.infinity,
             height: 40,
-            child: CarouselView(
-                backgroundColor: context.color.greyLight,
-                itemExtent: 150,
-                shrinkExtent: 150,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4),
-                    topRight: Radius.circular(4),
-                    bottomLeft: Radius.circular(4),
-                    bottomRight: Radius.circular(4),
-                  ),
-                ),
-                children: List.generate(
-                  10,
-                  (int i) => Text('3D Design ',
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                  children: List.generate(
+                listCategoriesCouse(context).length,
+                (int i) => Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(listCategoriesCouse(context)[i],
                       style: context.textStyle.headlineLarge!
                           .copyWith(color: context.color.blue)),
-                ))),
+                ),
+              )),
+            )),
       ],
     );
   }
