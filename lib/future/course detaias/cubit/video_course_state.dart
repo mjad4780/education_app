@@ -15,3 +15,6 @@ final class VideoCourseFailure extends VideoCourseState {
   final String message;
   VideoCourseFailure({required this.message});
 }
+
+//rebuild
+final class WatchRebuild extends VideoCourseState {}

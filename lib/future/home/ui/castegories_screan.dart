@@ -1,3 +1,4 @@
+import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,6 +59,7 @@ class CategoreisScrean extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ImageCategories(
+                          index: firstIndex,
                           image: categoriesCourse[firstIndex],
                         ),
                       ),
@@ -65,6 +67,7 @@ class CategoreisScrean extends StatelessWidget {
                           categoriesCourse.length) // Check to avoid overflow
                         Expanded(
                           child: ImageCategories(
+                            index: secondIndex,
                             image: categoriesCourse[secondIndex],
                           ),
                         ),
@@ -81,14 +84,17 @@ class CategoreisScrean extends StatelessWidget {
 }
 
 class ImageCategories extends StatelessWidget {
-  const ImageCategories({super.key, required this.image});
+  const ImageCategories({super.key, required this.image, required this.index});
   final String image;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          context.pushName(StringRoute.poluparScrean, arguments: index);
+        },
         child: SvgPicture.asset(
           image,
         ),

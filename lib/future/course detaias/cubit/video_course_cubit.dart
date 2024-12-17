@@ -10,6 +10,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   VideoCourseCubit() : super(VideoCourseInitial());
   late VideoPlayerController videoController;
   ChewieController? chewieController;
+  bool rebuildCourse = true;
   void initializeVideo(String videoPath, {bool isAsset = true}) async {
     try {
       if (chewieController != null) {
@@ -35,5 +36,10 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       log(e.toString());
       emit(VideoCourseFailure(message: e.toString()));
     }
+  }
+
+  watchcourse(bool value) {
+    rebuildCourse = value;
+    emit(WatchRebuild());
   }
 }

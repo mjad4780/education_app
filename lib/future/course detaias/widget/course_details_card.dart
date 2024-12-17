@@ -1,12 +1,15 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../course_details.dart';
 import 'action_tabs.dart';
 import 'course_stats_row.dart';
-import 'custom_curriculcum.dart';
+import 'custom_about_mentor.dart';
 import 'custom_video_course.dart';
+import 'get.dart';
 
 class CourseHeader extends StatelessWidget {
   const CourseHeader({super.key});
@@ -49,18 +52,32 @@ class CourseDetailsCard extends StatelessWidget {
             children: [
               verticalSpace(25),
               const CourseTitleRow(),
-              Text(
-                'Design Principles: Organizing ..',
-                overflow: TextOverflow.ellipsis,
-                style: context.textStyle.headlineMedium!.copyWith(
-                  color: const Color(0xFF202244),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'Design Principles: Organizing ..',
+                  overflow: TextOverflow.ellipsis,
+                  style: context.textStyle.headlineMedium!.copyWith(
+                    color: const Color(0xFF202244),
+                  ),
                 ),
               ),
               verticalSpace(8),
               const CourseStatsRow(),
               verticalSpace(10),
-              const ActionTabs(),
-              const CustomCurriculcum(),
+              BlocBuilder<VideoCourseCubit, VideoCourseState>(
+                buildWhen: (previous, current) => current is WatchRebuild,
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      const ActionTabs(),
+                      context.read<VideoCourseCubit>().rebuildCourse
+                          ? const CustomCurriculum2()
+                          : const CustomAboutMentor(),
+                    ],
+                  );
+                },
+              ),
               const Spacer(),
               const EnrollButton(),
               const Spacer(),

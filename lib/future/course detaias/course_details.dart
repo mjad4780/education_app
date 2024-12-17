@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/spacing.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
 import 'package:education/utility/images_aseets.dart';
@@ -16,11 +17,11 @@ class CourseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VideoCourseCubit(),
+      create: (context) => getIt<VideoCourseCubit>(),
       child: Scaffold(
         body: Stack(
           children: [
-            const CourseHeader(),
+            // const CourseHeader(),
             const CourseDetailsCard(),
             Positioned(
               right: 34,
@@ -70,7 +71,7 @@ class EnrollButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppTextButton(
-      buttonHeight: 20,
+      buttonHeight: 50,
       buttonText: '${context.translate(LangKeys.enroll)} - 499/-',
       onPressed: () {},
       textStyle: context.textStyle.bodyMedium!,

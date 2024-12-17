@@ -22,7 +22,7 @@ import 'base_routes.dart';
 
 class AppRoutes {
   static Route<void> onGenerateRoute(RouteSettings settings) {
-    // final args = settings.arguments;
+    final args = settings.arguments;
     switch (settings.name) {
       case StringRoute.onBoarding:
         return BaseRoute(
@@ -64,7 +64,9 @@ class AppRoutes {
         );
       case StringRoute.poluparScrean:
         return BaseRoute(
-          page: const PoluparScrean(),
+          page: PoluparScrean(
+            index: args as int,
+          ),
         );
       case StringRoute.mentorScreen:
         return BaseRoute(

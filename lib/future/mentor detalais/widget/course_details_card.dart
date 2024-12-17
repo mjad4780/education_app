@@ -1,8 +1,12 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../course detaias/widget/action_tabs.dart';
+
+import '../logic/cubit/mentor_cubit.dart';
+import 'action_tabs_mentor.dart';
+import 'custom_my_course_mentor.dart';
 import 'custom_rating_mentor.dart';
 
 class MentorCourseDetailsCard extends StatelessWidget {
@@ -46,14 +50,21 @@ class MentorCourseDetailsCard extends StatelessWidget {
                 ),
               ),
             ),
-            verticalSpace(8),
-            const ActionTabs(
-              one: 'Courses',
-              two: 'Ratings',
+            BlocBuilder<MentorCubit, MentorState>(
+              buildWhen: (previous, current) => current is WatchRebuild,
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    verticalSpace(8),
+                    const ActionTabsMentor(),
+                    context.read<MentorCubit>().rebuildCourse
+                        ? const CustomRatingMentor()
+                        : const CustomMyCourseMentor()
+                  ],
+                );
+              },
             ),
             verticalSpace(8),
-            // const CustomMyCourseMentor()
-            const CustomRatingMentor()
           ],
         ),
       ),

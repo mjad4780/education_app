@@ -42,33 +42,57 @@ class CustomPoluparCourse extends StatelessWidget {
         ConstrainedBox(
           constraints:
               const BoxConstraints(maxWidth: double.infinity, maxHeight: 55),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                children: List.generate(
-              listCategoriesCouse(context).length,
-              (int i) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                padding: const EdgeInsets.all(6),
-                decoration: ShapeDecoration(
-                  color: const Color(0xFF167F71),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                constraints: const BoxConstraints(maxHeight: 55),
-                child: Center(
-                  child: Text(listCategoriesCouse(context)[i],
-                      textAlign: TextAlign.center,
-                      style: context.textStyle.displaySmall!.copyWith(
-                          color: context.color.white,
-                          fontWeight: FontWeight.w700)),
-                ),
-              ),
-            )),
-          ),
+          child: const SingleChildScrollView(
+              scrollDirection: Axis.horizontal, child: CategoriesPopular()),
         ),
       ],
     );
+  }
+}
+
+class CategoriesPopular extends StatefulWidget {
+  const CategoriesPopular({super.key});
+
+  @override
+  State<CategoriesPopular> createState() => _CategoriesPopularState();
+}
+
+class _CategoriesPopularState extends State<CategoriesPopular> {
+  int currentindex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        children: List.generate(
+      listCategoriesCouse(context).length,
+      (int i) => GestureDetector(
+        onTap: () {
+          setState(() {
+            currentindex = i;
+          });
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+          padding: const EdgeInsets.all(6),
+          decoration: ShapeDecoration(
+            color: currentindex == i
+                ? const Color(0xFF167F71)
+                : context.color.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+          constraints: const BoxConstraints(maxHeight: 55),
+          child: Center(
+            child: Text(listCategoriesCouse(context)[i],
+                textAlign: TextAlign.center,
+                style: context.textStyle.displaySmall!.copyWith(
+                    color:
+                        currentindex == i ? context.color.white : Colors.black,
+                    fontWeight: FontWeight.w700)),
+          ),
+        ),
+      ),
+    ));
   }
 }

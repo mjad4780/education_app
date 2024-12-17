@@ -13,7 +13,7 @@ class CustomOngoingCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         width: width(context),
-        height: height(context) / 1.8,
+        height: height(context) / 2,
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) => Padding(

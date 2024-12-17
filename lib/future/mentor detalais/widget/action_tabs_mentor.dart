@@ -1,14 +1,15 @@
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
+import 'package:education/core/language/lang_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/language/lang_keys.dart';
+import '../logic/cubit/mentor_cubit.dart';
 
-class ActionTabs extends StatelessWidget {
-  const ActionTabs({super.key, this.one, this.two});
-  final String? one, two;
+class ActionTabsMentor extends StatelessWidget {
+  const ActionTabsMentor({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +18,12 @@ class ActionTabs extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              context.read<VideoCourseCubit>().watchcourse(false);
+              context.read<MentorCubit>().watchcourse(false);
             },
             child: Container(
               height: height(context) / 23,
               decoration: ShapeDecoration(
-                color: context.read<VideoCourseCubit>().rebuildCourse
+                color: context.read<MentorCubit>().rebuildCourse
                     ? const Color(0xFFF4F8FE)
                     : const Color(0xFFE8F1FF),
                 shape: const RoundedRectangleBorder(
@@ -30,7 +31,7 @@ class ActionTabs extends StatelessWidget {
                 ),
               ),
               child: Text(
-                one ?? 'About',
+                context.translate(LangKeys.courses),
                 textAlign: TextAlign.center,
                 style: context.textStyle.titleMedium!.copyWith(
                   color: const Color(0xFF202244),
@@ -42,12 +43,12 @@ class ActionTabs extends StatelessWidget {
         Expanded(
             child: GestureDetector(
           onTap: () {
-            context.read<VideoCourseCubit>().watchcourse(true);
+            context.read<MentorCubit>().watchcourse(true);
           },
           child: Container(
             height: height(context) / 23,
             decoration: ShapeDecoration(
-              color: context.read<VideoCourseCubit>().rebuildCourse
+              color: context.read<MentorCubit>().rebuildCourse
                   ? const Color(0xFFE8F1FF)
                   : const Color(0xFFF4F8FE),
               shape: const RoundedRectangleBorder(
@@ -55,7 +56,7 @@ class ActionTabs extends StatelessWidget {
               ),
             ),
             child: Text(
-              two ?? context.translate(LangKeys.curriculum),
+              context.translate(LangKeys.rating),
               textAlign: TextAlign.center,
               style: context.textStyle.titleMedium!.copyWith(
                 color: const Color(0xFF202244),

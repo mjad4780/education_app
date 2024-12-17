@@ -2,6 +2,8 @@
 
 import 'package:education/app/education_cubit/education_cubit.dart';
 import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
+import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
+import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -47,4 +49,10 @@ void setupServise() {
 
   // profile
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit());
+
+  //mentor
+  getIt.registerFactory<MentorCubit>(() => MentorCubit());
+
+  //VideoCourseCubits
+  getIt.registerFactory<VideoCourseCubit>(() => VideoCourseCubit());
 }
