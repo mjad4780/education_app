@@ -16,7 +16,18 @@ class _MainViewState extends State<MainView> {
   int currentViewIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+        // const Scaffold(
+        //   body: Center(
+        //     child: ProgressDialogContent(
+        //       name: 'download',
+        //       downloadUrl:
+        //           'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //     ),
+        //   ),
+        // );
+
+        Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(
         onItemTapped: (index) {
           currentViewIndex = index;

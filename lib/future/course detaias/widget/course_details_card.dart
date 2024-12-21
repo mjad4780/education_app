@@ -8,8 +8,8 @@ import '../course_details.dart';
 import 'action_tabs.dart';
 import 'course_stats_row.dart';
 import 'custom_about_mentor.dart';
+import 'custom_curriculcum.dart';
 import 'custom_video_course.dart';
-import 'get.dart';
 
 class CourseHeader extends StatelessWidget {
   const CourseHeader({super.key});
@@ -72,7 +72,7 @@ class CourseDetailsCard extends StatelessWidget {
                     children: [
                       const ActionTabs(),
                       context.read<VideoCourseCubit>().rebuildCourse
-                          ? const CustomCurriculum2()
+                          ? const CustomCurriculum()
                           : const CustomAboutMentor(),
                     ],
                   );

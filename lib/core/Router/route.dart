@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/auth/sign up/sign_up.dart';
 import '../../future/chats/widget/screen_detalias_chat.dart';
 import '../../future/course detaias/course_details.dart';
+import '../../future/course detaias/widget/pdf_view.dart';
 import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
 import '../../future/main/screan_main.dart';
@@ -83,6 +84,12 @@ class AppRoutes {
       case StringRoute.screenLanguage:
         return BaseRoute(
           page: const ScreenLanguage(),
+        );
+      case StringRoute.pdfViewerScreen:
+        return BaseRoute(
+          page: PdfViewerScreen(
+            pdfPath: args as String,
+          ),
         );
       case StringRoute.screenEditProfile:
         return BaseRoute(

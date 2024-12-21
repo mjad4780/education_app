@@ -1,5 +1,4 @@
 import 'package:chewie/chewie.dart';
-import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +19,9 @@ class _VideoAppState extends State<VideoApp> {
   void initState() {
     super.initState();
     videoCourseCubit = context.read<VideoCourseCubit>();
-    videoCourseCubit.initializeVideo(Assets.videoi);
+    videoCourseCubit.initializeVideo(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+        isAsset: false);
   }
 
   @override
