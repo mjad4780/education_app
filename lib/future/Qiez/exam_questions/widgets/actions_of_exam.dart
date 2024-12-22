@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../../exam_report/view/exam_report_screen.dart';
 import '../core/exam_questions_core.dart';
 import 'custom_bottom_sheet.dart';
 import 'dialog_custom.dart';
 
-List<Widget> actionsOfExam(context, controller, cubit, idString, exams,
-    examquestionsData, questionsController) {
+List<Widget> actionsOfExam(BuildContext context, CountdownController controller,
+    cubit, idString, exams, examquestionsData, questionsController) {
   return [
     // Updated GestureDetector for the Pause button
     GestureDetector(

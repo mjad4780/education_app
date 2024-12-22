@@ -10,15 +10,14 @@ class CustomDialog extends StatelessWidget {
   final String buttonText;
 
   const CustomDialog(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.imageUrl,
       required this.subTitle,
       required this.leftColor,
       required this.buttonText,
       required this.onConfirm,
-      required this.onCancel})
-      : super(key: key);
+      required this.onCancel});
 
   @override
   Widget build(BuildContext context) {

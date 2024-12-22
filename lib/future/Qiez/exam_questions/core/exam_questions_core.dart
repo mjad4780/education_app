@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../widgets/dialog_custom.dart';
 
 void pauseExam({
-  required context,
-  required controller,
+  required BuildContext context,
+  required CountdownController controller,
 }) {
   showDialog(
     context: context,

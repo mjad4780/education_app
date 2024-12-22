@@ -2,26 +2,30 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 
-class ReportHeader extends StatelessWidget {
+class ReportHeader extends StatefulWidget {
   final int score;
   final String message;
 
   const ReportHeader({super.key, required this.score, required this.message});
 
   @override
-  Widget build(BuildContext context) {
-    Color headerColor;
-    Color textColor;
-    String emoji;
-    String text1;
+  State<ReportHeader> createState() => _ReportHeaderState();
+}
 
-    if (score <= 59) {
+Color? headerColor;
+Color? textColor;
+String? emoji;
+String? text1;
+
+class _ReportHeaderState extends State<ReportHeader> {
+  ini() {
+    if (widget.score <= 59) {
       headerColor = examReportFailHeader;
       textColor = examReportFailColor;
       textColor = examReportFailColor;
       emoji = "😢";
       text1 = "You can do better!";
-    } else if (score >= 60 && score < 80) {
+    } else if (widget.score >= 60 && widget.score < 80) {
       headerColor = examReportPassHeader;
       textColor = examReportPassColor;
       emoji = "😊";
@@ -32,7 +36,16 @@ class ReportHeader extends StatelessWidget {
       emoji = "🤩";
       text1 = "Well Done!";
     }
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    ini();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: headerColor,
@@ -46,7 +59,7 @@ class ReportHeader extends StatelessWidget {
               radius: 39,
               backgroundColor: Colors.white,
               child: Text(
-                emoji,
+                emoji!,
                 style: TextStyle(fontSize: 45, color: textColor),
               ),
             ),
@@ -59,7 +72,7 @@ class ReportHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    text1,
+                    text1!,
                     style: TextStyle(
                       color: textColor,
                       fontSize: 24,
@@ -70,7 +83,7 @@ class ReportHeader extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    message,
+                    widget.message,
                     style: TextStyle(
                       color: description,
                     ),

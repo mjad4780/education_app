@@ -16,4 +16,5 @@ abstract class StringRoute {
   static const String screenEditProfile = "ScreenEditProfile";
   static const String screenLanguage = "ScreenLanguage";
   static const String pdfViewerScreen = "PdfViewerScreen";
+  static const String examQuestionsPage = "ExamQuestionsPage";
 }

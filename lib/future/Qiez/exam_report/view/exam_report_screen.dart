@@ -8,7 +8,7 @@ import '../../exam-answers/view/exam_answers.dart';
 import '../bloc/cubit.dart';
 import '../bloc/state.dart';
 import '../widgets/custom_answers_cards.dart';
-import '../widgets/custom_examReport_header.dart';
+import '../widgets/custom_exam_report_header.dart';
 import '../widgets/custom_score_circle.dart';
 import '../widgets/custome_app_bar.dart';
 
@@ -20,8 +20,7 @@ class ExamReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>
-          ExamReportCubit()..getExamReport(responseData: responseData),
+      create: (BuildContext context) => ExamReportCubit(),
       child: BlocConsumer<ExamReportCubit, ExamReportStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -46,12 +45,15 @@ class ExamReportScreen extends StatelessWidget {
                   );
                 },
                 child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Exam Report",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    (FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "Exam Report",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    )),
                     Icon(
                       Icons.arrow_forward_ios_outlined,
                       color: Colors.white,
@@ -80,13 +82,13 @@ class ExamReportScreen extends StatelessWidget {
                         ),
                         ScoreCircle(
                           score: cubit.examReport!.data!.score ?? 0,
-                          question_numbers:
+                          questionNumbers:
                               cubit.examReport?.data?.questions?.length ?? 0,
-                          is_correct:
+                          iscorrect:
                               cubit.examReport!.data!.correctAnswersCount ?? 0,
                         ),
                         AnswersCards(
-                          question_numbers:
+                          questionNumbers:
                               cubit.examReport?.data?.questions?.length ?? 0,
                         ),
                         const SizedBox(

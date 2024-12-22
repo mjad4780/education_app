@@ -19,8 +19,6 @@ class CustomDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var cubit = ExamsCubit.get(context).examOverviewData;
-
     return Expanded(
       child: Container(
         width: 155.5,

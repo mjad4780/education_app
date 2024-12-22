@@ -34,11 +34,6 @@ class QuestionCard extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        // ClipRRect(
-        //   borderRadius: const BorderRadius.all(Radius.circular(15)),
-        //     child: Image(image: NetworkImage('${model?.attachment?.url}'))
-        // ),
-        // SizedBox(height: 16,),
         Text(
           'Answers',
           style: TextStyle(
@@ -47,7 +42,7 @@ class QuestionCard extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        model?.multiple == 0
+        model?.multiple != 0
             ? SingleChoice(model: model)
             : MultiChoice(model: model),
       ],

@@ -208,3 +208,152 @@ class Answers {
     return data;
   }
 }
+
+List<ExamQuestionModel> fakeData = [
+  ExamQuestionModel(
+    data: [
+      DataQuestions(
+        id: 1,
+        title: "What is the capital of France?",
+        titleAr: "ما هي عاصمة فرنسا؟",
+        type: "multiple_choice",
+        illistraton: Illistraton(text: "This is an illustration text."),
+        attachment:
+            Attachment(type: "image", url: "http://example.com/image.jpg"),
+        multiple: 0,
+        options: [
+          Options(
+            key: "A",
+            title: "Paris",
+            titleAr: "باريس",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null,
+          ),
+          Options(
+            key: "B",
+            title: "London",
+            titleAr: "لندن",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null,
+          ),
+        ],
+        answeredCorrect: null,
+        isFlagged: null,
+        studentAnswer: null,
+        answers: [
+          Answers(index: 0, key: "A", answer: "Paris", answerAr: "باريس"),
+        ],
+      ),
+      DataQuestions(
+        id: 2,
+        title: "What is 2 + 2?",
+        titleAr: "ما هو 2 + 2؟",
+        type: "multiple_choice",
+        illistraton: null,
+        attachment: null,
+        multiple: 0,
+        options: [
+          Options(
+            key: "A",
+            title: "3",
+            titleAr: "٣",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null,
+          ),
+          Options(
+            key: "B",
+            title: "4",
+            titleAr: "٤",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null,
+          ),
+        ],
+        answeredCorrect: null,
+        isFlagged: null,
+        studentAnswer: null,
+        answers: [
+          Answers(index: 0, key: "B", answer: "4", answerAr: "٤"),
+        ],
+      ),
+    ],
+    statusCode: 200,
+    meta: null,
+  ),
+  ExamQuestionModel(
+    data: [
+      DataQuestions(
+        id: 1,
+        title: "What is the capital of France?",
+        titleAr: "ما هي عاصمة فرنسا؟",
+        type: "multiple_choice",
+        illistraton: Illistraton(text: "This is an illustration text."),
+        attachment:
+            Attachment(type: "image", url: "http://example.com/image.jpg"),
+        multiple: 0,
+        options: [
+          Options(
+            key: "A",
+            title: "Paris",
+            titleAr: "باريس",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null,
+          ),
+          Options(
+            key: "B",
+            title: "London",
+            titleAr: "لندن",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null,
+          ),
+        ],
+        answeredCorrect: null,
+        isFlagged: null,
+        studentAnswer: null,
+        answers: [
+          Answers(index: 0, key: "A", answer: "Paris", answerAr: "باريس"),
+        ],
+      ),
+      DataQuestions(
+        id: 2,
+        title: "What is 2 + 2?",
+        titleAr: "ما هو 2 + 2؟",
+        type: "multiple_choice",
+        illistraton: null,
+        attachment: null,
+        multiple: 0,
+        options: [
+          Options(
+            key: "A",
+            title: "3",
+            titleAr: "٣",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null,
+          ),
+          Options(
+            key: "B",
+            title: "4",
+            titleAr: "٤",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null,
+          ),
+        ],
+        answeredCorrect: null,
+        isFlagged: null,
+        studentAnswer: null,
+        answers: [
+          Answers(index: 0, key: "B", answer: "4", answerAr: "٤"),
+        ],
+      ),
+    ],
+    statusCode: 200,
+    meta: null,
+  ),
+];

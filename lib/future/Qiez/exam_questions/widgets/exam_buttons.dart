@@ -1,14 +1,16 @@
+import 'package:education/core/helpers/spacing.dart';
+import 'package:education/future/Qiez/exam_questions/bloc/cubit.dart';
 import 'package:flutter/material.dart';
 
-import '../../exam_report/view/exam_report_screen.dart';
+import '../../models/exam_questions_model/exam_questions_model.dart';
 
 class ExamButtons extends StatelessWidget {
-  final questionsController;
+  final PageController questionsController;
 
-  final examquestionsData;
+  final ExamQuestionModel examquestionsData;
 
-  final cubit;
-  final idString;
+  final ExamsCubit cubit;
+  final String idString;
 
   const ExamButtons(
       {super.key,
@@ -30,7 +32,7 @@ class ExamButtons extends StatelessWidget {
           },
           child: Container(
             height: 44,
-            width: 120,
+            width: width(context) * 0.35,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.white,
@@ -64,9 +66,9 @@ class ExamButtons extends StatelessWidget {
         const Spacer(flex: 1),
         InkWell(
           onTap: () {
-            if (examquestionsData?.data?.length != null &&
+            if (examquestionsData.data?.length != null &&
                 cubit.currentIndex !=
-                    (examquestionsData?.data?.length ?? 0) - 1) {
+                    (examquestionsData.data?.length ?? 0) - 1) {
               // Navigate to the next page
               questionsController.nextPage(
                 duration: const Duration(milliseconds: 750),
@@ -80,24 +82,24 @@ class ExamButtons extends StatelessWidget {
                 ),
               );
               cubit.submitStudentAnswers(
-                idString!,
+                idString,
                 cubit.selectedOptions,
-                (responseData) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ExamReportScreen(
-                        responseData: responseData,
-                      ),
-                    ),
-                  );
-                },
+                // (responseData) {
+                //   Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => ExamReportScreen(
+                //         responseData: responseData,
+                //       ),
+                //     ),
+                // );
+                // },
               );
             }
           },
           child: Container(
             height: 44,
-            width: 108,
+            width: width(context) * 0.3,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: const Color(0xff0225FF),
@@ -107,9 +109,9 @@ class ExamButtons extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: Text(
-                    examquestionsData?.data?.length != null &&
+                    examquestionsData.data?.length != null &&
                             cubit.currentIndex !=
-                                (examquestionsData?.data?.length ?? 0) - 1
+                                (examquestionsData.data?.length ?? 0) - 1
                         ? 'Next'
                         : 'Submit',
                     style: const TextStyle(

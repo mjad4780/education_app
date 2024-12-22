@@ -8,10 +8,9 @@ class MultiChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 336,
-      child: ListView.separated(
-        itemBuilder: (context, index) => Column(
+    return Column(
+      children: List.generate(model!.options!.length, (index) {
+        return Column(
           children: [
             model?.options?[index].isCorrect != 0
                 ? Column(
@@ -61,84 +60,87 @@ class MultiChoice extends StatelessWidget {
                   )
                 : model?.options?[index].isCorrect == 0 &&
                         model?.options?[index].isSelected == 1
-                    ? Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.red,
-                                  width: 1,
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.red,
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12))),
+                              child: CheckboxListTile(
+                                  title: Text(
+                                    '${model?.options?[index].title}',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14),
+                                  ),
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  activeColor: Colors.red,
+                                  value: true,
+                                  onChanged: (val) {}),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.highlight_off,
+                                  color: Color.fromRGBO(
+                                    230,
+                                    70,
+                                    70,
+                                    1,
+                                  ),
+                                  size: 13,
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(12))),
-                            child: CheckboxListTile(
-                                title: Text(
-                                  '${model?.options?[index].title}',
-                                  style: const TextStyle(
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text(
+                                  'Wrong Answer (Yours)',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(230, 70, 70, 1),
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
-                                ),
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                activeColor: Colors.red,
-                                value: true,
-                                onChanged: (val) {}),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Row(
-                            children: [
-                              Icon(
-                                Icons.highlight_off,
-                                color: Color.fromRGBO(
-                                  230,
-                                  70,
-                                  70,
-                                  1,
-                                ),
-                                size: 13,
-                              ),
-                              SizedBox(
-                                width: 3,
-                              ),
-                              Text(
-                                'Wrong Answer (Yours)',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(230, 70, 70, 1),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
-                              )
-                            ],
-                          )
-                        ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       )
-                    : Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color.fromRGBO(243, 244, 246, 1),
-                              width: 1,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12))),
-                        child: CheckboxListTile(
-                            title: Text(
-                              '${model?.options?[index].title}',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 14),
-                            ),
-                            controlAffinity: ListTileControlAffinity.leading,
-                            activeColor: const Color.fromRGBO(89, 183, 100, 1),
-                            value: false,
-                            onChanged: (val) {}),
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 3, 29, 81),
+                                width: 1,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(12))),
+                          child: CheckboxListTile(
+                              title: Text(
+                                '${model?.options?[index].title}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                              controlAffinity: ListTileControlAffinity.leading,
+                              activeColor:
+                                  const Color.fromRGBO(89, 183, 100, 1),
+                              value: false,
+                              onChanged: (val) {}),
+                        ),
                       ),
           ],
-        ),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 8,
-        ),
-        itemCount: 4,
-      ),
+        );
+      }),
     );
   }
 }

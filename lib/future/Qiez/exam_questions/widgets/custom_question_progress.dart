@@ -6,9 +6,9 @@ import '../../constants.dart';
 
 class QuestionProgress extends StatelessWidget {
   final int index;
-  final int question_numbers;
+  final int questionNumbers;
   const QuestionProgress(
-      {super.key, required this.index, required this.question_numbers});
+      {super.key, required this.index, required this.questionNumbers});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class QuestionProgress extends StatelessWidget {
       width: double.infinity,
       child: LinearPercentIndicator(
         lineHeight: 3.0,
-        percent: index / question_numbers, //100 is number of questions
+        percent: index / questionNumbers, //100 is number of questions
         backgroundColor: Colors.grey,
         progressColor: mainColor,
       ),

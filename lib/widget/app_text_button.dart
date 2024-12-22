@@ -11,7 +11,7 @@ class AppTextButton extends StatelessWidget {
   final double? buttonWidth;
   final double? buttonHeight;
   final String buttonText;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final VoidCallback onPressed;
   const AppTextButton({
     super.key,
@@ -22,7 +22,7 @@ class AppTextButton extends StatelessWidget {
     this.buttonHeight,
     this.buttonWidth,
     required this.buttonText,
-    required this.textStyle,
+    this.textStyle,
     required this.onPressed,
   });
 

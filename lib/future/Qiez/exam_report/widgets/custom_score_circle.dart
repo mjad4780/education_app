@@ -6,13 +6,13 @@ import '../../constants.dart';
 
 class ScoreCircle extends StatelessWidget {
   final int score;
-  final int question_numbers;
-  final int is_correct;
+  final int questionNumbers;
+  final int iscorrect;
   const ScoreCircle(
       {super.key,
       required this.score,
-      required this.question_numbers,
-      required this.is_correct});
+      required this.questionNumbers,
+      required this.iscorrect});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,8 @@ class ScoreCircle extends StatelessWidget {
       painter: ScoreCirclePainter(
           score: score,
           color: color,
-          question_numbers: question_numbers,
-          is_correct: is_correct),
+          questionNumbers: questionNumbers,
+          iscorrect: iscorrect),
     );
   }
 }
@@ -39,13 +39,13 @@ class ScoreCircle extends StatelessWidget {
 class ScoreCirclePainter extends CustomPainter {
   final int score;
   final Color color;
-  final int question_numbers;
-  final int is_correct;
+  final int questionNumbers;
+  final int iscorrect;
   ScoreCirclePainter(
       {required this.score,
       required this.color,
-      required this.question_numbers,
-      required this.is_correct});
+      required this.questionNumbers,
+      required this.iscorrect});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -113,7 +113,7 @@ class ScoreCirclePainter extends CustomPainter {
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
       ),
-      text: '$is_correct out of $question_numbers',
+      text: '$iscorrect out of $questionNumbers',
     );
     TextPainter additionalTp = TextPainter(
       text: additionalSpan,

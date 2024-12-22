@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
 import '../bloc/cubit.dart';
 
 class AnswersCards extends StatelessWidget {
-  final int question_numbers;
-  const AnswersCards({super.key, required this.question_numbers});
+  final int questionNumbers;
+  const AnswersCards({super.key, required this.questionNumbers});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ExamReportCubit.get(context);
-    var totalQuestions = question_numbers;
-    var correctAnswers = cubit.examReport!.data!.correctAnswersCount ?? 0;
-    var wrongAnswers = totalQuestions - correctAnswers;
+    var correctAnswers =
+        context.read<ExamReportCubit>().examReport!.data!.correctAnswersCount ??
+            0;
 
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
@@ -74,7 +74,7 @@ class AnswersCards extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 17),
                     child: Text(
-                      "${cubit.examReport!.data!.correctAnswersCount ?? 0}",
+                      "${context.read<ExamReportCubit>().examReport!.data!.correctAnswersCount ?? 0}",
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w600),
                     ),
@@ -155,7 +155,7 @@ class AnswersCards extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 17),
                     child: Text(
-                      "$wrongAnswers",
+                      "${questionNumbers - correctAnswers}",
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w600),
                     ),

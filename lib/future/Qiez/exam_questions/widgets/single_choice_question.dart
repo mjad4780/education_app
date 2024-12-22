@@ -1,4 +1,6 @@
+import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/exam_questions_model/exam_questions_model.dart';
 import '../bloc/cubit.dart';
@@ -10,9 +12,8 @@ class SingleChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = ExamsCubit.get(context);
     return SizedBox(
-      height: 320,
+      height: height(context) / 2.7,
       child: ListView.separated(
         itemBuilder: (context, index) => Column(
           children: [
@@ -31,8 +32,12 @@ class SingleChoice extends StatelessWidget {
                 ),
                 activeColor: const Color(0xff0225FF),
                 value: '${model?.options?[index].key}',
-                groupValue: cubit.selectedOptionForQuestion(questionIndex),
-                onChanged: (val) => cubit.updateOption(questionIndex, val!),
+                groupValue: context
+                    .read<ExamsCubit>()
+                    .selectedOptionForQuestion(questionIndex),
+                onChanged: (val) => context
+                    .read<ExamsCubit>()
+                    .updateOption(questionIndex, val!),
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
+import 'package:education/future/Qiez/exam_questions/view/exam_questions.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
 import 'package:education/future/home/ui/castegories_screan.dart';
@@ -8,6 +9,7 @@ import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../future/Qiez/models/exam_overview_model/examOverViewModel.dart';
 import '../../future/auth/sign up/sign_up.dart';
 import '../../future/chats/widget/screen_detalias_chat.dart';
 import '../../future/course detaias/course_details.dart';
@@ -89,6 +91,12 @@ class AppRoutes {
         return BaseRoute(
           page: PdfViewerScreen(
             pdfPath: args as String,
+          ),
+        );
+      case StringRoute.examQuestionsPage:
+        return BaseRoute(
+          page: ExamQuestionsPage(
+            exams: args as ExamsOverview,
           ),
         );
       case StringRoute.screenEditProfile:

@@ -1,5 +1,6 @@
 //cubit
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 import '../../models/exam_overview_model/examOverViewModel.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
@@ -7,12 +8,11 @@ import 'states.dart';
 
 class ExamsCubit extends Cubit<ExamQuestionStats> {
   ExamsCubit() : super(ExamQuestionsInitialStats());
-
-  bool showimage = true;
+  final CountdownController controller = CountdownController(autoStart: true);
 
   static ExamsCubit get(context) => BlocProvider.of(context);
 
-  ExamQuestionModel? examquestionsData;
+  ExamQuestionModel examquestionsData = fakeData.first;
 
   void getExamQuestions({int? id}) {
     emit(ExamQuestionsLoading());
@@ -30,11 +30,6 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
     //   emit(ExamQuestionsError());
     //   print(error);
     // });
-  }
-
-  void IsVisible() {
-    showimage = !showimage;
-    emit(ShowImageSuccess());
   }
 
   ExamOverviewModel? examOverviewData;
@@ -105,8 +100,10 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
     return selectedOptions[questionIndex];
   }
 
-  void submitStudentAnswers(String examId, Map<int, String> studentAnswers,
-      Function(Map<String, dynamic>) onPostSuccess) {
+  void submitStudentAnswers(
+    String examId,
+    Map<int, String> studentAnswers,
+  ) {
     emit(ExamSubmitLoading());
 
     Map<String, dynamic> formattedStudentAnswers = {};
@@ -114,12 +111,12 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
       formattedStudentAnswers[key.toString()] = value;
     });
 
-    // Map<String, dynamic> data = {
-    //   'exam_id': examId,
-    //   'student_answers': formattedStudentAnswers,
-    //   'start_date': '2022-02-01 14:08:24',
-    //   'end_date': '2022-02-01 15:08:24',
-    // };
+    Map<String, dynamic> data = {
+      'exam_id': examId,
+      'student_answers': formattedStudentAnswers,
+      'start_date': '2022-02-01 14:08:24',
+      'end_date': '2022-02-01 15:08:24',
+    };
 
     // DioHelper.postData(
     //   url: 'submitExam',
@@ -138,7 +135,7 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
     // });
   }
 
-  List<DataQuestions>? allExams = [];
+  List<DataQuestions>? allExams = fakeData.first.data;
 
   void filterExamPackages(String query) {
     emit(ExamQuestionsLoading());

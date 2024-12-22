@@ -1,3 +1,4 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -7,18 +8,15 @@ PreferredSizeWidget appBarCustom({
   required BuildContext context,
 }) =>
     AppBar(
-      // backgroundColor: Colors.white,
+      backgroundColor: context.color.greyLight,
       leading: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(
-          vertical: 6,
-          horizontal: 9,
-        ),
+        padding: const EdgeInsets.all(5.0),
         child: CircleAvatar(
           backgroundColor: iconBackgroundColor,
-          // radius: 14,
+          radius: 3,
           child: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              context.pop();
             },
             icon: const Icon(
               Icons.arrow_back,

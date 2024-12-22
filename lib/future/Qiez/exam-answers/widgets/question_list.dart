@@ -1,4 +1,6 @@
+import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../exam_report/bloc/cubit.dart';
 import 'question_card.dart';
@@ -9,10 +11,11 @@ class QuestionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 610,
+      height: height(context) * 0.9,
       child: ListView.separated(
           itemBuilder: (context, index) => QuestionCard(
-                model: ExamReportCubit.get(context)
+                model: context
+                    .read<ExamReportCubit>()
                     .examReport!
                     .data
                     ?.questions?[index],
@@ -21,8 +24,12 @@ class QuestionList extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
                 height: 5,
               ),
-          itemCount:
-              ExamReportCubit.get(context).examReport!.data!.questions!.length),
+          itemCount: context
+              .read<ExamReportCubit>()
+              .examReport!
+              .data!
+              .questions!
+              .length),
     );
   }
 }

@@ -70,7 +70,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['title'] = this.title;
+    data['title'] = title;
     data['score'] = score;
 
     data['success'] = success;
@@ -112,7 +112,7 @@ class Questions {
       });
       options = <Options>[];
       json['options'].forEach((v) {
-        options!.add(new Options.fromJson(v));
+        options!.add(Options.fromJson(v));
       });
     }
   }
@@ -124,10 +124,10 @@ class Questions {
     if (answers != null) {
       data['answers'] = answers!.map((v) => v.toJson()).toList();
     }
-    if (this.options != null) {
-      data['options'] = this.options!.map((v) => v.toJson()).toList();
+    if (options != null) {
+      data['options'] = options!.map((v) => v.toJson()).toList();
     }
-    data['multiple'] = this.multiple;
+    data['multiple'] = multiple;
     return data;
   }
 }
@@ -193,3 +193,105 @@ class Answers {
     return data;
   }
 }
+
+// تعبئة بيانات وهمية
+List<ExamReport> examReports = [
+  ExamReport(
+    data: Data(
+      id: 1,
+      title: "Math Exam Report",
+      score: 85,
+      success: 1,
+      message: "You passed the exam successfully.",
+      minScore: 50,
+      startDate: "2024-12-01T10:00:00Z",
+      endDate: "2024-12-01T11:30:00Z",
+      totalTime: 90,
+      correctAnswersCount: 17,
+      questions: [
+        Questions(
+          id: 101,
+          title: "What is 2 + 2?",
+          multiple: 0,
+          options: [
+            Options(
+              key: "A",
+              title: "3",
+              titleAr: "٣",
+              isCorrect: 0,
+              isSelected: 1,
+              attachment: null,
+            ),
+            Options(
+              key: "B",
+              title: "4",
+              titleAr: "٤",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null,
+            ),
+            Options(
+              key: "c",
+              title: "6",
+              titleAr: "٤",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null,
+            ),
+            Options(
+              key: "d",
+              title: "6",
+              titleAr: "٤",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null,
+            ),
+          ],
+          answers: [
+            Answers(
+              index: 0,
+              key: "B",
+              answer: "4",
+              answerAr: "٤",
+            ),
+          ],
+        ),
+        Questions(
+          id: 102,
+          title: "What is 5 * 3?",
+          multiple: 0,
+          options: [
+            Options(
+              key: "A",
+              title: "15",
+              titleAr: "١٥",
+              isCorrect: 1,
+              isSelected: 1,
+              attachment: null,
+            ),
+            Options(
+              key: "B",
+              title: "10",
+              titleAr: "١٠",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null,
+            ),
+          ],
+          answers: [
+            Answers(
+              index: 0,
+              key: "A",
+              answer: "15",
+              answerAr: "١٥",
+            ),
+          ],
+        ),
+      ],
+    ),
+    statusCode: 200,
+    meta: null,
+  ),
+];
+
+  // عرض البيانات

@@ -9,7 +9,7 @@ class ExamReportCubit extends Cubit<ExamReportStates> {
 
   static ExamReportCubit get(context) => BlocProvider.of(context);
 
-  ExamReport? examReport;
+  ExamReport? examReport = examReports.first;
 
   void getExamReport({Map<String, dynamic>? responseData}) {
     emit(ExamReportLoadingState());
