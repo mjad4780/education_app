@@ -76,9 +76,6 @@ class CustomCurriculum extends StatelessWidget {
                         extension: context
                             .read<VideoCourseCubit>()
                             .fileTypes(value.uri),
-                        onDownload: (String url, String name) {
-                          context.read<VideoCourseCubit>().play(url, name);
-                        },
                       );
                     }).toList(),
                   );

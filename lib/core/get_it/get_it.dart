@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/future/Qiez/cubit/exam_cubit.dart';
 import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 // import '../../core/networking/api_service.dart';
 // import '../../core/networking/dio_factory.dart';
@@ -65,4 +67,10 @@ void setupServise() {
   getIt.registerLazySingleton<RepoVideo>(() => RepoVideo(getIt()));
 
   getIt.registerFactory<VideoCourseCubit>(() => VideoCourseCubit(getIt()));
+
+  /// exams
+  getIt.registerLazySingleton<CountdownController>(
+      () => CountdownController(autoStart: true));
+
+  getIt.registerFactory<ExamCubit>(() => ExamCubit(getIt()));
 }

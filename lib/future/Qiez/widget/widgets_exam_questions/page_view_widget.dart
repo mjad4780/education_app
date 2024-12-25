@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
-import '../bloc/cubit.dart';
 import 'multi_choice_question.dart';
 import 'single_choice_question.dart';
 
@@ -27,7 +27,7 @@ class PageViewWidget extends StatelessWidget {
         controller: questionsController,
         itemCount: examquestionsData.data?.length,
         onPageChanged: (int index) =>
-            context.read<ExamsCubit>().updateCurrentIndex(index),
+            context.read<ExamCubit>().updateCurrentIndex(index),
         itemBuilder: (context, index) {
           return Column(
             children: [

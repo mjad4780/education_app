@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 
-import '../widgets/dialog_custom.dart';
+import '../widget/widgets_exam_questions/dialog_custom.dart';
 
 void pauseExam({
   required BuildContext context,

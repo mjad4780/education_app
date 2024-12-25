@@ -2,8 +2,8 @@ import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
-import '../bloc/cubit.dart';
 
 class SingleChoice extends StatelessWidget {
   final DataQuestions? model;
@@ -33,11 +33,10 @@ class SingleChoice extends StatelessWidget {
                 activeColor: const Color(0xff0225FF),
                 value: '${model?.options?[index].key}',
                 groupValue: context
-                    .read<ExamsCubit>()
+                    .read<ExamCubit>()
                     .selectedOptionForQuestion(questionIndex),
-                onChanged: (val) => context
-                    .read<ExamsCubit>()
-                    .updateOption(questionIndex, val!),
+                onChanged: (val) =>
+                    context.read<ExamCubit>().updateOption(questionIndex, val!),
               ),
             ),
           ],

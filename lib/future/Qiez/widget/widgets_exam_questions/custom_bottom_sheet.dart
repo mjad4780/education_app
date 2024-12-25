@@ -2,9 +2,9 @@ import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubit/exam_cubit.dart';
 import '../../models/exam_overview_model/examOverViewModel.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
-import '../bloc/cubit.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet(
@@ -47,14 +47,13 @@ class CustomBottomSheet extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               itemCount:
-                  context.read<ExamsCubit>().examquestionsData.data?.length ??
-                      0,
+                  context.read<ExamCubit>().examquestionsData.data?.length ?? 0,
               padding: const EdgeInsets.only(bottom: 3),
               separatorBuilder: (BuildContext context, int index) =>
                   const Divider(),
               itemBuilder: (BuildContext context, int index) {
                 return ReviewQuestions(
-                  list: context.read<ExamsCubit>().examquestionsData.data,
+                  list: context.read<ExamCubit>().examquestionsData.data,
                   index: index,
                   updatePageViewController:
                       updatePageViewController, // Pass callback function

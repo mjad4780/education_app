@@ -1,7 +1,10 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
-import 'package:education/future/Qiez/exam_questions/bloc/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/Router/route_string.dart';
+import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
 
 class ExamButtons extends StatelessWidget {
@@ -9,14 +12,12 @@ class ExamButtons extends StatelessWidget {
 
   final ExamQuestionModel examquestionsData;
 
-  final ExamsCubit cubit;
   final String idString;
 
   const ExamButtons(
       {super.key,
       required this.questionsController,
       required this.examquestionsData,
-      required this.cubit,
       required this.idString});
 
   @override
@@ -67,7 +68,7 @@ class ExamButtons extends StatelessWidget {
         InkWell(
           onTap: () {
             if (examquestionsData.data?.length != null &&
-                cubit.currentIndex !=
+                context.read<ExamCubit>().currentIndex !=
                     (examquestionsData.data?.length ?? 0) - 1) {
               // Navigate to the next page
               questionsController.nextPage(
@@ -81,20 +82,24 @@ class ExamButtons extends StatelessWidget {
                   content: Text('Exam End'),
                 ),
               );
-              cubit.submitStudentAnswers(
-                idString,
-                cubit.selectedOptions,
-                // (responseData) {
-                //   Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => ExamReportScreen(
-                //         responseData: responseData,
-                //       ),
-                //     ),
-                // );
-                // },
-              );
+              context.read<ExamCubit>().submitStudentAnswers(
+                    idString,
+                    context.read<ExamCubit>().selectedOptions,
+                    // (responseData) {
+                    //   Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => ExamReportScreen(
+                    //         responseData: responseData,
+                    //       ),
+                    //     ),
+                    // );
+                    // },
+                  );
+              context.pop();
+
+              context.pushReplacementNamed(StringRoute.examReportScreen,
+                  arguments: context.read<ExamCubit>());
             }
           },
           child: Container(
@@ -110,7 +115,7 @@ class ExamButtons extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0),
                   child: Text(
                     examquestionsData.data?.length != null &&
-                            cubit.currentIndex !=
+                            context.read<ExamCubit>().currentIndex !=
                                 (examquestionsData.data?.length ?? 0) - 1
                         ? 'Next'
                         : 'Submit',

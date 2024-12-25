@@ -1,9 +1,10 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
-import '../bloc/cubit.dart';
-import '../bloc/states.dart';
+import '../../../../core/Router/route_string.dart';
+import '../../cubit/exam_cubit.dart';
 
 class TimerExam extends StatelessWidget {
   const TimerExam(
@@ -15,10 +16,10 @@ class TimerExam extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Expanded(
-          child: BlocBuilder<ExamsCubit, ExamQuestionStats>(
+          child: BlocBuilder<ExamCubit, ExamState>(
             builder: (context, state) {
               return Text(
-                'QUESTION ${context.read<ExamsCubit>().currentIndex + 1} of ${context.read<ExamsCubit>().examquestionsData.data!.length}',
+                'QUESTION ${context.read<ExamCubit>().currentIndex + 1} of ${context.read<ExamCubit>().examquestionsData.data!.length}',
                 style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
@@ -40,13 +41,16 @@ class TimerExam extends StatelessWidget {
           width: 8,
         ),
         Countdown(
-          controller: context.read<ExamsCubit>().controller,
+          controller: context.read<ExamCubit>().controller,
           onFinished: () {
-            context.read<ExamsCubit>().submitStudentAnswers(
+            context.read<ExamCubit>().submitStudentAnswers(
                   idString.toString(),
-                  context.read<ExamsCubit>().selectedOptions,
+                  context.read<ExamCubit>().selectedOptions,
                 );
-            //TODO :push report
+            context.pop();
+
+            context.pushReplacementNamed(StringRoute.examReportScreen,
+                arguments: context.read<ExamCubit>());
           },
           interval: const Duration(milliseconds: 100),
           seconds: secondsRemaining * 60,

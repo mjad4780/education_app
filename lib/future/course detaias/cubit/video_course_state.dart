@@ -16,7 +16,11 @@ final class VideoCourseFailure extends VideoCourseState {
 }
 
 //rebuild
-final class WatchRebuild extends VideoCourseState {}
+final class WatchRebuild extends VideoCourseState {
+  final int buttomrebuild;
+
+  WatchRebuild(this.buttomrebuild);
+}
 
 ///
 final class PlayLoading extends VideoCourseState {}

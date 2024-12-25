@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
-import '../bloc/cubit.dart';
+import '../../cubit/exam_cubit.dart';
 
 class AnswersCards extends StatelessWidget {
   final int questionNumbers;
@@ -11,8 +11,7 @@ class AnswersCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var correctAnswers =
-        context.read<ExamReportCubit>().examReport!.data!.correctAnswersCount ??
-            0;
+        context.read<ExamCubit>().examReport!.data!.correctAnswersCount ?? 0;
 
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
@@ -74,7 +73,7 @@ class AnswersCards extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 17),
                     child: Text(
-                      "${context.read<ExamReportCubit>().examReport!.data!.correctAnswersCount ?? 0}",
+                      "${context.read<ExamCubit>().examReport!.data!.correctAnswersCount ?? 0}",
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w600),
                     ),

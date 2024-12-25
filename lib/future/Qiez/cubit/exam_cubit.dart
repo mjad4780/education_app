@@ -1,17 +1,57 @@
-//cubit
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:timer_count_down/timer_controller.dart';
 
-import '../../models/exam_overview_model/examOverViewModel.dart';
-import '../../models/exam_questions_model/exam_questions_model.dart';
-import 'states.dart';
+import '../models/exam_overview_model/examOverViewModel.dart';
+import '../models/exam_questions_model/exam_questions_model.dart';
+import '../models/exam_report_model/exam_report_model.dart';
 
-class ExamsCubit extends Cubit<ExamQuestionStats> {
-  ExamsCubit() : super(ExamQuestionsInitialStats());
-  final CountdownController controller = CountdownController(autoStart: true);
+part 'exam_state.dart';
 
-  static ExamsCubit get(context) => BlocProvider.of(context);
+class ExamCubit extends Cubit<ExamState> {
+  ExamCubit(this.controller) : super(ExamInitial());
+  final CountdownController controller;
 
+//////////overview//////////
+  ExamOverviewModel? examOverviewData = examOverviewList.first;
+
+  // void getExamOverview({int? id}) {
+  //   emit(ExamOverviewLoading());
+  //   // DioHelper.getData(
+  //   //     url: 'exam-packages-details',
+  //   //     token: 'Bearer 27|M0EG1UVmRXcem731Ze2YJfTSz11wAzvO9M4kqOd9',
+  //   //     query: {
+  //   //       'id': id,
+  //   //       'lang': 'en',
+  //   //     }).then((value) {
+  //   //   emit(ExamOverviewSuccess());
+  //   //   examOverviewData = ExamOverviewModel.fromJson(value.data);
+  //   //   // print(examOverviewData?.data);
+  //   // }).catchError((error) {
+  //   //   emit(ExamOverviewError());
+  //   //   // print(error);
+  //   // });
+  // }
+/////////////////////report///////////////
+
+  ExamReport? examReport = examReports.first;
+
+  void getExamReport({Map<String, dynamic>? responseData}) {
+    //   emit(ExamReportLoadingState());
+    //  String studentExamId = responseData?['data'].toString() ?? '';
+    // DioHelper.getData(
+    //     url: 'examReport',
+    //     token: 'Bearer 90|qwLnRQamnY38ahfLjxY5juRZonfQaDX5kL3uj9ep',
+    //     query: {
+    //       'student_exam_id': studentExamId,
+    //     }).then((value) {
+    //   emit(ExamReportSuccessState());
+    //   examReport = ExamReport.fromJson(value.data);
+    // }).catchError((error) {
+    //   emit(ExamReportErrorState(error.toString()));
+    // });
+  }
+
+  ////////////////////////////////////questions/////////////////////////
   ExamQuestionModel examquestionsData = fakeData.first;
 
   void getExamQuestions({int? id}) {
@@ -31,8 +71,6 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
     //   print(error);
     // });
   }
-
-  ExamOverviewModel? examOverviewData;
 
   void getExamOverview() {
     emit(ExamOverviewLoading());
@@ -111,12 +149,12 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
       formattedStudentAnswers[key.toString()] = value;
     });
 
-    Map<String, dynamic> data = {
-      'exam_id': examId,
-      'student_answers': formattedStudentAnswers,
-      'start_date': '2022-02-01 14:08:24',
-      'end_date': '2022-02-01 15:08:24',
-    };
+    // Map<String, dynamic> data = {
+    //   'exam_id': examId,
+    //   'student_answers': formattedStudentAnswers,
+    //   'start_date': '2022-02-01 14:08:24',
+    //   'end_date': '2022-02-01 15:08:24',
+    // };
 
     // DioHelper.postData(
     //   url: 'submitExam',
@@ -133,23 +171,23 @@ class ExamsCubit extends Cubit<ExamQuestionStats> {
     //   emit(ExamSubmitError(error.toString()));
     //   print('Error submitting exam: $error');
     // });
-  }
 
-  List<DataQuestions>? allExams = fakeData.first.data;
+    List<DataQuestions>? allExams = fakeData.first.data;
 
-  void filterExamPackages(String query) {
-    emit(ExamQuestionsLoading());
-    if (query.isEmpty) {
-      examquestionsData = ExamQuestionModel(data: allExams);
-      emit(ExamQuestionsSuccess());
-      return;
-    } else {
-      List<DataQuestions> filteredExams = allExams!
-          .where(
-              (exam) => exam.title!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      examquestionsData = ExamQuestionModel(data: filteredExams);
-      emit(ExamQuestionsSuccess());
+    void filterExamPackages(String query) {
+      emit(ExamQuestionsLoading());
+      if (query.isEmpty) {
+        examquestionsData = ExamQuestionModel(data: allExams);
+        emit(ExamQuestionsSuccess());
+        return;
+      } else {
+        List<DataQuestions> filteredExams = allExams!
+            .where((exam) =>
+                exam.title!.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+        examquestionsData = ExamQuestionModel(data: filteredExams);
+        emit(ExamQuestionsSuccess());
+      }
     }
   }
 }

@@ -14,7 +14,6 @@ class TitleVideoDetailas extends StatefulWidget {
     required this.value,
     required this.isDownloading,
     required this.progress,
-    required this.onDownload,
     required this.extension,
     required this.isfillexit,
   });
@@ -26,10 +25,6 @@ class TitleVideoDetailas extends StatefulWidget {
 
   final double progress;
   final String extension;
-  final Function(
-    String,
-    String,
-  ) onDownload;
 
   @override
   State<TitleVideoDetailas> createState() => _TitleVideoDetailasState();

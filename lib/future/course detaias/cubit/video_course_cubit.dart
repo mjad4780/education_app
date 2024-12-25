@@ -13,7 +13,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   late VideoPlayerController videoController;
   ChewieController? chewieController;
   final RepoVideo _repoVideo;
-  bool rebuildCourse = true;
+  int rebuildCourse = 0;
   String? fillpath;
 
   double progressdouble = 0.0;
@@ -87,9 +87,8 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
     }
   }
 
-  watchcourse(bool value) {
-    rebuildCourse = value;
-    emit(WatchRebuild());
+  watchcourse(int value) {
+    emit(WatchRebuild(rebuildCourse = value));
   }
 
   String fileTypes(String url) {

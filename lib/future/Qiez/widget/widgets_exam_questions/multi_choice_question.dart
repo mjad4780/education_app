@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../constants.dart';
+import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
-import '../bloc/cubit.dart';
 
 class MultiChoice extends StatelessWidget {
   final DataQuestions? model;
@@ -37,10 +37,10 @@ class MultiChoice extends StatelessWidget {
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
                     activeColor: mainColor,
-                    value:
-                        cc(context, questionIndex, model?.options?[index].key),
+                    value: isvalue(
+                        context, questionIndex, model?.options?[index].key),
                     onChanged: (val) => context
-                        .read<ExamsCubit>()
+                        .read<ExamCubit>()
                         .updateMultiOption(
                             questionIndex, model?.options?[index].key ?? ''),
                   ),
@@ -58,9 +58,8 @@ class MultiChoice extends StatelessWidget {
   }
 }
 
-bool cc(BuildContext context, int questionIndex, String? key) {
+bool isvalue(BuildContext context, int questionIndex, String? key) {
   String selectedOptions =
-      context.read<ExamsCubit>().selectedOptionsForQuestion(questionIndex) ??
-          '';
+      context.read<ExamCubit>().selectedOptionsForQuestion(questionIndex) ?? '';
   return selectedOptions.contains(key ?? '');
 }
