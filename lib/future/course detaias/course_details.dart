@@ -17,7 +17,7 @@ class CourseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VideoCourseCubit>(),
+      create: (context) => getIt<VideoCourseCubit>()..decodeResponsePdf(),
       child: Scaffold(
         body: Stack(
           children: [

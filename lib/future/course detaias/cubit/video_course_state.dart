@@ -48,3 +48,24 @@ final class DoneDownload extends VideoCourseState {
 
   DoneDownload(this.filexit);
 }
+
+///////pdf
+///
+final class PlayPdfLoading extends VideoCourseState {}
+
+final class PlayPdfSuccess extends VideoCourseState {
+  final (String, String?) successString;
+
+  PlayPdfSuccess({required this.successString});
+}
+
+final class PlayPdfFailure extends VideoCourseState {
+  final String message;
+  PlayPdfFailure({required this.message});
+}
+
+final class ProgressPdf extends VideoCourseState {
+  final double progress;
+
+  ProgressPdf(this.progress);
+}

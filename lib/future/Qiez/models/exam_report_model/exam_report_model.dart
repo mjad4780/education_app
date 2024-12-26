@@ -194,6 +194,52 @@ class Answers {
   }
 }
 
+List<ExamReport> examReportsList = List.generate(10, (index) {
+  return ExamReport(
+    data: Data(
+      id: index + 1,
+      score: 80,
+      success: 1,
+      message: 'تم اجتياز الامتحان بنجاح',
+      minScore: 50,
+      startDate: '2024-12-01',
+      endDate: '2024-12-10',
+      totalTime: 120,
+      correctAnswersCount: 8,
+      questions: List.generate(5, (i) {
+        return Questions(
+          id: i + 1,
+          title: 'سؤال رقم ${i + 1}',
+          multiple: 1,
+          options: List.generate(4, (j) {
+            return Options(
+              key: 'option$j',
+              title: 'اختيار $j',
+              titleAr: 'Option $j',
+              isCorrect: j == 0 ? 1 : 0, // الخيار الأول صحيح
+              isSelected: 0,
+              attachment: null,
+            );
+          }),
+          answers: List.generate(1, (k) {
+            return Answers(
+              index: 0,
+              key: 'option0',
+              answer: 'الإجابة الصحيحة هي الاختيار 0',
+              answerAr: 'The correct answer is option 0',
+            );
+          }),
+        );
+      }),
+      title: 'تقرير الامتحان رقم ${index + 1}',
+    ),
+    statusCode: 200,
+    meta: null,
+  );
+});
+
+// طباعة بعض البيانات للتأكد
+
 // تعبئة بيانات وهمية
 List<ExamReport> examReports = [
   ExamReport(
@@ -294,4 +340,4 @@ List<ExamReport> examReports = [
   ),
 ];
 
-  // عرض البيانات
+// عرض البيانات

@@ -209,6 +209,47 @@ class Answers {
   }
 }
 
+//
+List<ExamQuestionModel> examQuestionsList = List.generate(10, (index) {
+  return ExamQuestionModel(
+    data: List.generate(10, (i) {
+      return DataQuestions(
+        id: i + 1,
+        title: 'سؤال رقم ${i + 1}',
+        titleAr: 'Question number ${i + 1}',
+        type: 'multiple_choice',
+        illistraton: Illistraton(text: 'شرح السؤال $i'),
+        attachment:
+            Attachment(type: 'image', url: 'http://example.com/attachment$i'),
+        multiple: 1,
+        options: List.generate(4, (j) {
+          return Options(
+            key: 'option$j',
+            title: 'اختيار $j',
+            titleAr: 'Option $j',
+            isCorrect: j == 0 ? 1 : 0, // فرضًا الخيار الأول هو الصحيح
+            isSelected: 0,
+            attachment: null,
+          );
+        }),
+        answeredCorrect: null,
+        isFlagged: null,
+        studentAnswer: null,
+        answers: List.generate(1, (k) {
+          return Answers(
+            index: 0,
+            key: 'option0',
+            answer: 'الإجابة الصحيحة هي الاختيار 0',
+            answerAr: 'The correct answer is option 0',
+          );
+        }),
+      );
+    }),
+    statusCode: 200,
+    meta: null,
+  );
+});
+
 List<ExamQuestionModel> fakeData = [
   ExamQuestionModel(
     data: [

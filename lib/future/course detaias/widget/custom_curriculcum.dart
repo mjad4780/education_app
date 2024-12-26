@@ -73,9 +73,6 @@ class CustomCurriculum extends StatelessWidget {
                             .isFileDownloading(value.name),
                         progress:
                             context.read<VideoCourseCubit>().progressdouble,
-                        extension: context
-                            .read<VideoCourseCubit>()
-                            .fileTypes(value.uri),
                       );
                     }).toList(),
                   );

@@ -1,4 +1,3 @@
-import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class TitleVideoDetailas extends StatefulWidget {
     required this.value,
     required this.isDownloading,
     required this.progress,
-    required this.extension,
     required this.isfillexit,
   });
 
@@ -24,7 +22,6 @@ class TitleVideoDetailas extends StatefulWidget {
   final bool isfillexit;
 
   final double progress;
-  final String extension;
 
   @override
   State<TitleVideoDetailas> createState() => _TitleVideoDetailasState();
@@ -53,29 +50,22 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
     return Column(
       children: [
         GestureDetector(
-          onTap: widget.extension == 'pdf'
+          onTap: fileExists.value
               ? () {
-                  log('Opening PDF');
-
-                  context.pushName(StringRoute.pdfViewerScreen,
-                      arguments: filePaths.value);
+                  log('local');
+                  context
+                      .read<VideoCourseCubit>()
+                      .initializeVideo(filePaths.value);
+                  log('Playing video from local file');
                 }
-              : fileExists.value
-                  ? () {
-                      log('local');
-                      context
-                          .read<VideoCourseCubit>()
-                          .initializeVideo(filePaths.value);
-                      log('Playing video from local file');
-                    }
-                  : () {
-                      log('server');
+              : () {
+                  log('server');
 
-                      context
-                          .read<VideoCourseCubit>()
-                          .initializeVideo(widget.value.uri, isAsset: false);
-                      log('Playing video from network');
-                    },
+                  context
+                      .read<VideoCourseCubit>()
+                      .initializeVideo(widget.value.uri, isAsset: false);
+                  log('Playing video from network');
+                },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -171,17 +161,11 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                                           .read<VideoCourseCubit>()
                                           .fillgStatus[widget.value.name] ??
                                       fileExistsValue
-                                  ? widget.extension == 'pdf'
-                                      ? const Icon(
-                                          Icons.insert_drive_file,
-                                          color: Color(0xFF0961F5),
-                                          size: 30,
-                                        )
-                                      : const Icon(
-                                          Icons.play_circle_fill,
-                                          color: Color(0xFF0961F5),
-                                          size: 30,
-                                        )
+                                  ? const Icon(
+                                      Icons.play_circle_fill,
+                                      color: Color(0xFF0961F5),
+                                      size: 30,
+                                    )
                                   : const Icon(
                                       Icons.download,
                                       size: 30,

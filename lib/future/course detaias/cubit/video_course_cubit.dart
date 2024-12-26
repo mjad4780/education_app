@@ -6,6 +6,8 @@ import 'package:path/path.dart' as p;
 import 'package:education/future/course%20detaias/data/repo/repo_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+
+import '../data/models/response_pdf/response_pdf.dart';
 part 'video_course_state.dart';
 
 class VideoCourseCubit extends Cubit<VideoCourseState> {
@@ -29,6 +31,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   bool isFileDownloading(String fileName) =>
       downloadingStatus[fileName] ?? false;
   bool isfillgStatus(String fileName) => fillgStatus[fileName] ?? false;
+
   Future<void> play(
     String url,
     String fileName,
@@ -106,5 +109,60 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       log("Error determining file type: ${e.toString()}");
       return 'unknown';
     }
+  }
+
+  List<ResponsePdf> responsepdf = [];
+
+  List<ResponsePdf> decodeResponsePdf() {
+    for (var element in pdfData) {
+      ResponsePdf pdf = ResponsePdf.fromJson(element);
+      responsepdf.add(pdf);
+    }
+    return responsepdf;
+  }
+
+/////play pdf
+  final Map<String, bool> downloadingStatuspdf = {};
+  final Map<String, bool> fillgStatuspdf = {};
+
+  final Map<String, double> progressStatuspdf = {};
+
+  double getProgresspdf(String fileName) => progressStatuspdf[fileName] ?? 0.0;
+  bool isFileDownloadingpdf(String fileName) =>
+      downloadingStatuspdf[fileName] ?? false;
+  bool isfillgStatuspdf(String fileName) => fillgStatuspdf[fileName] ?? false;
+  double progressdoublepdf = 0.0;
+  String? fillpathpdf;
+
+  Future<void> playpdf(
+    String url,
+    String fileName,
+  ) async {
+    downloadingStatuspdf[fileName] = true;
+    progressStatuspdf[fileName] = 0.0;
+    emit(PlayPdfLoading());
+    final result = await _repoVideo.play(url, fileName, (received, total) {
+      if (total > 0) {
+        progressStatuspdf[fileName] = received / total;
+        emit(ProgressPdf(progressStatuspdf[fileName]!));
+      }
+    });
+    result.fold((failure) {
+      downloadingStatuspdf[fileName] = false;
+
+      emit(
+        PlayPdfFailure(message: failure.message),
+      );
+    }, (success) {
+      fillgStatuspdf[fileName] = true;
+
+      downloadingStatuspdf[fileName] = false;
+
+      fillpathpdf = success.$2;
+
+      emit(
+        PlayPdfSuccess(successString: success),
+      );
+    });
   }
 }
