@@ -10,9 +10,6 @@ class AnswersCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var correctAnswers =
-        context.read<ExamCubit>().examReport!.data!.correctAnswersCount ?? 0;
-
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 24, end: 24),
       child: Row(
@@ -73,7 +70,7 @@ class AnswersCards extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 17),
                     child: Text(
-                      "${context.read<ExamCubit>().examReport!.data!.correctAnswersCount ?? 0}",
+                      "${context.read<ExamCubit>().correctAnswersCount}",
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w600),
                     ),
@@ -154,7 +151,7 @@ class AnswersCards extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, top: 17),
                     child: Text(
-                      "${questionNumbers - correctAnswers}",
+                      "${questionNumbers - context.read<ExamCubit>().correctAnswersCount}",
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w600),
                     ),

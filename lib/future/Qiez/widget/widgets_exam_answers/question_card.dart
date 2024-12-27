@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import '../../models/exam_report_model/exam_report_model.dart';
-import 'multi_choice.dart';
 import 'single_choice.dart';
 
 class QuestionCard extends StatelessWidget {
@@ -42,9 +41,10 @@ class QuestionCard extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        model?.multiple != 0
-            ? SingleChoice(model: model)
-            : MultiChoice(model: model),
+        // model?.multiple != 0
+        // ?
+        SingleChoice(model: model)
+        // : MultiChoice(model: model),
       ],
     );
   }

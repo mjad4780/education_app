@@ -194,150 +194,216 @@ class Answers {
   }
 }
 
-List<ExamReport> examReportsList = List.generate(10, (index) {
-  return ExamReport(
-    data: Data(
-      id: index + 1,
-      score: 80,
-      success: 1,
-      message: 'تم اجتياز الامتحان بنجاح',
-      minScore: 50,
-      startDate: '2024-12-01',
-      endDate: '2024-12-10',
-      totalTime: 120,
-      correctAnswersCount: 8,
-      questions: List.generate(5, (i) {
-        return Questions(
-          id: i + 1,
-          title: 'سؤال رقم ${i + 1}',
-          multiple: 1,
-          options: List.generate(4, (j) {
-            return Options(
-              key: 'option$j',
-              title: 'اختيار $j',
-              titleAr: 'Option $j',
-              isCorrect: j == 0 ? 1 : 0, // الخيار الأول صحيح
+ExamReport examReports = ExamReport(
+  data: Data(
+    id: 1,
+    score: 80,
+    success: 1,
+    message: "Exam completed successfully.",
+    minScore: 50,
+    startDate: "2024-12-25T10:00:00",
+    endDate: "2024-12-25T11:00:00",
+    totalTime: 60,
+    correctAnswersCount: 4,
+    questions: [
+      Questions(
+        id: 1,
+        title: "What is the capital of France?",
+        options: [
+          Options(
+              key: "A",
+              title: "Paris",
+              titleAr: "باريس",
+              isCorrect: 1,
+              isSelected: 1,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Berlin",
+              titleAr: "برلين",
+              isCorrect: 0,
               isSelected: 0,
-              attachment: null,
-            );
-          }),
-          answers: List.generate(1, (k) {
-            return Answers(
-              index: 0,
-              key: 'option0',
-              answer: 'الإجابة الصحيحة هي الاختيار 0',
-              answerAr: 'The correct answer is option 0',
-            );
-          }),
-        );
-      }),
-      title: 'تقرير الامتحان رقم ${index + 1}',
-    ),
-    statusCode: 200,
-    meta: null,
-  );
-});
-
-// طباعة بعض البيانات للتأكد
-
-// تعبئة بيانات وهمية
-List<ExamReport> examReports = [
-  ExamReport(
-    data: Data(
-      id: 1,
-      title: "Math Exam Report",
-      score: 85,
-      success: 1,
-      message: "You passed the exam successfully.",
-      minScore: 50,
-      startDate: "2024-12-01T10:00:00Z",
-      endDate: "2024-12-01T11:30:00Z",
-      totalTime: 90,
-      correctAnswersCount: 17,
-      questions: [
-        Questions(
-          id: 101,
-          title: "What is 2 + 2?",
-          multiple: 0,
-          options: [
-            Options(
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Madrid",
+              titleAr: "مدريد",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Rome",
+              titleAr: "روما",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 0, key: "A", answer: "Paris", answerAr: "باريس"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 2,
+        title: "What is 2 + 2?",
+        options: [
+          Options(
               key: "A",
               title: "3",
-              titleAr: "٣",
+              titleAr: "3",
               isCorrect: 0,
-              isSelected: 1,
-              attachment: null,
-            ),
-            Options(
+              isSelected: 0,
+              attachment: null),
+          Options(
               key: "B",
               title: "4",
-              titleAr: "٤",
+              titleAr: "4",
               isCorrect: 1,
               isSelected: 0,
-              attachment: null,
-            ),
-            Options(
-              key: "c",
-              title: "6",
-              titleAr: "٤",
+              attachment: null),
+          Options(
+              key: "C",
+              title: "5",
+              titleAr: "5",
               isCorrect: 0,
               isSelected: 0,
-              attachment: null,
-            ),
-            Options(
-              key: "d",
+              attachment: null),
+          Options(
+              key: "D",
               title: "6",
-              titleAr: "٤",
+              titleAr: "6",
               isCorrect: 0,
               isSelected: 0,
-              attachment: null,
-            ),
-          ],
-          answers: [
-            Answers(
-              index: 0,
-              key: "B",
-              answer: "4",
-              answerAr: "٤",
-            ),
-          ],
-        ),
-        Questions(
-          id: 102,
-          title: "What is 5 * 3?",
-          multiple: 0,
-          options: [
-            Options(
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 1, key: "B", answer: "4", answerAr: "4"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 3,
+        title: "Which planet is known as the Red Planet?",
+        options: [
+          Options(
               key: "A",
-              title: "15",
-              titleAr: "١٥",
+              title: "Mars",
+              titleAr: "المريخ",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Venus",
+              titleAr: "الزهرة",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Earth",
+              titleAr: "الأرض",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Jupiter",
+              titleAr: "المشتري",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 0, key: "A", answer: "Mars", answerAr: "المريخ"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 4,
+        title: "What is the largest ocean on Earth?",
+        options: [
+          Options(
+              key: "A",
+              title: "Atlantic Ocean",
+              titleAr: "المحيط الأطلسي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Indian Ocean",
+              titleAr: "المحيط الهندي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Pacific Ocean",
+              titleAr: "المحيط الهادئ",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Arctic Ocean",
+              titleAr: "المحيط القطبي الشمالي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(
+              index: 2,
+              key: "C",
+              answer: "Pacific Ocean",
+              answerAr: "المحيط الهادئ"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 5,
+        title: "Who wrote 'Romeo and Juliet'?",
+        options: [
+          Options(
+              key: "A",
+              title: "Shakespeare",
+              titleAr: "شكسبير",
               isCorrect: 1,
               isSelected: 1,
-              attachment: null,
-            ),
-            Options(
+              attachment: null),
+          Options(
               key: "B",
-              title: "10",
-              titleAr: "١٠",
+              title: "Dickens",
+              titleAr: "ديكنز",
               isCorrect: 0,
               isSelected: 0,
-              attachment: null,
-            ),
-          ],
-          answers: [
-            Answers(
-              index: 0,
-              key: "A",
-              answer: "15",
-              answerAr: "١٥",
-            ),
-          ],
-        ),
-      ],
-    ),
-    statusCode: 200,
-    meta: null,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Hemingway",
+              titleAr: "همينغواي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Austen",
+              titleAr: "أوستن",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(
+              index: 0, key: "A", answer: "Shakespeare", answerAr: "شكسبير"),
+        ],
+        multiple: 0,
+      ),
+    ],
+    title: "Sample Exam",
   ),
-];
-
-// عرض البيانات
+  statusCode: 200,
+  meta: null,
+);

@@ -10,7 +10,7 @@ class SingleChoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
         children: List.generate(model!.options!.length, (index) {
-      return model?.options?[index].isCorrect != 0
+      return model!.options![index].isCorrect != 0
           ? Column(
               children: [
                 Container(
@@ -54,8 +54,8 @@ class SingleChoice extends StatelessWidget {
                 )
               ],
             )
-          : model?.options?[index].isCorrect == 0 &&
-                  model?.options?[index].isSelected == 1
+          : model!.options![index].isCorrect == 0 &&
+                  model!.options![index].isSelected == 1
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 6),
                   child: Column(

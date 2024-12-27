@@ -4,9 +4,12 @@ import '../constants.dart';
 
 class ReportHeader extends StatefulWidget {
   final int score;
-  final String message;
+  // final String message;
 
-  const ReportHeader({super.key, required this.score, required this.message});
+  const ReportHeader({
+    super.key,
+    required this.score,
+  });
 
   @override
   State<ReportHeader> createState() => _ReportHeaderState();
@@ -82,14 +85,14 @@ class _ReportHeaderState extends State<ReportHeader> {
                   const SizedBox(
                     height: 4,
                   ),
-                  Text(
-                    widget.message,
-                    style: TextStyle(
-                      color: description,
-                    ),
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                  )
+                  // Text(
+                  //   widget.message,
+                  //   style: TextStyle(
+                  //     color: description,
+                  //   ),
+                  //   maxLines: 4,
+                  //   overflow: TextOverflow.ellipsis,
+                  // )
                 ],
               ),
             )

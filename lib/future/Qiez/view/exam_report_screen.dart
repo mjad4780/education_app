@@ -21,112 +21,71 @@ class ExamReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
         value: examCubit,
-        child: BlocConsumer<ExamCubit, ExamState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            // var cubit = ExamReportCubit.get(context);
-            return Scaffold(
-              appBar: appBarCustom(
-                pageName: "Exam Report",
-                context: context,
-              ),
-              floatingActionButton: SizedBox(
-                width: 150,
-                child: FloatingActionButton(
-                  backgroundColor: mainColor,
-                  onPressed: () {
-                    context.pushName(StringRoute.examAnswers,
-                        arguments: examCubit);
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      (FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "Exam Report",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: Colors.white,
+        child: Scaffold(
+            appBar: appBarCustom(
+              pageName: "Exam Report",
+              context: context,
+            ),
+            floatingActionButton: SizedBox(
+              width: 150,
+              child: FloatingActionButton(
+                backgroundColor: mainColor,
+                onPressed: () {
+                  // context.read<ExamCubit>().ioo();
+
+                  context.pushName(StringRoute.examAnswers,
+                      arguments: examCubit);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    (FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "Exam Report",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                    ],
-                  ),
+                    )),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ),
-              body: context.read<ExamCubit>().examReport != null
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ReportHeader(
-                            score: context
-                                    .read<ExamCubit>()
-                                    .examReport!
-                                    .data!
-                                    .score ??
-                                0,
-                            message: context
-                                    .read<ExamCubit>()
-                                    .examReport!
-                                    .data!
-                                    .message ??
-                                '',
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Text(
-                            "Your Score",
-                            style: TextStyle(color: iconColor),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          ScoreCircle(
-                            score: context
-                                    .read<ExamCubit>()
-                                    .examReport!
-                                    .data!
-                                    .score ??
-                                0,
-                            questionNumbers: context
-                                    .read<ExamCubit>()
-                                    .examReport
-                                    ?.data
-                                    ?.questions
-                                    ?.length ??
-                                0,
-                            iscorrect: context
-                                    .read<ExamCubit>()
-                                    .examReport!
-                                    .data!
-                                    .correctAnswersCount ??
-                                0,
-                          ),
-                          AnswersCards(
-                            questionNumbers: context
-                                    .read<ExamCubit>()
-                                    .examReport
-                                    ?.data
-                                    ?.questions
-                                    ?.length ??
-                                0,
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(
-                        color: mainColor,
-                      ),
+            ),
+            body: SingleChildScrollView(
+              child: Builder(builder: (context) {
+                return Column(
+                  children: [
+                    ReportHeader(
+                      score: context.read<ExamCubit>().score,
                     ),
-            );
-          },
-        ));
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      "Your Score",
+                      style: TextStyle(color: iconColor),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    ScoreCircle(
+                        score: context.read<ExamCubit>().score,
+                        questionNumbers:
+                            context.read<ExamCubit>().answersData.length,
+                        iscorrect:
+                            context.read<ExamCubit>().correctAnswersCount),
+                    AnswersCards(
+                        questionNumbers:
+                            context.read<ExamCubit>().answersData.length),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                );
+              }),
+            )));
   }
 }

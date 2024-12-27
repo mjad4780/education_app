@@ -72,7 +72,7 @@ class PageViewWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              examquestionsData.data?[index].multiple == 0
+              examquestionsData.data?[index].multiple != 0
                   ? MultiChoice(
                       model: examquestionsData.data?[index],
                       questionIndex: examquestionsData.data?[index].id ?? 0,

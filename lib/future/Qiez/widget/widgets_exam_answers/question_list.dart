@@ -13,19 +13,16 @@ class QuestionList extends StatelessWidget {
     return SizedBox(
       height: height(context) * 0.9,
       child: ListView.separated(
-          itemBuilder: (context, index) => QuestionCard(
-                model: context
-                    .read<ExamCubit>()
-                    .examReport!
-                    .data
-                    ?.questions?[index],
-                index: index,
-              ),
+          itemBuilder: (context, index) {
+            return QuestionCard(
+              model: context.read<ExamCubit>().answersData[index],
+              index: index,
+            );
+          },
           separatorBuilder: (context, index) => const SizedBox(
                 height: 5,
               ),
-          itemCount:
-              context.read<ExamCubit>().examReport!.data!.questions!.length),
+          itemCount: context.read<ExamCubit>().answersData.length),
     );
   }
 }

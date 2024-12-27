@@ -6,11 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/Router/route_string.dart';
 import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
+import '../../models/exam_report_model/exam_report_model.dart';
 
 class ExamButtons extends StatelessWidget {
   final PageController questionsController;
 
   final ExamQuestionModel examquestionsData;
+  final int questionIndex;
 
   final String idString;
 
@@ -18,7 +20,8 @@ class ExamButtons extends StatelessWidget {
       {super.key,
       required this.questionsController,
       required this.examquestionsData,
-      required this.idString});
+      required this.idString,
+      required this.questionIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +74,22 @@ class ExamButtons extends StatelessWidget {
                 context.read<ExamCubit>().currentIndex !=
                     (examquestionsData.data?.length ?? 0) - 1) {
               // Navigate to the next page
-              questionsController.nextPage(
-                duration: const Duration(milliseconds: 750),
-                curve: Curves.fastOutSlowIn,
-              );
+
+              if (context.read<ExamCubit>().selectedOption == null) {
+                // عرض رسالة خطأ
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('يجب اختيار إجابة للسؤال'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else {
+                context.read<ExamCubit>().selectedOption = null;
+                questionsController.nextPage(
+                  duration: const Duration(milliseconds: 750),
+                  curve: Curves.fastOutSlowIn,
+                );
+              }
             } else {
               // Submit answers and navigate to the ExamReportScreen
               ScaffoldMessenger.of(context).showSnackBar(
@@ -85,17 +100,11 @@ class ExamButtons extends StatelessWidget {
               context.read<ExamCubit>().submitStudentAnswers(
                     idString,
                     context.read<ExamCubit>().selectedOptions,
-                    // (responseData) {
-                    //   Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => ExamReportScreen(
-                    //         responseData: responseData,
-                    //       ),
-                    //     ),
-                    // );
-                    // },
                   );
+              context
+                  .read<ExamCubit>()
+                  .returnAnswersData(examReports.data!.questions!);
+
               context.pop();
 
               context.pushReplacementNamed(StringRoute.examReportScreen,

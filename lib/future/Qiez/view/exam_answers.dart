@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants.dart';
+import '../models/exam_report_model/exam_report_model.dart';
 import '../widget/widgets_exam_answers/question_list.dart';
 
 class ExamAnswers extends StatelessWidget {
@@ -23,7 +24,7 @@ class ExamAnswers extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${context.read<ExamCubit>().examReport?.data?.title}',
+                      '${examReports.data?.title}',
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 20,

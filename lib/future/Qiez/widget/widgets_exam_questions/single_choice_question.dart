@@ -14,37 +14,53 @@ class SingleChoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height(context) / 2.7,
-      child: ListView.separated(
-        itemBuilder: (context, index) => Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 1,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              itemBuilder: (context, index) => Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    ),
+                    child: BlocBuilder<ExamCubit, ExamState>(
+                      buildWhen: (previous, current) =>
+                          current is ExamQuestionOptionSelected,
+                      builder: (context, state) {
+                        return RadioListTile(
+                          title: Text(
+                            '${model?.options?[index].title}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
+                          ),
+                          activeColor: const Color(0xff0225FF),
+                          value: '${model?.options?[index].key}',
+                          groupValue: context
+                              .read<ExamCubit>()
+                              .selectedOptionForQuestion(questionIndex),
+                          onChanged: (val) => context
+                              .read<ExamCubit>()
+                              .updateOption(questionIndex, val!),
+                        );
+                      },
+                    ),
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(12))),
-              child: RadioListTile(
-                title: Text(
-                  '${model?.options?[index].title}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w400, fontSize: 14),
-                ),
-                activeColor: const Color(0xff0225FF),
-                value: '${model?.options?[index].key}',
-                groupValue: context
-                    .read<ExamCubit>()
-                    .selectedOptionForQuestion(questionIndex),
-                onChanged: (val) =>
-                    context.read<ExamCubit>().updateOption(questionIndex, val!),
+                ],
               ),
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 8,
+              ),
+              itemCount: model?.options?.length ?? 0,
             ),
-          ],
-        ),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 8,
-        ),
-        itemCount: model?.options?.length ?? 0,
+          ),
+        ],
       ),
     );
   }

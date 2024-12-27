@@ -43,10 +43,10 @@ class TimerExam extends StatelessWidget {
         Countdown(
           controller: context.read<ExamCubit>().controller,
           onFinished: () {
-            context.read<ExamCubit>().submitStudentAnswers(
-                  idString.toString(),
-                  context.read<ExamCubit>().selectedOptions,
-                );
+            // context.read<ExamCubit>().submitStudentAnswers(
+            //       idString.toString(),
+            //       context.read<ExamCubit>().selectedOptions,
+            //     );
             context.pop();
 
             context.pushReplacementNamed(StringRoute.examReportScreen,
