@@ -19,6 +19,7 @@ import '../../future/course detaias/course_details.dart';
 import '../../future/course detaias/widget/pdf_view.dart';
 import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
+import '../../future/home/ui/search_screen.dart';
 import '../../future/main/screan_main.dart';
 import '../../future/mentor detalais/mentor_detalias.dart';
 import '../../future/profile/ui/screen_edit_profile.dart';
@@ -71,7 +72,7 @@ class AppRoutes {
       case StringRoute.poluparScrean:
         return BaseRoute(
           page: PoluparScrean(
-            index: args as int,
+            maps: args as Map<String, dynamic>,
           ),
         );
       case StringRoute.mentorScreen:
@@ -118,6 +119,8 @@ class AppRoutes {
         return BaseRoute(
           page: ExamReportScreen(examCubit: args as ExamCubit),
         );
+      case StringRoute.searchScreen:
+        return BaseRoute(page: const SearchScreen());
 
       case StringRoute.screenEditProfile:
         return BaseRoute(

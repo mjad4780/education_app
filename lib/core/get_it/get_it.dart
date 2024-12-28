@@ -5,6 +5,7 @@ import 'package:education/app/education_cubit/education_cubit.dart';
 import 'package:education/future/Qiez/cubit/exam_cubit.dart';
 import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -73,4 +74,7 @@ void setupServise() {
       () => CountdownController(autoStart: true));
 
   getIt.registerFactory<ExamCubit>(() => ExamCubit(getIt()));
+
+  ///home
+  getIt.registerFactory<HomeCubit>(() => HomeCubit());
 }

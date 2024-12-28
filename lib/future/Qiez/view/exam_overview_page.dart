@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
 import '../../../widget/app_text_button.dart';
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 
 import '../widget/custom_details_card.dart';
 

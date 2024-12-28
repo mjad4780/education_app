@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 
 // ignore: must_be_immutable
 class CustomDetailsCard extends StatelessWidget {

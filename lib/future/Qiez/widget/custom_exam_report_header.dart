@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 
 class ReportHeader extends StatefulWidget {
   final int score;

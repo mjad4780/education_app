@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 
 class ScoreCircle extends StatelessWidget {
   final int score;

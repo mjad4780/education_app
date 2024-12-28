@@ -4,7 +4,7 @@ import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 import '../cubit/exam_cubit.dart';
 import '../models/exam_overview_model/examOverViewModel.dart';
 

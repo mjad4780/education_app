@@ -1,4 +1,7 @@
+import 'package:education/core/get_it/get_it.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widget/categories_course.dart';
 import '../widget/custom_polupar_course.dart';
 import '../widget/custom_widget_course.dart';
@@ -13,9 +16,9 @@ class HomeScrean extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
+    return BlocProvider(
+      create: (context) => getIt<HomeCubit>(),
+      child: const SingleChildScrollView(
         child: Column(
           children: [
             HeadingApp(),
@@ -28,6 +31,6 @@ class HomeScrean extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }

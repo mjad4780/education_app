@@ -1,7 +1,7 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../../../core/style/color_pacgkege_exams.dart';
 
 PreferredSizeWidget appBarCustom({
   required String pageName,

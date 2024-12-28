@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
+import '../../../../core/style/color_pacgkege_exams.dart';
 import '../../models/exam_report_model/exam_report_model.dart';
 import 'single_choice.dart';
 
