@@ -8,6 +8,7 @@ import '../../core/helpers/spacing.dart';
 import '../../core/language/lang_keys.dart';
 import 'widget/card_chats.dart';
 import 'widget/custom_buttom_chats.dart';
+import 'widget/custom_widget_calls.dart';
 
 class ScreanChats extends StatelessWidget {
   const ScreanChats({super.key});
@@ -34,13 +35,38 @@ class ScreanChats extends StatelessWidget {
               horizontalSpace(13)
             ],
           ),
-          verticalSpace(13),
-          const CustomButtomChats(),
-          verticalSpace(13),
-          const CardChats()
-          // const CustomWidgetCalls()
+          const BodyChatsAndCalls()
         ],
       ),
     );
+  }
+}
+
+class BodyChatsAndCalls extends StatefulWidget {
+  const BodyChatsAndCalls({super.key});
+
+  @override
+  State<BodyChatsAndCalls> createState() => _BodyChatsAndCallsState();
+}
+
+ValueNotifier<bool> fileExists = ValueNotifier(false);
+
+class _BodyChatsAndCallsState extends State<BodyChatsAndCalls> {
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+        valueListenable: fileExists,
+        builder: (context, fileExistsValue, child) {
+          return Column(
+            children: [
+              verticalSpace(13),
+              CustomButtomChats(
+                fileExists: fileExists,
+              ),
+              verticalSpace(13),
+              fileExistsValue ? const CardChats() : const CustomWidgetCalls()
+            ],
+          );
+        });
   }
 }

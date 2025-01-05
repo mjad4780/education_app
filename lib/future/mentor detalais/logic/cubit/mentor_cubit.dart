@@ -8,7 +8,6 @@ class MentorCubit extends Cubit<MentorState> {
   bool rebuildCourse = true;
 
   watchcourse(bool value) {
-    rebuildCourse = value;
-    emit(WatchRebuild());
+    emit(WatchRebuild(rebuildCourse = value));
   }
 }

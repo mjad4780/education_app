@@ -1,6 +1,6 @@
 import 'package:education/future/chats/screan_chats.dart';
 import 'package:education/future/courses/screan_course.dart';
-import 'package:education/future/profile/screan_profile.dart';
+import 'package:education/future/profile/ui/screan_profile.dart';
 import 'package:education/future/transaction/screan_transaction.dart';
 import 'package:flutter/material.dart';
 

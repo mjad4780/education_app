@@ -2,9 +2,12 @@
 
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/core/packege%20payment/cubit/paymop_cubit.dart';
+import 'package:education/core/packege%20payment/services/dio_helper.dart';
 import 'package:education/future/Qiez/cubit/exam_cubit.dart';
 import 'package:education/future/auth/login/logic/cubit/login_cubit.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
+import 'package:education/future/courses/cubit/my_course_cubit.dart';
 import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
@@ -22,6 +25,7 @@ import '../../future/auth/sign up/logic/cubit/sign_up_cubit.dart';
 import '../../future/course detaias/data/repo/repo_video.dart';
 import '../../key.dart';
 import '../helpers/cache_helper.dart';
+import '../packege payment/data/repo.dart';
 import '../service/auth/auth_servieces.dart';
 import '../service/auth/supabase_services_impl.dart';
 import '../service/dio/dio_factory.dart';
@@ -77,4 +81,12 @@ void setupServise() {
 
   ///home
   getIt.registerFactory<HomeCubit>(() => HomeCubit());
+
+  ///MyCourse
+  getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit());
+
+  //paymop
+  getIt.registerLazySingleton<DioHelper>(() => DioHelper(dio));
+  getIt.registerLazySingleton<RepoPaymop>(() => RepoPaymop(getIt()));
+  getIt.registerFactory<PaymopCubit>(() => PaymopCubit(getIt()));
 }

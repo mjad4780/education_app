@@ -3,9 +3,9 @@ import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/helpers/spacing.dart';
-import '../../core/language/lang_keys.dart';
-import 'widget/card_profile.dart';
+import '../../../core/helpers/spacing.dart';
+import '../../../core/language/lang_keys.dart';
+import '../widget/card_profile.dart';
 
 class ScreanProfile extends StatelessWidget {
   const ScreanProfile({super.key});

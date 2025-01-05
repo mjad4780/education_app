@@ -13,58 +13,65 @@ class ActionTabsMentor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              context.read<MentorCubit>().watchcourse(false);
-            },
-            child: Container(
-              height: height(context) / 23,
-              decoration: ShapeDecoration(
-                color: context.read<MentorCubit>().rebuildCourse
-                    ? const Color(0xFFF4F8FE)
-                    : const Color(0xFFE8F1FF),
-                shape: const RoundedRectangleBorder(
-                  side: BorderSide(width: 2, color: Color(0xFFE8F1FF)),
+    return BlocSelector<MentorCubit, MentorState, bool>(
+      selector: (state) => state is WatchRebuild
+          ? state.rebuild
+          : context.read<MentorCubit>().rebuildCourse,
+      builder: (context, rebuild) {
+        return Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  context.read<MentorCubit>().watchcourse(false);
+                },
+                child: Container(
+                  height: height(context) / 23,
+                  decoration: ShapeDecoration(
+                    color: rebuild
+                        ? const Color(0xFFF4F8FE)
+                        : const Color(0xFFE8F1FF),
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide(width: 2, color: Color(0xFFE8F1FF)),
+                    ),
+                  ),
+                  child: Text(
+                    context.translate(LangKeys.courses),
+                    textAlign: TextAlign.center,
+                    style: context.textStyle.titleMedium!.copyWith(
+                      color: const Color(0xFF202244),
+                    ),
+                  ),
                 ),
               ),
-              child: Text(
-                context.translate(LangKeys.courses),
-                textAlign: TextAlign.center,
-                style: context.textStyle.titleMedium!.copyWith(
-                  color: const Color(0xFF202244),
+            ),
+            Expanded(
+                child: GestureDetector(
+              onTap: () {
+                context.read<MentorCubit>().watchcourse(true);
+              },
+              child: Container(
+                height: height(context) / 23,
+                decoration: ShapeDecoration(
+                  color: rebuild
+                      ? const Color(0xFFE8F1FF)
+                      : const Color(0xFFF4F8FE),
+                  shape: const RoundedRectangleBorder(
+                    side: BorderSide(width: 2, color: Color(0xFFE8F1FF)),
+                  ),
+                ),
+                child: Text(
+                  context.translate(LangKeys.rating),
+                  textAlign: TextAlign.center,
+                  style: context.textStyle.titleMedium!.copyWith(
+                    color: const Color(0xFF202244),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
-        Expanded(
-            child: GestureDetector(
-          onTap: () {
-            context.read<MentorCubit>().watchcourse(true);
-          },
-          child: Container(
-            height: height(context) / 23,
-            decoration: ShapeDecoration(
-              color: context.read<MentorCubit>().rebuildCourse
-                  ? const Color(0xFFE8F1FF)
-                  : const Color(0xFFF4F8FE),
-              shape: const RoundedRectangleBorder(
-                side: BorderSide(width: 2, color: Color(0xFFE8F1FF)),
-              ),
-            ),
-            child: Text(
-              context.translate(LangKeys.rating),
-              textAlign: TextAlign.center,
-              style: context.textStyle.titleMedium!.copyWith(
-                color: const Color(0xFF202244),
-              ),
-            ),
-          ),
-        )),
-      ],
+            )),
+          ],
+        );
+      },
     );
   }
 }

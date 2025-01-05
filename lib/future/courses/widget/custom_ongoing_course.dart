@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/helpers/spacing.dart';
 import '../../../../utility/images_aseets.dart';
-import 'course_progress_widget.dart';
 
 class CustomOngoingCourse extends StatelessWidget {
   const CustomOngoingCourse({super.key});
@@ -13,7 +12,7 @@ class CustomOngoingCourse extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         width: width(context),
-        height: height(context) / 2,
+        height: height(context) / 1.7,
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) => Padding(
@@ -69,21 +68,24 @@ class CustomOngoingCourse extends StatelessWidget {
                                       color: context.color.orangeBright,
                                       fontWeight: FontWeight.w700,
                                     )),
+                                const Spacer(),
+                                SvgPicture.asset(
+                                  Assets.completed,
+                                  height: 20,
+                                ),
+                                // const Spacer(),
                               ],
                             ),
                           ),
                           const Spacer(),
                           Align(
                             // alignment: Alignment.centerLeft,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text('Graphic Design Advanced',
-                                  // overflow: TextOverflow.fade,
-                                  style:
-                                      context.textStyle.headlineSmall!.copyWith(
-                                    color: context.color.primaryColor,
-                                  )),
-                            ),
+                            child: Text('Graphic Design Advanced',
+                                overflow: TextOverflow.ellipsis,
+                                style:
+                                    context.textStyle.headlineSmall!.copyWith(
+                                  color: context.color.primaryColor,
+                                )),
                           ),
                           const Spacer(),
                           Row(
@@ -116,22 +118,21 @@ class CustomOngoingCourse extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Row(
-                              children: [
-                                const CourseProgressWidget(
-                                  totalVideos: 20,
-                                  completedVideos:
-                                      10, // يمكن تحديث هذا العدد بناءً على الإنجاز
+                          const Spacer(
+                            flex: 1,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text('VIEW CERTIFICATE ',
+                                style: context.textStyle.displayLarge!.copyWith(
+                                  color: context.color.teal,
+                                  fontSize: 12,
+                                  decoration: TextDecoration.underline,
+                                  decorationStyle: TextDecorationStyle.wavy,
+                                )
+
+                                // textDirection: TextDecoration.none,
                                 ),
-                                Text('93/125',
-                                    textAlign: TextAlign.right,
-                                    style: context.textStyle.displayLarge!
-                                        .copyWith(
-                                            color: context.color.primaryColor))
-                              ],
-                            ),
                           ),
                           const Spacer()
                         ],
