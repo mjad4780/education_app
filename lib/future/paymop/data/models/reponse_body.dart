@@ -1,4 +1,4 @@
-import '../payment_data.dart';
+import 'payment_data.dart';
 
 enum PaymentMethod { visa, mobileWallet }
 

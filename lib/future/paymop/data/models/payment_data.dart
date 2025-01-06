@@ -1,5 +1,5 @@
-import 'models/style.dart';
-import 'models/user_data.dart';
+import 'style.dart';
+import 'user_data.dart';
 
 class PaymentData {
   static String _apiKey = "";

@@ -1,18 +1,29 @@
 import 'package:dio/dio.dart';
 
 import '../../success/return_response_service.dart';
-import '../models/reponse_body.dart';
-import '../payment_data.dart';
+import '../../../future/paymop/data/models/reponse_body.dart';
+import '../../../future/paymop/data/models/payment_data.dart';
 
-class DioHelper {
+class ServicePaymop {
   final Dio dio;
+  // Navigator.push(
+  //             context,
+  //             MaterialPageRoute(
+  //               builder: (context) => PaymentView(
 
-  DioHelper(this.dio);
+  //                 onPaymentSuccess: () {
+  //                   log('Sucesssss');
+  //                               },
+  //                 onPaymentError: () {
+  //                   log('failer');
 
-  // Future<Response> postData(
-  //     {required String url, Map<String, dynamic>? data}) async {
-  //   return await dio.post(url, data: data);
-  // }
+  //                 },
+  //                 price: 100, // Required: Total price (e.g., 100 for 100 EGP)
+  //               ),
+  //             ),
+  //           );
+
+  ServicePaymop(this.dio);
 
   Future<ResponseService> getAuthToken(PaymentData body) async {
     try {
@@ -122,3 +133,30 @@ class DioHelper {
     }
   }
 }
+
+
+// Future<void> getOrderRegisrationId() async {
+//     _setLoadingState(isOrderLoading: true);
+//     try {
+//       final response = await DioHelper.postData(
+//         url: '/ecommerce/orders',
+//         data: {
+//           "auth_token": paymentFirstToken,
+//           "delivery_needed": "false",
+//           "amount_cents": (widget.price * 100).toString(),
+//           "currency": "EGP",
+//           "items": [],
+//         },
+//       );
+//       paymentOrderId = response.data['id'].toString();
+
+//       // Proceed to request payment key
+//       await getPaymentRequest();
+
+//       _setSuccessState(isOrderSuccess: true);
+//     } catch (error) {
+//       _setFailureState(isOrderFailure: true);
+//     } finally {
+//       _setLoadingState(isOrderLoading: false);
+//     }
+//   }

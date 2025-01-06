@@ -2,5 +2,5 @@
     "powermode.presets": "flames",
     "powermode.enabled": true,
     "cmake.sourceDirectory": "C:/Users/user/Desktop/education/linux",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

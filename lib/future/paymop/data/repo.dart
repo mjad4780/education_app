@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 
-import '../../error/exceptions.dart';
-import '../../error/failures.dart';
-import '../models/reponse_body.dart';
-import '../payment_data.dart';
-import '../services/dio_helper.dart';
+import '../../../core/error/exceptions.dart';
+import '../../../core/error/failures.dart';
+import 'models/reponse_body.dart';
+import 'models/payment_data.dart';
+import '../../../core/service/paymop/service_paymop.dart';
 
 class RepoPaymop {
-  final DioHelper dioHelper;
+  final ServicePaymop dioHelper;
 
   RepoPaymop(this.dioHelper);
 

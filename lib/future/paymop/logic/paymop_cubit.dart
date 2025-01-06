@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-import 'package:education/core/packege%20payment/data/repo.dart';
+import 'package:education/future/paymop/data/repo.dart';
 import 'package:flutter/material.dart';
 
-import '../models/reponse_body.dart';
-import '../payment_data.dart';
+import '../data/models/reponse_body.dart';
+import '../data/models/payment_data.dart';
 
 part 'paymop_state.dart';
 
@@ -40,7 +38,9 @@ class PaymopCubit extends Cubit<PaymopState> {
     );
   }
 
-  Future<void> getOrderRegistrationId(double price) async {
+  Future<void> getOrderRegistrationId(
+    double price,
+  ) async {
     responseBodys = ResponseBodys(price, paymentFirstToken, paymentData,
         selectedPaymentMethod: selectedPaymentMethod);
     emit(PaymentAuthLoading());
@@ -49,8 +49,8 @@ class PaymopCubit extends Cubit<PaymopState> {
         (failure) => emit(
               PaymentRequestFailure(failure.message),
             ), (success) {
-      log(success);
       finalToken = success;
+
       emit(
         PaymentRequestSuccess(),
       );
@@ -66,7 +66,7 @@ class PaymopCubit extends Cubit<PaymopState> {
         PaymentMobileWalletFailure(failure.message),
       ),
       (success) => emit(
-        PaymentMobileWalletSuccess(),
+        PaymentMobileWalletSuccess(redirectUrl = success),
       ),
     );
   }

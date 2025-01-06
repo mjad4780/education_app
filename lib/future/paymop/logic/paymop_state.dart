@@ -28,7 +28,8 @@ class PaymentRequestFailure extends PaymopState {
 class PaymentMobileWallLoading extends PaymopState {}
 
 class PaymentMobileWalletSuccess extends PaymopState {
-  PaymentMobileWalletSuccess();
+  final String redirectUrl;
+  PaymentMobileWalletSuccess(this.redirectUrl);
 }
 
 class PaymentMobileWalletFailure extends PaymopState {
