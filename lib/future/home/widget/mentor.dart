@@ -1,7 +1,9 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/language/lang_keys.dart';
 
@@ -24,7 +26,12 @@ class CustomMentor extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => context.pushName(StringRoute.mentorScreen),
+                    onTap: () => context.pushName(StringRoute.mentorScreen,
+                        arguments: context
+                            .read<HomeCubit>()
+                            .responseHome!
+                            .platform!
+                            .mentors!),
                     child: Text(context.translate(LangKeys.seeAll),
                         textAlign: TextAlign.right,
                         style: context.textStyle.titleLarge!.copyWith(
@@ -43,48 +50,74 @@ class CustomMentor extends StatelessWidget {
         SizedBox(
             width: double.infinity,
             height: height(context) * 0.19,
-            child: CarouselView(
-                itemSnapping: true,
-                backgroundColor: context.color.greyLight,
-                itemExtent: 120,
-                shrinkExtent: 120,
-                onTap: (value) => context.pushName(StringRoute.mentorDetalias),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4),
-                    topRight: Radius.circular(4),
-                    bottomLeft: Radius.circular(4),
-                    bottomRight: Radius.circular(4),
-                  ),
-                ),
-                children: List.generate(
-                  10,
-                  (int i) => Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          // width: 80,
-                          // height: 70,
-                          decoration: ShapeDecoration(
-                            color: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return CarouselView(
+                    itemSnapping: true,
+                    backgroundColor: context.color.greyLight,
+                    itemExtent: 120,
+                    shrinkExtent: 100,
+                    onTap: (value) => context.pushName(
+                        StringRoute.mentorDetalias,
+                        arguments: context
+                                .read<HomeCubit>()
+                                .responseHome!
+                                .platform!
+                                .mentors?[value] ??
+                            0),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4),
+                        topRight: Radius.circular(4),
+                        bottomLeft: Radius.circular(4),
+                        bottomRight: Radius.circular(4),
+                      ),
+                    ),
+                    children: List.generate(
+                      context
+                          .read<HomeCubit>()
+                          .responseHome!
+                          .platform!
+                          .mentors!
+                          .length,
+                      (int i) => Column(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Container(
+                              // width: 80,
+                              // height: 70,
+                              decoration: ShapeDecoration(
+                                color: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          // const SizedBox(
+                          //   height: 5,
+                          // ),
+                          Expanded(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                  context
+                                      .read<HomeCubit>()
+                                      .responseHome!
+                                      .platform!
+                                      .mentors![i]
+                                      .name!,
+                                  style: context.textStyle.headlineLarge!
+                                      .copyWith(
+                                          color: context.color.primaryColor)),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Expanded(
-                        child: Text('mohamed',
-                            style: context.textStyle.headlineLarge!
-                                .copyWith(color: context.color.primaryColor)),
-                      ),
-                    ],
-                  ),
-                ))),
+                    ));
+              },
+            )),
       ],
     );
   }

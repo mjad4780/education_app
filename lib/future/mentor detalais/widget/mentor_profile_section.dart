@@ -3,9 +3,11 @@ import 'package:education/future/mentor%20detalais/widget/mentor_actions_section
 import 'package:flutter/material.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../home/data/model/response_home/mentor.dart';
 
 class MentorProfileSection extends StatelessWidget {
-  const MentorProfileSection({super.key});
+  const MentorProfileSection({super.key, required this.mentor});
+  final Mentor mentor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class MentorProfileSection extends StatelessWidget {
           ),
           verticalSpace(2),
           Text(
-            'Mary Jones',
+            mentor.name ?? '',
             textAlign: TextAlign.center,
             style: context.textStyle.bodyLarge!.copyWith(
               color: context.color.primaryColor,
@@ -31,7 +33,7 @@ class MentorProfileSection extends StatelessWidget {
           ),
           verticalSpace(2),
           Text(
-            'Graphic Designer At Google',
+            mentor.title ?? '',
             textAlign: TextAlign.center,
             style: context.textStyle.displaySmall!.copyWith(
               color: context.color.greyDark,

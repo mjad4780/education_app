@@ -16,3 +16,9 @@ final class UpdateCurrentIndexPoluapr extends HomeState {
 
   UpdateCurrentIndexPoluapr(this.index);
 }
+
+final class EmitgetDataHome extends HomeState {
+  final ResponseHome responseHome;
+
+  EmitgetDataHome(this.responseHome);
+}

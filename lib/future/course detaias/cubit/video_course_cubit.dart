@@ -1,13 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart' as p;
 
 import 'package:education/future/course%20detaias/data/repo/repo_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
-import '../data/models/response_pdf/response_pdf.dart';
+import '../../../detailas.dart';
+import '../../home/data/model/response_home/course.dart';
 part 'video_course_state.dart';
 
 class VideoCourseCubit extends Cubit<VideoCourseState> {
@@ -94,33 +95,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
     emit(WatchRebuild(rebuildCourse = value));
   }
 
-  String fileTypes(String url) {
-    try {
-      final extension = p.extension(url).toLowerCase();
-
-      if (extension == '.mp4') {
-        return 'video';
-      } else if (extension == '.pdf') {
-        return 'pdf';
-      } else {
-        return 'unsupported $extension';
-      }
-    } catch (e) {
-      log("Error determining file type: ${e.toString()}");
-      return 'unknown';
-    }
-  }
-
-  List<ResponsePdf> responsepdf = [];
-
-  List<ResponsePdf> decodeResponsePdf() {
-    for (var element in pdfData) {
-      ResponsePdf pdf = ResponsePdf.fromJson(element);
-      responsepdf.add(pdf);
-    }
-    return responsepdf;
-  }
-
 /////play pdf
   final Map<String, bool> downloadingStatuspdf = {};
   final Map<String, bool> fillgStatuspdf = {};
@@ -164,5 +138,21 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
         PlayPdfSuccess(successString: success),
       );
     });
+  }
+
+  ///////////////////////////////////////////test model video
+  List<Detailashome> listcourse = [];
+  Course? headCourse;
+  Detailashome? fillterCourse;
+  emitgetcourse(Course course) {
+    headCourse = course;
+    log('fromjson video');
+    for (var element in detailascourse) {
+      listcourse.add(Detailashome.fromJson(element));
+    }
+    fillterCourse = listcourse.firstWhere(
+      (e) => e.detailsId == course.id,
+    );
+    emit(FillterCourse(fillterCourse!));
   }
 }

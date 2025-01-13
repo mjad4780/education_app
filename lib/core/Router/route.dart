@@ -17,6 +17,8 @@ import '../../future/auth/sign up/sign_up.dart';
 import '../../future/chats/widget/screen_detalias_chat.dart';
 import '../../future/course detaias/course_details.dart';
 import '../../future/course detaias/widget/pdf_view.dart';
+import '../../future/home/data/model/response_home/course.dart';
+import '../../future/home/data/model/response_home/mentor.dart';
 import '../../future/home/ui/mentor_screen.dart';
 import '../../future/home/ui/polupar_screan.dart';
 import '../../future/home/ui/search_screen.dart';
@@ -67,7 +69,9 @@ class AppRoutes {
         );
       case StringRoute.courseDetailsScrean:
         return BaseRoute(
-          page: const CourseDetailsScreen(),
+          page: CourseDetailsScreen(
+            course: args as Course,
+          ),
         );
       case StringRoute.poluparScrean:
         return BaseRoute(
@@ -77,12 +81,12 @@ class AppRoutes {
         );
       case StringRoute.mentorScreen:
         return BaseRoute(
-          page: const MentorScreen(),
+          page: MentorScreen(
+            mentors: args as List<Mentor>?,
+          ),
         );
       case StringRoute.mentorDetalias:
-        return BaseRoute(
-          page: const MentorDetails(),
-        );
+        return BaseRoute(page: MentorDetails(mentor: args as Mentor));
       case StringRoute.screenChatsDetalias:
         return BaseRoute(
           page: const ScreenChatsDetalias(),

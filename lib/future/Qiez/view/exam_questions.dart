@@ -12,6 +12,7 @@ import '../widget/widgets_exam_questions/custom_bottom_sheet.dart';
 import '../widget/widgets_exam_questions/custom_question_progress.dart';
 import '../widget/widgets_exam_questions/exam_buttons.dart';
 import '../widget/widgets_exam_questions/page_view_widget.dart';
+import '../widget/widgets_exam_questions/timer_exam.dart';
 
 class ExamQuestionsPage extends StatelessWidget {
   const ExamQuestionsPage(
@@ -57,24 +58,32 @@ class ExamQuestionsPage extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-                    // TimerExam(
-                    //   idString: examCubit.examOverviewData!.data!.id ?? 0,
-                    //   secondsRemaining:
-                    //       examCubit.examquestionsData.data!.length,
-                    // ),
+                    TimerExam(
+                      idString: examCubit.examOverviewData!.data!.id ?? 0,
+                      secondsRemaining:
+                          examCubit.examquestionsData.data!.length,
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
-                    QuestionProgress(
-                      questionNumbers: context
-                          .read<ExamCubit>()
-                          .examquestionsData
-                          .data!
-                          .length,
-                      index: context.read<ExamCubit>().examquestionsData.data ==
-                              null
-                          ? questionIndex!
-                          : context.read<ExamCubit>().currentIndex + 1,
+                    BlocConsumer<ExamCubit, ExamState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        return QuestionProgress(
+                          questionNumbers: context
+                              .read<ExamCubit>()
+                              .examquestionsData
+                              .data!
+                              .length,
+                          index: context
+                                      .read<ExamCubit>()
+                                      .examquestionsData
+                                      .data ==
+                                  null
+                              ? questionIndex!
+                              : context.read<ExamCubit>().currentIndex + 1,
+                        );
+                      },
                     ),
                     PageViewWidget(
                       questionsController: questionsController,

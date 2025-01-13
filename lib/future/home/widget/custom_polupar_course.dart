@@ -1,6 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/cubit/home_cubit.dart';
-import 'package:education/utility/list_categories_courses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,7 +70,12 @@ class CategoriesPopular extends StatelessWidget {
         builder: (context, currentindex) {
           return Row(
               children: List.generate(
-            listCategoriesCouse(context).length,
+            context
+                .read<HomeCubit>()
+                .responseHome!
+                .platform!
+                .categories!
+                .length,
             (int i) => GestureDetector(
               onTap: () {
                 context.read<HomeCubit>().updatecurrentendex(i);
@@ -89,7 +93,16 @@ class CategoriesPopular extends StatelessWidget {
                 ),
                 constraints: const BoxConstraints(maxHeight: 55),
                 child: Center(
-                  child: Text(listCategoriesCouse(context)[i],
+                  child: Text(
+                      context.translate(
+                        context
+                                .read<HomeCubit>()
+                                .responseHome!
+                                .platform!
+                                .categories![i]
+                                .name ??
+                            '',
+                      ),
                       textAlign: TextAlign.center,
                       style: context.textStyle.displaySmall!.copyWith(
                           color: currentindex == i

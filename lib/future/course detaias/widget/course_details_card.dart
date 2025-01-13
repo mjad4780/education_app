@@ -1,9 +1,11 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../course_details.dart';
-import 'action_tabs.dart';
+import '../cubit/video_course_cubit.dart';
+import 'buttom_video_and_pdf_and_exams.dart';
 import 'course_stats_row.dart';
 
 import 'custom_video_course.dart';
@@ -40,34 +42,45 @@ class CourseDetailsCard extends StatelessWidget {
       child: Card(
         color: const Color(0xffFFFFFF),
         child: Container(
-          height: height(context) / 1.5,
+          height: height(context) / 1.55,
           width: width(context) * 0.82,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(27),
           ),
-          child: Column(
-            children: [
-              verticalSpace(25),
-              const CourseTitleRow(),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'Design Principles: Organizing ..',
-                  overflow: TextOverflow.ellipsis,
-                  style: context.textStyle.headlineMedium!.copyWith(
-                    color: const Color(0xFF202244),
+          child: BlocBuilder<VideoCourseCubit, VideoCourseState>(
+            // buildWhen: (previous, current) => current is FillterCourse,
+            builder: (context, state) {
+              return
+                  // state is FillterCourse?
+
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                verticalSpace(25),
+                const CourseTitleRow(),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    context.read<VideoCourseCubit>().headCourse!.title ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    style: context.textStyle.headlineMedium!.copyWith(
+                      color: const Color(0xFF202244),
+                    ),
                   ),
                 ),
-              ),
-              verticalSpace(8),
-              const CourseStatsRow(),
-              verticalSpace(10),
-              const Divider(),
-              const ButtomVideoAndPdfAndExams(),
-              const Spacer(),
-              const EnrollButton(),
-              verticalSpace(20),
-            ],
+                verticalSpace(8),
+                const CourseStatsRow(),
+                verticalSpace(10),
+                const Divider(),
+                const ButtomVideoAndPdfAndExams(),
+                const Spacer(),
+                context.read<VideoCourseCubit>().headCourse!.paid!
+                    ? const EnrollButton()
+                    : const SizedBox.shrink(),
+                verticalSpace(20),
+              ]);
+              // : const Center(
+              //     child: CircularProgressIndicator(),
+              //   );
+            },
           ),
         ),
       ),

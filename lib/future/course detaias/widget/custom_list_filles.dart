@@ -23,16 +23,19 @@ class CustomListFilles extends StatelessWidget {
         }, builder: (context, state) {
           return SingleChildScrollView(
             child: Column(
-              children:
-                  context.read<VideoCourseCubit>().responsepdf.map((value) {
+              children: context
+                  .read<VideoCourseCubit>()
+                  .fillterCourse!
+                  .filles!
+                  .map((value) {
                 return CustomDetailasFilles(
                   isfillexit: context
                       .read<VideoCourseCubit>()
-                      .isfillgStatuspdf(value.title),
+                      .isfillgStatuspdf(value.title!),
                   value: value,
                   isDownloading: context
                       .read<VideoCourseCubit>()
-                      .isFileDownloadingpdf(value.title),
+                      .isFileDownloadingpdf(value.title!),
                 );
               }).toList(),
             ),

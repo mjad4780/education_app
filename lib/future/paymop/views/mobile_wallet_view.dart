@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class MobileWalletScreen extends StatelessWidget {
+class MobileWalletScreen extends StatefulWidget {
   final String redirectUrl;
   final VoidCallback onSuccess;
   final VoidCallback onError;
@@ -12,12 +12,12 @@ class MobileWalletScreen extends StatelessWidget {
     required this.onError,
   });
 
-  static InAppWebViewController? _appWebViewController;
+  @override
+  State<MobileWalletScreen> createState() => _MobileWalletScreenState();
+}
 
-  startPayment() {
-    _appWebViewController?.loadUrl(
-        urlRequest: URLRequest(url: WebUri(redirectUrl)));
-  }
+class _MobileWalletScreenState extends State<MobileWalletScreen> {
+  InAppWebViewController? _appWebViewController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +33,22 @@ class MobileWalletScreen extends StatelessWidget {
           if (request != null &&
               request.queryParameters.containsKey('success') &&
               request.queryParameters['success'] == 'true') {
-            onSuccess();
+            widget.onSuccess();
           } else if (request != null &&
               request.queryParameters.containsKey('success') &&
               request.queryParameters['success'] == 'false') {
-            onError();
+            widget.onError();
           }
         },
       )),
     );
+  }
+
+  startPayment() {
+    _appWebViewController?.loadUrl(
+        urlRequest: URLRequest(
+            url: WebUri(
+      widget.redirectUrl,
+    )));
   }
 }

@@ -69,3 +69,11 @@ final class ProgressPdf extends VideoCourseState {
 
   ProgressPdf(this.progress);
 }
+
+///////////fillter course
+
+final class FillterCourse extends VideoCourseState {
+  final Detailashome fillterCourse;
+
+  FillterCourse(this.fillterCourse);
+}

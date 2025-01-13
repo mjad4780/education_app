@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../../core/Router/route_string.dart';
 import '../cubit/video_course_cubit.dart';
-import '../data/models/response_pdf/response_pdf.dart';
+import '../data/models/detailashome/fille.dart';
 
 class CustomDetailasFilles extends StatefulWidget {
   const CustomDetailasFilles({
@@ -17,7 +17,7 @@ class CustomDetailasFilles extends StatefulWidget {
     required this.isDownloading,
     required this.isfillexit,
   });
-  final ResponsePdf value;
+  final Fille value;
   final bool isDownloading;
 
   final bool isfillexit;
@@ -41,7 +41,7 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
   @override
   void initState() {
     super.initState();
-    fileExist(widget.value.title);
+    fileExist(widget.value.title!);
   }
 
   @override
@@ -164,8 +164,8 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
                                   }
                                 : () {
                                     context.read<VideoCourseCubit>().playpdf(
-                                          widget.value.url,
-                                          widget.value.title,
+                                          widget.value.url!,
+                                          widget.value.title!,
                                         );
                                   });
                       },

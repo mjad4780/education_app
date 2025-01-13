@@ -9,15 +9,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/language/lang_keys.dart';
 import '../../widget/app_text_button.dart';
+import '../home/data/model/response_home/course.dart';
 import 'widget/course_details_card.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
-  const CourseDetailsScreen({super.key});
-
+  const CourseDetailsScreen({super.key, required this.course});
+  final Course course;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VideoCourseCubit>()..decodeResponsePdf(),
+      create: (context) => getIt<VideoCourseCubit>()..emitgetcourse(course),
       child: Scaffold(
         body: Stack(
           children: [
@@ -45,7 +46,9 @@ class CourseTitleRow extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'Graphic Design',
+            context.translate(
+                context.read<VideoCourseCubit>().headCourse!.categoryName ??
+                    ''),
             style: context.textStyle.titleSmall!.copyWith(
               fontWeight: FontWeight.w700,
               color: const Color(0xFFFF6B00),
@@ -72,7 +75,8 @@ class EnrollButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppTextButton(
       buttonHeight: 50,
-      buttonText: '${context.translate(LangKeys.enroll)} - 499/-',
+      buttonText:
+          '${context.translate(LangKeys.enroll)} \$${context.read<VideoCourseCubit>().headCourse!.price}',
       onPressed: () {},
       textStyle: context.textStyle.bodyMedium!,
     );

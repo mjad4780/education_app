@@ -1,7 +1,8 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/language/lang_keys.dart';
-import 'package:education/utility/list_categories_courses.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
 
@@ -39,22 +40,36 @@ class CustomCategoriesCourse extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-            width: double.infinity,
-            height: 40,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                  children: List.generate(
-                listCategoriesCouse(context).length,
-                (int i) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(listCategoriesCouse(context)[i],
-                      style: context.textStyle.headlineLarge!
-                          .copyWith(color: context.color.blue)),
-                ),
-              )),
-            )),
+        BlocBuilder<HomeCubit, HomeState>(
+          buildWhen: (previous, current) => current is EmitgetDataHome,
+          builder: (context, state) {
+            return SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: context
+                      .read<HomeCubit>()
+                      .responseHome!
+                      .platform!
+                      .categories!
+                      .length,
+                  itemBuilder: (context, i) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        context.translate(context
+                                .read<HomeCubit>()
+                                .responseHome!
+                                .platform!
+                                .categories![i]
+                                .name ??
+                            ''),
+                        style: context.textStyle.headlineLarge!
+                            .copyWith(color: context.color.blue)),
+                  ),
+                ));
+          },
+        ),
       ],
     );
   }

@@ -134,7 +134,6 @@ class ServicePaymop {
   }
 }
 
-
 // Future<void> getOrderRegisrationId() async {
 //     _setLoadingState(isOrderLoading: true);
 //     try {

@@ -100,7 +100,7 @@ class PaymentView extends StatelessWidget {
             child: context.read<PaymopCubit>().selectedPaymentMethod ==
                     PaymentMethod.visa
                 ? Container()
-                : _buildMobileWalletForm(context),
+                : const TextFileds(),
           ),
           const Spacer(),
           _buildConfirmPaymentButton(context),
@@ -161,7 +161,78 @@ class PaymentView extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileWalletForm(BuildContext context) {
+  Widget _buildConfirmPaymentButton(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        onPressed: () => context.read<PaymopCubit>().getOrderRegistrationId(
+              price,
+            ),
+        style: context.read<PaymopCubit>().paymentData.style?.buttonStyle ??
+            _defaultButtonStyle(),
+        child: const Text('Confirm Payment', style: TextStyle(fontSize: 18)),
+      ),
+    );
+  }
+
+  void listenerButtomConfirmPayment(PaymopState state, BuildContext context) {
+    // if () return; // Ensure the widget is still in the tree
+
+    if (state is PaymentRequestSuccess) {
+      if (context.read<PaymopCubit>().selectedPaymentMethod ==
+          PaymentMethod.mobileWallet) {
+        context.read<PaymopCubit>().payWithMobileWallet();
+      } else {
+        if (context.mounted) {
+          var token = context.read<PaymopCubit>().finalToken;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => VisaScreen(
+                onError: onPaymentError,
+                onFinished: onPaymentSuccess,
+                finalToken: token,
+              ),
+            ),
+          );
+        }
+      }
+    } else if (state is PaymentMobileWalletSuccess) {
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MobileWalletScreen(
+              onError: onPaymentError,
+              onSuccess: onPaymentSuccess,
+              redirectUrl: state.redirectUrl,
+            ),
+          ),
+        );
+      }
+    }
+  }
+
+  ButtonStyle _defaultButtonStyle() {
+    return ElevatedButton.styleFrom(
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+    );
+  }
+}
+
+class TextFileds extends StatelessWidget {
+  const TextFileds({super.key});
+  OutlineInputBorder _inputBorder() {
+    return const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(16)),
+      borderSide: BorderSide(color: Colors.blue, width: 2),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         TextFormField(
@@ -186,69 +257,6 @@ class PaymentView extends StatelessWidget {
         ),
         const SizedBox(height: 20),
       ],
-    );
-  }
-
-  OutlineInputBorder _inputBorder() {
-    return const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16)),
-      borderSide: BorderSide(color: Colors.blue, width: 2),
-    );
-  }
-
-  Widget _buildConfirmPaymentButton(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () async {
-          await context.read<PaymopCubit>().getOrderRegistrationId(
-                price,
-              );
-        },
-        style: context.read<PaymopCubit>().paymentData.style?.buttonStyle ??
-            _defaultButtonStyle(),
-        child: const Text('Confirm Payment', style: TextStyle(fontSize: 18)),
-      ),
-    );
-  }
-
-  void listenerButtomConfirmPayment(PaymopState state, BuildContext context) {
-    if (state is PaymentRequestSuccess) {
-      if (context.read<PaymopCubit>().selectedPaymentMethod ==
-          PaymentMethod.mobileWallet) {
-        context.read<PaymopCubit>().payWithMobileWallet();
-      } else {
-        var token = context.read<PaymopCubit>().finalToken;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => VisaScreen(
-              onError: onPaymentError,
-              onFinished: onPaymentSuccess,
-              finalToken: token,
-            ),
-          ),
-        );
-      }
-    } else if (state is PaymentMobileWalletSuccess) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MobileWalletScreen(
-            onError: onPaymentError,
-            onSuccess: onPaymentSuccess,
-            redirectUrl: state.redirectUrl,
-          ),
-        ),
-      );
-    }
-  }
-
-  ButtonStyle _defaultButtonStyle() {
-    return ElevatedButton.styleFrom(
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.white,
     );
   }
 }

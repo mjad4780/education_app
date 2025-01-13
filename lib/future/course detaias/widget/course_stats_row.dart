@@ -1,8 +1,10 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../utility/images_aseets.dart';
+import '../cubit/video_course_cubit.dart';
 
 class CourseStatsRow extends StatelessWidget {
   const CourseStatsRow({super.key});
@@ -31,7 +33,7 @@ class CourseStatsRow extends StatelessWidget {
         ),
         const Spacer(flex: 4),
         Text(
-          '499/-',
+          "\$${context.read<VideoCourseCubit>().headCourse!.price.toString()} ",
           style: context.textStyle.bodyLarge!.copyWith(
             color: const Color(0xFF0961F5),
             fontWeight: FontWeight.w800,

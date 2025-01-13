@@ -3,7 +3,6 @@ import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../utility/list_categories_courses.dart';
 import '../../cubit/home_cubit.dart';
 
 class CategoriseCoursePopular extends StatefulWidget {
@@ -56,7 +55,12 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
                 child: Builder(builder: (context) {
                   return Row(
                       children: List.generate(
-                          listCategoriesCouse(context).length,
+                          context
+                              .read<HomeCubit>()
+                              .responseHome!
+                              .platform!
+                              .categories!
+                              .length,
                           (i) => GestureDetector(
                                 onTap: () => context
                                     .read<HomeCubit>()
@@ -76,7 +80,16 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
                                             : const Color(0xFFE8F1FF),
                                         borderRadius:
                                             BorderRadius.circular(22)),
-                                    child: Text(listCategoriesCouse(context)[i],
+                                    child: Text(
+                                        context.translate(
+                                          context
+                                                  .read<HomeCubit>()
+                                                  .responseHome!
+                                                  .platform!
+                                                  .categories![i]
+                                                  .name ??
+                                              '',
+                                        ),
                                         textAlign: TextAlign.center,
                                         style: context.textStyle.displaySmall!
                                             .copyWith(

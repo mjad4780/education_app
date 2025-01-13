@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../json.dart';
+import '../data/model/response_home/response_home.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -16,5 +19,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   updatecurrentendexbuplar(int index) {
     emit(UpdateCurrentIndexPoluapr(currentindexpupalr = index));
+  }
+
+  ResponseHome? responseHome;
+  getData() {
+    responseHome = ResponseHome.fromMap(responsehome);
+    emit(EmitgetDataHome(responseHome!));
   }
 }

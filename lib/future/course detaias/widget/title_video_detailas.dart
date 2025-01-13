@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/video_course_cubit.dart';
 import 'dart:developer';
 import 'dart:io';
-import '../data/models/response_video/resource.dart';
+import '../data/models/detailashome/video.dart';
 
 class TitleVideoDetailas extends StatefulWidget {
   const TitleVideoDetailas({
@@ -16,7 +16,7 @@ class TitleVideoDetailas extends StatefulWidget {
     required this.isfillexit,
   });
 
-  final Resource value;
+  final Video value;
   final bool isDownloading;
 
   final bool isfillexit;
@@ -42,7 +42,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
   @override
   void initState() {
     super.initState();
-    fileExist(widget.value.name);
+    fileExist(widget.value.title!);
   }
 
   @override
@@ -63,11 +63,11 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
 
                   context
                       .read<VideoCourseCubit>()
-                      .initializeVideo(widget.value.uri, isAsset: false);
+                      .initializeVideo(widget.value.url!, isAsset: false);
                   log('Playing video from network');
                 },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(2.0),
             child: Row(
               children: [
                 GestureDetector(
@@ -75,7 +75,8 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     try {
                       final directory =
                           await getApplicationDocumentsDirectory();
-                      final filePath = '${directory.path}/${widget.value.name}';
+                      final filePath =
+                          '${directory.path}/${widget.value.title!}';
 
                       if (File(filePath).existsSync()) {
                         File(filePath).delete();
@@ -86,8 +87,8 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     }
                   },
                   child: Container(
-                    width: 46,
-                    height: 46,
+                    width: 43,
+                    height: 43,
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: const ShapeDecoration(
                       color: Color(0xFFF4F8FE),
@@ -97,7 +98,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     ),
                     child: Center(
                       child: Text(
-                        '${1}',
+                        '${widget.value.id}',
                         style: context.textStyle.titleSmall!.copyWith(
                           color: const Color(0xFF202244),
                           fontWeight: FontWeight.w600,
@@ -106,14 +107,14 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 4),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        "Why  ${widget.value.name}",
+                        widget.value.title!,
                         style: context.textStyle.headlineSmall!.copyWith(
                           color: const Color(0xFF202244),
                         ),
@@ -159,7 +160,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                           return IconButton(
                               icon: context
                                           .read<VideoCourseCubit>()
-                                          .fillgStatus[widget.value.name] ??
+                                          .fillgStatus[widget.value.title!] ??
                                       fileExistsValue
                                   ? const Icon(
                                       Icons.play_circle_fill,
@@ -168,16 +169,16 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                                     )
                                   : const Icon(
                                       Icons.download,
-                                      size: 30,
+                                      size: 28,
                                     ),
                               onPressed: context
                                           .read<VideoCourseCubit>()
-                                          .fillgStatus[widget.value.name] ??
+                                          .fillgStatus[widget.value.title!] ??
                                       fileExistsValue
                                   ? null
                                   : () => context.read<VideoCourseCubit>().play(
-                                        widget.value.uri,
-                                        widget.value.name,
+                                        widget.value.url!,
+                                        widget.value.title!,
                                       ));
                         },
                       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/language/lang_keys.dart';
 import '../../../utility/images_aseets.dart';
 import '../../../widget/app_text_form_field.dart';
+import '../../paymop/views/payment_view.dart';
 import '../data/model/categories_model.dart';
 
 class CategoreisScrean extends StatelessWidget {
@@ -24,6 +27,20 @@ class CategoreisScrean extends StatelessWidget {
             size: 35,
           ),
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PaymentView(
+                  onPaymentSuccess: () {
+                    log('Sucesssss');
+                  },
+                  onPaymentError: () {
+                    log('failer');
+                  },
+                  price: 100, // Required: Total price (e.g., 100 for 100 EGP)
+                ),
+              ),
+            );
             // context.pop();
           },
         ),

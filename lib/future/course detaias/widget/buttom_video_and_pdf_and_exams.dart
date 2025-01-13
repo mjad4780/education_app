@@ -15,10 +15,11 @@ class ButtomVideoAndPdfAndExams extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<VideoCourseCubit, VideoCourseState, int>(
-        selector: (state) => state is WatchRebuild
-            ? state.buttomrebuild
-            : context.read<VideoCourseCubit>().rebuildCourse,
+    return BlocBuilder<VideoCourseCubit, VideoCourseState>(
+        buildWhen: (previous, current) => current is WatchRebuild,
+        // selector: (state) => state is WatchRebuild
+        //     ? state.buttomrebuild
+        //     : context.read<VideoCourseCubit>().rebuildCourse,
         builder: (context, state) {
           return Column(
             children: [
@@ -39,9 +40,10 @@ class ButtomVideoAndPdfAndExams extends StatelessWidget {
                   Spacer(),
                 ],
               ),
-              state == 0
+              // detaliasWidget(context, context.read<VideoCourseCubit>())
+              context.read<VideoCourseCubit>().rebuildCourse == 0
                   ? const CustomCurriculum()
-                  : state == 1
+                  : context.read<VideoCourseCubit>().rebuildCourse == 1
                       ? const CustomListFilles()
                       : ListTile(
                           onTap: () =>
@@ -52,5 +54,19 @@ class ButtomVideoAndPdfAndExams extends StatelessWidget {
             ],
           );
         });
+  }
+
+  Widget detaliasWidget(BuildContext context, VideoCourseCubit cubit) {
+    if (cubit.rebuildCourse == 0) {
+      return const CustomCurriculum();
+    } else if (cubit.rebuildCourse == 1) {
+      return const CustomListFilles();
+    } else {
+      return ListTile(
+        onTap: () => context.pushName(StringRoute.examOverviewPage),
+        title: const Text('Exams'),
+        trailing: const Icon(Icons.quiz_outlined),
+      );
+    }
   }
 }
