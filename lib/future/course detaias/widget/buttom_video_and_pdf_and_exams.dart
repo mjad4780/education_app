@@ -55,18 +55,4 @@ class ButtomVideoAndPdfAndExams extends StatelessWidget {
           );
         });
   }
-
-  Widget detaliasWidget(BuildContext context, VideoCourseCubit cubit) {
-    if (cubit.rebuildCourse == 0) {
-      return const CustomCurriculum();
-    } else if (cubit.rebuildCourse == 1) {
-      return const CustomListFilles();
-    } else {
-      return ListTile(
-        onTap: () => context.pushName(StringRoute.examOverviewPage),
-        title: const Text('Exams'),
-        trailing: const Icon(Icons.quiz_outlined),
-      );
-    }
-  }
 }

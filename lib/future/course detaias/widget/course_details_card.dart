@@ -50,33 +50,42 @@ class CourseDetailsCard extends StatelessWidget {
           child: BlocBuilder<VideoCourseCubit, VideoCourseState>(
             // buildWhen: (previous, current) => current is FillterCourse,
             builder: (context, state) {
-              return
-                  // state is FillterCourse?
-
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                verticalSpace(25),
-                const CourseTitleRow(),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    context.read<VideoCourseCubit>().headCourse!.title ?? '',
-                    overflow: TextOverflow.ellipsis,
-                    style: context.textStyle.headlineMedium!.copyWith(
-                      color: const Color(0xFF202244),
+              return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    verticalSpace(25),
+                    const CourseTitleRow(),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            context
+                                    .read<VideoCourseCubit>()
+                                    .headCourse!
+                                    .title ??
+                                '',
+                            overflow: TextOverflow.ellipsis,
+                            style: context.textStyle.headlineMedium!.copyWith(
+                              color: const Color(0xFF202244),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                verticalSpace(8),
-                const CourseStatsRow(),
-                verticalSpace(10),
-                const Divider(),
-                const ButtomVideoAndPdfAndExams(),
-                const Spacer(),
-                context.read<VideoCourseCubit>().headCourse!.paid!
-                    ? const EnrollButton()
-                    : const SizedBox.shrink(),
-                verticalSpace(20),
-              ]);
+                    verticalSpace(8),
+                    const CourseStatsRow(),
+                    verticalSpace(10),
+                    const Divider(),
+                    const ButtomVideoAndPdfAndExams(),
+                    const Spacer(),
+                    context.read<VideoCourseCubit>().headCourse!.paid!
+                        ? const EnrollButton()
+                        : const SizedBox.shrink(),
+                    verticalSpace(20),
+                  ]);
               // : const Center(
               //     child: CircularProgressIndicator(),
               //   );

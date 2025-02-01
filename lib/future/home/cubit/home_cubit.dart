@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../json.dart';
+import '../data/model/response_home/course.dart';
 import '../data/model/response_home/response_home.dart';
 
 part 'home_state.dart';
@@ -25,5 +28,18 @@ class HomeCubit extends Cubit<HomeState> {
   getData() {
     responseHome = ResponseHome.fromMap(responsehome);
     emit(EmitgetDataHome(responseHome!));
+  }
+
+  List<Course> filltercourses=[];
+
+  emitgetfilltergategoriescourse(String nameGategory) {
+    log('fillter course category ');
+    for (var element in responseHome!.platform!.courses!) {
+      if (element.categoryName==nameGategory) {
+              filltercourses.add(element);
+
+      }
+    }
+
   }
 }
