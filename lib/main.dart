@@ -19,6 +19,7 @@ void main() async {
   );
 
   Bloc.observer = MyBlocObserver();
+
   setupServise();
 
   await getIt<CacheHelper>().init();
