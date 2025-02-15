@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - master
-      
      
   pull_request:
     branches:
       - master
-      
+
 
 jobs:
   build:
@@ -25,24 +24,23 @@ jobs:
           distribution: 'temurin' # Use the Eclipse Temurin distribution
           java-version: '17'
 
-      - name: Install Flutter Version 3.27.3
+      - name: Install Flutter Version 3.27.2
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.27.3' # Use the required Flutter version
+          flutter-version: '3.27.2' # Use the required Flutter version
 
       - name: Install Dependencies
         run: flutter pub get
-  
 
-  
+
+
       - name: Build APK
         run: flutter build apk --release
-  
-  
+
+
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
-            name: release-apk
-            path: build/app/outputs/flutter-apk/app-release.apk
-          
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
       
