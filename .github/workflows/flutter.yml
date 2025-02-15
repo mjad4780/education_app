@@ -32,24 +32,18 @@ jobs:
 
       - name: Install Dependencies
         run: flutter pub get
-
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+  
+      - name: Run Our Test
+        run: flutter test
+  
+      - name: Build APK
+        run: flutter build apk --release
+  
+  
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
-          ruby-version: "3.3.6"
-          bundler-cache: true
-          working-directory: android
-
-
-      - name: Deploy to Firebase via Fastlane
-        working-directory: android
-        
-        env:
-          FIREBASE_APP_ID: ${{ secrets.APP_ID }}
-          FIREBASE_CLI_TOKEN: ${{ secrets.GOOGLE }}
-        
-        run: |
-          bundle exec fastlane deploy_to_firebase
+            name: release-apk
+            path: build/app/outputs/flutter-apk/app-release.apk
           
       
