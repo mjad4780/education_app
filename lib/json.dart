@@ -55,7 +55,7 @@ Map<String, dynamic> responsehome = {
         "category_name": "graphic_design",
         "mentor_id": 201,
         "price": 200,
-        "paid": false,
+        "paid": true,
         "save": false,
         "image": "assets/images/avatar.svg"
       },

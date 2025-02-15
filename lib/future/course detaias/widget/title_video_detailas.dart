@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,10 +15,12 @@ class TitleVideoDetailas extends StatefulWidget {
     required this.isDownloading,
     required this.progress,
     required this.isfillexit,
+    required this.free,
   });
 
   final Video value;
   final bool isDownloading;
+  final bool free;
 
   final bool isfillexit;
 
@@ -50,41 +53,43 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
     return Column(
       children: [
         GestureDetector(
-          onTap: fileExists.value
-              ? () {
-                  log('local');
-                  context
-                      .read<VideoCourseCubit>()
-                      .initializeVideo(filePaths.value);
-                  log('Playing video from local file');
-                }
-              : () {
-                  log('server');
+          onTap: widget.free
+              ? fileExists.value
+                  ? () {
+                      log('local');
+                      context
+                          .read<VideoCourseCubit>()
+                          .initializeVideo(filePaths.value);
+                      log('Playing video from local file');
+                    }
+                  : () {
+                      log('server');
 
-                  context
-                      .read<VideoCourseCubit>()
-                      .initializeVideo(widget.value.url!, isAsset: false);
-                  log('Playing video from network');
-                },
+                      context
+                          .read<VideoCourseCubit>()
+                          .initializeVideo(widget.value.url!, isAsset: false);
+                      log('Playing video from network');
+                    }
+              : null,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Row(
               children: [
                 GestureDetector(
                   onTap: () async {
-                    try {
-                      final directory =
-                          await getApplicationDocumentsDirectory();
-                      final filePath =
-                          '${directory.path}/${widget.value.title!}';
+                    // try {
+                    //   final directory =
+                    //       await getApplicationDocumentsDirectory();
+                    //   final filePath =
+                    //       '${directory.path}/${widget.value.title!}';
 
-                      if (File(filePath).existsSync()) {
-                        File(filePath).delete();
-                        log('File delete: $filePath');
-                      }
-                    } catch (e) {
-                      log("Error checking local file: ${e.toString()}");
-                    }
+                    //   if (File(filePath).existsSync()) {
+                    //     File(filePath).delete();
+                    //     log('File delete: $filePath');
+                    //   }
+                    // } catch (e) {
+                    //   log("Error checking local file: ${e.toString()}");
+                    // }
                   },
                   child: Container(
                     width: 43,
@@ -107,7 +112,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 2),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -115,7 +120,9 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         widget.value.title!,
+                        overflow: TextOverflow.ellipsis,
                         style: context.textStyle.headlineSmall!.copyWith(
+                          fontSize: 12.sp,
                           color: const Color(0xFF202244),
                         ),
                       ),
@@ -157,29 +164,40 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                     : ValueListenableBuilder<bool>(
                         valueListenable: fileExists,
                         builder: (context, fileExistsValue, child) {
+                          // log(fileExists.value.toString());
+
                           return IconButton(
                               icon: context
                                           .read<VideoCourseCubit>()
                                           .fillgStatus[widget.value.title!] ??
-                                      fileExistsValue
+                                      fileExists.value
                                   ? const Icon(
                                       Icons.play_circle_fill,
                                       color: Color(0xFF0961F5),
                                       size: 30,
                                     )
-                                  : const Icon(
-                                      Icons.download,
-                                      size: 28,
-                                    ),
-                              onPressed: context
-                                          .read<VideoCourseCubit>()
-                                          .fillgStatus[widget.value.title!] ??
-                                      fileExistsValue
-                                  ? null
-                                  : () => context.read<VideoCourseCubit>().play(
-                                        widget.value.url!,
-                                        widget.value.title!,
-                                      ));
+                                  : widget.free
+                                      ? const Icon(
+                                          Icons.download,
+                                          size: 28,
+                                        )
+                                      : const Icon(
+                                          Icons.lock,
+                                          size: 28,
+                                        ),
+                              onPressed: widget.free
+                                  ? context
+                                                  .read<VideoCourseCubit>()
+                                                  .fillgStatus[
+                                              widget.value.title!] ??
+                                          fileExistsValue
+                                      ? null
+                                      : () =>
+                                          context.read<VideoCourseCubit>().play(
+                                                widget.value.url!,
+                                                widget.value.title!,
+                                              )
+                                  : null);
                         },
                       ),
               ],

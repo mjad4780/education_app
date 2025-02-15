@@ -35,6 +35,7 @@ class CustomCurriculum extends StatelessWidget {
               return Column(
                 children: [
                   TitleVideoDetailas(
+                    free: cubit.fillterCourse!.videos![index].isFree!,
                     isfillexit: cubit.isfillgStatus(
                         cubit.fillterCourse!.videos![index].title!),
                     value: cubit.fillterCourse!.videos![index],

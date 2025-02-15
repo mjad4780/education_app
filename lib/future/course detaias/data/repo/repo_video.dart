@@ -30,23 +30,26 @@ class RepoVideo {
   RepoVideo(this._services);
 
   /// تشغيل الفيديو أو عرض ملف PDF
-  Future<Either<Failure, (String, String?)>> play(String url, String fileName,
+  Future<Either<Failure, (String?, String?)>> play(String url, String fileName,
       Function(int, int)? onReceiveProgress) async {
     try {
       // استدعاء الخدمة لمعالجة الملف
       final path = await _services.handleRequestVideoOrPdf(
           url, fileName, onReceiveProgress);
-
+      if (path.$1 == null) {
+        return Left(ServerFailure(path.$2!));
+      } else {
+        return Right(path);
+      }
       // إرجاع النتيجة إذا كانت ناجحة
-      return right(path);
     } on CustomException catch (e) {
       // تسجيل الخطأ المخصص
       log("CustomException: ${e.message}");
-      return left(ServerFailure(e.message));
+      return Left(ServerFailure(e.message));
     } catch (e) {
       // تسجيل أي خطأ غير متوقع
       log("Unexpected error: ${e.toString()}");
-      return left(ServerFailure("An unexpected error occurred"));
+      return Left(ServerFailure("An unexpected error occurred"));
     }
   }
 }

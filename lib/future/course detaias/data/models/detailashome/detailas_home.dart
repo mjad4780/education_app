@@ -7,6 +7,7 @@ class Detailashome {
   int? detailsId;
   String? description;
   String? duration;
+  bool? isPaid;
   String? level;
   List<Video>? videos;
   List<Fille>? filles;
@@ -18,12 +19,14 @@ class Detailashome {
     this.level,
     this.videos,
     this.filles,
+    this.isPaid,
   });
 
   factory Detailashome.fromJson(Map<String, dynamic> json) => Detailashome(
         detailsId: json['details_id'] as int?,
         description: json['description'] as String?,
         duration: json['duration'] as String?,
+        isPaid: json['isPaid'] as bool?,
         level: json['level'] as String?,
         videos: (json['videos'] as List<dynamic>?)
             ?.map((e) => Video.fromJson(e as Map<String, dynamic>))

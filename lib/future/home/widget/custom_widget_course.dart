@@ -127,14 +127,23 @@ class CustomWidgetCourse extends StatelessWidget {
                                     Row(
                                       children: [
                                         const Spacer(),
-                                        Text(
-                                            "\$${state.responseHome.platform!.courses![index].price}",
-                                            style: context
-                                                .textStyle.titleMedium!
-                                                .copyWith(
-                                              color: context.color.blue,
-                                              fontWeight: FontWeight.w800,
-                                            )),
+                                        state.responseHome.platform!
+                                                .courses![index].paid!
+                                            ? Text(
+                                                "\$${state.responseHome.platform!.courses![index].price}",
+                                                style: context
+                                                    .textStyle.titleMedium!
+                                                    .copyWith(
+                                                  color: context.color.blue,
+                                                  fontWeight: FontWeight.w800,
+                                                ))
+                                            : Text("Free",
+                                                style: context
+                                                    .textStyle.titleMedium!
+                                                    .copyWith(
+                                                  color: context.color.blue,
+                                                  fontWeight: FontWeight.w800,
+                                                )),
                                         const Spacer(),
                                         Text('|',
                                             style: context.textStyle.titleLarge!

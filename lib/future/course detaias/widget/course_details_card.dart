@@ -84,7 +84,7 @@ class CourseDetailsCard extends StatelessWidget {
                     context.read<VideoCourseCubit>().headCourse!.paid!
                         ? const EnrollButton()
                         : const SizedBox.shrink(),
-                    verticalSpace(20),
+                    // verticalSpace(20),
                   ]);
               // : const Center(
               //     child: CircularProgressIndicator(),

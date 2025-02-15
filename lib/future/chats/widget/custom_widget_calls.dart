@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../utility/images_aseets.dart';
-import 'screen_call_video.dart';
+// import 'screen_call_video.dart';
 
 class CustomWidgetCalls extends StatelessWidget {
   const CustomWidgetCalls({super.key});
@@ -26,15 +26,15 @@ class CustomWidgetCalls extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const VideoCallPage(
-                        userName: "mohamed",
-                        callId: "123345678",
-                      ),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const VideoCallPage(
+                  //       userName: "mohamed",
+                  //       callId: "123345678",
+                  //     ),
+                  //   ),
+                  // );
                 },
                 child: Column(
                   children: [

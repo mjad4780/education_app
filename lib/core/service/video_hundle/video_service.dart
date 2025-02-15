@@ -85,8 +85,8 @@ class VideoService {
   }
 
   // فتح الملف أو تحميله إذا لم يكن موجودًا
-  Future<(String, String?)> handleRequestVideoOrPdf(String url, String fileName,
-      Function(int, int)? onReceiveProgress) async {
+  Future<(String?, String?)> handleRequestVideoOrPdf(String url,
+      String fileName, Function(int, int)? onReceiveProgress) async {
     try {
       final permissionResult = await checkPermissionStorage();
       if (permissionResult != null && !permissionResult.result) {
@@ -96,9 +96,8 @@ class VideoService {
       String? filePath = await checkLocalFile(fileName);
       filePath ??= await downloadFile(url, fileName, onReceiveProgress)
           .then((value) => value.result ? value.messege : null);
-
       if (filePath == null) {
-        return ('download_error', "Failed to download file");
+        return (null, "Failed to download file");
       }
 
       return (fileTypes(url), filePath);
