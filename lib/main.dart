@@ -20,12 +20,14 @@ void main() async {
 
   Bloc.observer = MyBlocObserver();
   setupServise();
+
   await getIt<CacheHelper>().init();
   await ScreenUtil.ensureScreenSize();
   // await Supabase.initialize(
   //   url: supabaseUrl,
   //   anonKey: supabaseKey,
   // );
+
   PaymentData.initialize(
     apiKey: apiKeyPaymop,
     iframeId: iframe,
