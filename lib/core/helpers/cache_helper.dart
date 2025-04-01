@@ -81,4 +81,28 @@ class CacheHelper {
       return "en";
     }
   }
+
+  //test save course
+  // داخل class CacheHelper
+  static const String _savedCoursesKey = 'saved_courses';
+
+  Future<bool> toggleCourseSave(String courseId) async {
+    final savedCourses = getSavedCourses();
+    final isSaved = savedCourses.contains(courseId);
+
+    if (isSaved) {
+      savedCourses.remove(courseId);
+    } else {
+      savedCourses.add(courseId);
+    }
+
+    return await sharedPreferences.setStringList(
+      _savedCoursesKey,
+      savedCourses.toList(),
+    );
+  }
+
+  Set<String> getSavedCourses() {
+    return sharedPreferences.getStringList(_savedCoursesKey)?.toSet() ?? {};
+  }
 }

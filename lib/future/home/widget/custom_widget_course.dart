@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/cubit/home_cubit.dart';
@@ -19,6 +21,8 @@ class CustomWidgetCourse extends StatelessWidget {
         child: BlocBuilder<HomeCubit, HomeState>(
             buildWhen: (previous, current) => current is EmitgetDataHome,
             builder: (context, state) {
+              log('build high');
+
               return state is EmitgetDataHome
                   ? ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -94,13 +98,53 @@ class CustomWidgetCourse extends StatelessWidget {
                                                     context.color.orangeBright,
                                                 fontWeight: FontWeight.w700,
                                               )),
-                                          SvgPicture.asset(
-                                            !state.responseHome.platform!
-                                                    .courses![index].save!
-                                                ? Assets.noActiveSave
-                                                : Assets.imagesActiveSave,
-                                            height: 21,
-                                          ),
+
+                                          CourseItem(
+                                              courseId: state.responseHome
+                                                  .platform!.courses![index].id
+                                                  .toString())
+                                          // BlocBuilder<HomeCubit, HomeState>(
+                                          //   buildWhen: (previous, current) {
+                                          //     // تحديث الواجهة فقط عند تغيير المفضلة
+                                          //     return current
+                                          //         is HomeUpdateFavoritesState;
+                                          //   },
+                                          //   builder: (_, __) {
+                                          //     final courseId = state
+                                          //         .responseHome
+                                          //         .platform!
+                                          //         .courses![index]
+                                          //         .id;
+                                          //     final isSaved = context
+                                          //         .read<HomeCubit>()
+                                          //         .isCourseSaved(
+                                          //             courseId.toString());
+                                          //     log('=build');
+                                          //     return GestureDetector(
+                                          //       onTap: () => context
+                                          //           .read<HomeCubit>()
+                                          //           .toggleCourseSave(
+                                          //               courseId.toString()),
+                                          //       child: SvgPicture.asset(
+                                          //         isSaved
+                                          //             ? Assets.imagesActiveSave
+                                          //             : Assets.noActiveSave,
+                                          //         height: 21,
+                                          //       ),
+                                          //     );
+                                          //   },
+                                          // ),
+
+                                          // GestureDetector(
+                                          //   onTap: () {},
+                                          //   child: SvgPicture.asset(
+                                          //     !state.responseHome.platform!
+                                          //             .courses![index].save!
+                                          //         ? Assets.noActiveSave
+                                          //         : Assets.imagesActiveSave,
+                                          //     height: 21,
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -186,5 +230,35 @@ class CustomWidgetCourse extends StatelessWidget {
                     )
                   : const SizedBox.shrink();
             }));
+  }
+}
+
+// وفي ويدجت CourseItem المنفصلة
+class CourseItem extends StatelessWidget {
+  final String courseId;
+
+  const CourseItem({super.key, required this.courseId});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) {
+        if (current is HomeUpdateFavoritesState) {
+          return current.courseId == courseId;
+        }
+        return false;
+      },
+      builder: (_, __) {
+        log('build');
+        final isSaved = context.read<HomeCubit>().isCourseSaved(courseId);
+        return GestureDetector(
+          onTap: () => context.read<HomeCubit>().toggleCourseSave(courseId),
+          child: SvgPicture.asset(
+            isSaved ? Assets.imagesActiveSave : Assets.noActiveSave,
+            height: 21,
+          ),
+        );
+      },
+    );
   }
 }

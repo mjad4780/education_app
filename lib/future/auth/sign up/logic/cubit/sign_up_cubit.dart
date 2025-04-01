@@ -70,4 +70,14 @@ class SignUpCubit extends Cubit<SignUpState> {
 
     if (file != null) {}
   }
+
+  @override
+  Future<void> close() {
+    name.dispose();
+    lastname.dispose();
+    phone.dispose();
+    email.dispose();
+    password.dispose();
+    return super.close();
+  }
 }

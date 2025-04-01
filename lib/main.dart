@@ -17,9 +17,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   Bloc.observer = MyBlocObserver();
-
   setupServise();
   await getIt<CacheHelper>().init();
   await ScreenUtil.ensureScreenSize();
@@ -27,7 +25,6 @@ void main() async {
   //   url: supabaseUrl,
   //   anonKey: supabaseKey,
   // );
-
   PaymentData.initialize(
     apiKey: apiKeyPaymop,
     iframeId: iframe,
@@ -37,7 +34,6 @@ void main() async {
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 //   OneSignal.initialize(onesignalId);
 //   OneSignal.Notifications.requestPermission(true);
-
   runApp(
       DevicePreview(enabled: true, builder: (context) => const EducationApp()));
 }

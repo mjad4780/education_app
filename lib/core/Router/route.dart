@@ -76,7 +76,7 @@ class AppRoutes {
       case StringRoute.poluparScrean:
         return BaseRoute(
           page: PoluparScrean(
-            maps: args as Map<String, dynamic>,
+            maps: args as Map<String, dynamic> ?? {},
           ),
         );
       case StringRoute.mentorScreen:
