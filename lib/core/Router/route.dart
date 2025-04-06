@@ -3,6 +3,7 @@ import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/Qiez/view/exam_questions.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
+import 'package:education/future/home/data/model/response_home/category.dart';
 import 'package:education/future/home/ui/castegories_screan.dart';
 import 'package:education/future/home/ui/home_scean.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
@@ -65,7 +66,9 @@ class AppRoutes {
         );
       case StringRoute.categories:
         return BaseRoute(
-          page: const CategoreisScrean(),
+          page: CategoreisScrean(
+            data: args as Map<String, dynamic>,
+          ),
         );
       case StringRoute.courseDetailsScrean:
         return BaseRoute(
@@ -76,7 +79,7 @@ class AppRoutes {
       case StringRoute.poluparScrean:
         return BaseRoute(
           page: PoluparScrean(
-            maps: args as Map<String, dynamic> ?? {},
+            maps: args as Map<String, dynamic>,
           ),
         );
       case StringRoute.mentorScreen:

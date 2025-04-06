@@ -17,6 +17,9 @@ final class UpdateCurrentIndexPoluapr extends HomeState {
   UpdateCurrentIndexPoluapr(this.index);
 }
 
+// get home
+final class LoadingHome extends HomeState {}
+
 final class EmitgetDataHome extends HomeState {
   final ResponseHome responseHome;
 
@@ -30,4 +33,17 @@ final class HomeUpdateFavoritesState extends HomeState {
   final String courseId;
 
   HomeUpdateFavoritesState(this.courseId);
+}
+
+// filter course
+final class FailtercourseLoadedState extends HomeState {
+  final int index;
+
+  FailtercourseLoadedState({required this.index});
+}
+
+final class FilterCourseState extends HomeState {
+  final List<Course> courses;
+
+  FilterCourseState(this.courses);
 }

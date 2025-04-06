@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +85,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
 
       // emit(true); // تحديث الحالة إلى "جاهز"
     } catch (e) {
-      log(e.toString());
       emit(VideoCourseFailure(message: e.toString()));
     }
   }
@@ -146,7 +144,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   Detailashome? fillterCourse;
   emitgetcourse(Course course) {
     headCourse = course;
-    log('fromjson video');
     for (var element in detailascourse) {
       listcourse.add(Detailashome.fromJson(element));
     }

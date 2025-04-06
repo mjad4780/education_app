@@ -1,8 +1,10 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
 import 'package:education/core/language/lang_keys.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../widget/widget polupar/categorise_course_popular.dart';
@@ -20,39 +22,44 @@ class PoluparScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 35,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 35,
+            ),
+            onPressed: () {
+              context.pop();
+            },
           ),
-          onPressed: () {
-            context.pop();
-          },
+          actions: [
+            SvgPicture.asset(Assets.imagesSearchGray),
+            horizontalSpace(13)
+          ],
+          title: Text(context.translate(LangKeys.popularCourses),
+              style: context.textStyle.bodyLarge),
         ),
-        actions: [
-          SvgPicture.asset(Assets.imagesSearchGray),
-          horizontalSpace(13)
-        ],
-        title: Text(context.translate(LangKeys.popularCourses),
-            style: context.textStyle.bodyLarge),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CategoriseCoursePopular(
-                index: maps['index'],
-                homeCubit: maps['cubit'],
+        body: BlocProvider.value(
+          value: maps['cubit'] as HomeCubit,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CategoriseCoursePopular(
+                    index: maps['index'],
+                  ),
+                  // verticalSpace(50),
+                  const FilterCoursesBlocBuilder()
+                  // const CustomWidgetPoluparCourse(
+                  //     // course: maps['course'],
+                  //     )
+                ],
               ),
-              const CustomWidgetPoluparCourse()
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

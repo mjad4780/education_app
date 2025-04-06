@@ -14,10 +14,10 @@ class PosterApp extends StatelessWidget {
       height: height(context) / 4.7,
       width: width(context) / 1.14,
       child: CarouselView(
-          itemExtent: 370,
-          shrinkExtent: 300,
+          itemExtent: 330,
+          shrinkExtent: 250,
           children: List.generate(
-              7,
+              3,
               (int i) => Container(
                     height: height(context) / 4.7,
                     width: width(context) / 1.14,

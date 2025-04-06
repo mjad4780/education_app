@@ -13,7 +13,7 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
-    initialize();
+    // initialize();
   }
   int currentindex = 0;
 
@@ -23,25 +23,34 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentindexpupalr = 0;
 
-  updatecurrentendexbuplar(int index) {
-    emit(UpdateCurrentIndexPoluapr(currentindexpupalr = index));
-  }
+  // updatecurrentendexbuplar(int index) {
+  //   emit(UpdateCurrentIndexPoluapr(currentindexpupalr = index));
+  // }
 
   ResponseHome? responseHome;
   getData() {
-    responseHome = ResponseHome.fromMap(responsehome);
-    emit(EmitgetDataHome(responseHome!));
+    emit(LoadingHome());
+    Future.delayed(const Duration(seconds: 1), () {
+      responseHome = ResponseHome.fromMap(responsehome);
+      emit(EmitgetDataHome(responseHome!));
+    });
   }
 
   List<Course> filltercourses = [];
 
-  emitgetfilltergategoriescourse(String nameGategory) {
-    log('fillter course category ');
-    for (var element in responseHome!.platform!.courses!) {
-      if (element.categoryName == nameGategory) {
-        filltercourses.add(element);
+  emitgetfilltergategoriescourse(String nameGategory, int index) {
+    filltercourses.clear();
+    emit(FailtercourseLoadedState(index: currentindexpupalr = index));
+
+    Future.delayed(const Duration(seconds: 0), () {
+      for (var element in responseHome!.platform!.courses!) {
+        if (element.categoryName == nameGategory) {
+          filltercourses.add(element);
+        }
       }
-    }
+      currentindexpupalr = index;
+      emit(FilterCourseState(filltercourses));
+    });
   }
 
   // test save course

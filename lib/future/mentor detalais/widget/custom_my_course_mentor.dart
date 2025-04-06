@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/home/widget/icons_save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -61,10 +62,14 @@ class CustomMyCourseMentor extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                   )),
                               const Spacer(),
-                              SvgPicture.asset(
-                                Assets.noActiveSave,
-                                height: 20,
-                              ),
+                              SaveIcons(
+                                courseId: "0",
+                              )
+
+                              // SvgPicture.asset(
+                              //   Assets.noActiveSave,
+                              //   height: 20,
+                              // ),
                               // const Spacer(),
                             ],
                           ),

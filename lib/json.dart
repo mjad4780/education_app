@@ -2,13 +2,13 @@ Map<String, dynamic> responsehome = {
   "platform": {
     "name": "Learning Platform",
     "categories": [
-      {"id": 1, "name": "graphic_design"},
-      {"id": 2, "name": "3d_design"},
-      {"id": 3, "name": "seo_marketing"},
-      {"id": 4, "name": "web_development"},
-      {"id": 5, "name": "office_productivity"},
-      {"id": 6, "name": "personal_development"},
-      {"id": 7, "name": "finance_accounting"},
+      {"id": 1, "name": "3d_design"},
+      {"id": 2, "name": "graphic_design"},
+      {"id": 3, "name": "web_development"},
+      {"id": 4, "name": "seo_marketing"},
+      {"id": 5, "name": "finance_accounting"},
+      {"id": 6, "name": "office_productivity"},
+      {"id": 7, "name": "personal_development"},
       {"id": 8, "name": "hr_management"}
     ],
     "mentors": [
