@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:education/future/course%20detaias/data/repo/repo_video.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
@@ -151,5 +153,19 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       (e) => e.detailsId == course.id,
     );
     emit(FillterCourse(fillterCourse!));
+  }
+
+  deleteVideoCache(String title) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/$title';
+
+      if (File(filePath).existsSync()) {
+        File(filePath).delete();
+        log('File delete: $filePath');
+      }
+    } catch (e) {
+      log("Error checking local file: ${e.toString()}");
+    }
   }
 }

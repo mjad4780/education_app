@@ -13,13 +13,13 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
-    // initialize();
+    initialize();
   }
   int currentindex = 0;
 
-  updatecurrentendex(int index) {
-    emit(UpdateCurrentIndex(currentindex = index));
-  }
+  // updatecurrentendex(int index) {
+  //   emit(UpdateCurrentIndex(currentindex = index));
+  // }
 
   int currentindexpupalr = 0;
 
@@ -29,10 +29,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   ResponseHome? responseHome;
   getData() {
+    filltercourses.clear();
     emit(LoadingHome());
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 10), () {
       responseHome = ResponseHome.fromMap(responsehome);
-      emit(EmitgetDataHome(responseHome!));
+      if (responseHome != null) {
+        for (var element in responseHome!.platform!.courses!) {
+          if (element.categoryName ==
+              responseHome!.platform!.courses!.first.categoryName) {
+            filltercourses.add(element);
+          }
+        }
+        emit(EmitgetDataHome(responseHome!, filltercourses));
+      }
+      // }
     });
   }
 
@@ -42,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
     filltercourses.clear();
     emit(FailtercourseLoadedState(index: currentindexpupalr = index));
 
-    Future.delayed(const Duration(seconds: 0), () {
+    Future.delayed(const Duration(seconds: 5), () {
       for (var element in responseHome!.platform!.courses!) {
         if (element.categoryName == nameGategory) {
           filltercourses.add(element);

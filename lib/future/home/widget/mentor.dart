@@ -50,9 +50,10 @@ class CustomMentor extends StatelessWidget {
                 itemSnapping: true,
                 backgroundColor: context.color.greyLight,
                 itemExtent: 120,
-                shrinkExtent: 100,
+                shrinkExtent: 80,
                 onTap: (value) => context.pushName(StringRoute.mentorDetalias,
                     arguments: mentors[value]),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(4),
@@ -65,19 +66,22 @@ class CustomMentor extends StatelessWidget {
                   mentors.length,
                   (int i) => Column(
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          // width: 80,
-                          // height: 70,
-                          decoration: ShapeDecoration(
-                            color: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                      if (mentors[i].profileImage != null)
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            // width: 80,
+                            // height: 70,
+                            decoration: ShapeDecoration(
+                                color: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        mentors[i].profileImage ?? ''))),
                           ),
                         ),
-                      ),
                       // const SizedBox(
                       //   height: 5,
                       // ),

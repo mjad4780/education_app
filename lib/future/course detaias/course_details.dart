@@ -22,7 +22,7 @@ class CourseDetailsScreen extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            // const CourseHeader(),
+            const CourseHeader(),
             const CourseDetailsCard(),
             Positioned(
               right: 34,

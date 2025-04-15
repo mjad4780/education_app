@@ -81,14 +81,17 @@ class CategoriesPopular extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<HomeCubit, HomeState, int>(
-        selector: (state) => state is UpdateCurrentIndex ? state.index : 0,
+        selector: (state) => state is FailtercourseLoadedState
+            ? state.index
+            : context.read<HomeCubit>().currentindexpupalr,
         builder: (context, currentindex) {
           return Row(
               children: List.generate(
             categories.length,
             (int i) => GestureDetector(
               onTap: () {
-                context.read<HomeCubit>().updatecurrentendex(i);
+                context.read<HomeCubit>().emitgetfilltergategoriescourse(
+                    categories[i].name ?? '', i);
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),

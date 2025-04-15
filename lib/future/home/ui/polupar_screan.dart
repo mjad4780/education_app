@@ -51,11 +51,7 @@ class PoluparScrean extends StatelessWidget {
                   CategoriseCoursePopular(
                     index: maps['index'],
                   ),
-                  // verticalSpace(50),
-                  const FilterCoursesBlocBuilder()
-                  // const CustomWidgetPoluparCourse(
-                  //     // course: maps['course'],
-                  //     )
+                  const FilterCoursesBlocBuilder(),
                 ],
               ),
             ),

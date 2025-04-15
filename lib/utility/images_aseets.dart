@@ -132,6 +132,7 @@ class Assets {
   static const String hr = "assets/images/categories/08hr.svg";
   static const String D = "assets/images/categories/013D.svg";
   ////////iconvideo
+  ///
   static const String pouse = "assets/images/Icon veido/Fill 1pouse.svg";
   static const String videoblue =
       "assets/images/Icon veido/Fill 1viedoblue.svg";
@@ -141,6 +142,7 @@ class Assets {
   static const String like = "assets/images/Icon veido/like.svg";
 
   ////////////////profile
+  static const String image = "assets/images/test_image_video.png";
   static const String dark = "assets/images/dark_mode.svg";
   static const String facebook = "assets/images/facebook.svg";
   static const String help = "assets/images/help_center.svg";
@@ -157,4 +159,7 @@ class Assets {
   static const String trans = "assets/images/trans.svg";
   static const String videoi = 'assets/images/4.mp4';
   static const String videoii = 'assets/images/i.mp4';
+
+  //avatar
+  static const String avatar = "assets/images/avatar.png";
 }

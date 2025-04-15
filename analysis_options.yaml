@@ -21,8 +21,9 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    #prefer_const_constructors: error  # يجبرك على استخدام const
-    #unnecessary_const: warning       # يحذرك إذا استخدمت const غير ضروري      #unnecessary_const: error  # إجبار استخدام const
+   #  prefer_const_constructors: error  # يجبرك على استخدام const
+  #   unnecessary_const: warning       # يحذرك إذا استخدمت const غير ضروري     
+     #unnecessary_const: error  # إجبار استخدام const
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 

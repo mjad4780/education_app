@@ -17,10 +17,11 @@ class MentorProfileSection extends StatelessWidget {
       height: height(context) / 2.68,
       child: Column(
         children: [
-          const Center(
+          Center(
             child: CircleAvatar(
               radius: 50,
               backgroundColor: Colors.black,
+              backgroundImage: AssetImage(mentor.profileImage ?? ''),
             ),
           ),
           verticalSpace(2),

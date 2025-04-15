@@ -132,7 +132,6 @@ class ImageCategories extends StatelessWidget {
             'cubit': context.read<HomeCubit>(),
           });
 
-          // context.pushName(StringRoute.poluparScrean, arguments: index);
         },
         child: SvgPicture.asset(
           image,

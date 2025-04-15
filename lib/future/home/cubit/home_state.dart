@@ -22,8 +22,9 @@ final class LoadingHome extends HomeState {}
 
 final class EmitgetDataHome extends HomeState {
   final ResponseHome responseHome;
+  final List<Course> course;
 
-  EmitgetDataHome(this.responseHome);
+  EmitgetDataHome(this.responseHome, this.course);
 }
 
 //TEST save course  HomeLoadedState and HomeUpdateFavoritesState

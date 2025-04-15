@@ -1,6 +1,7 @@
 import 'package:education/future/home/data/model/response_home/category.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:education/future/home/data/model/response_home/mentor.dart';
+import 'package:education/utility/loading.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import './categories_course.dart';
@@ -39,8 +40,8 @@ class HomeBlocBuilder extends StatelessWidget {
                 course: state.responseHome.platform!.courses!,
                 categories: state.responseHome.platform!.categories!,
               ),
-              CustomWidgetCourse(
-                courses: state.responseHome.platform!.courses!,
+              CoursesBlocBuilder(
+                courses: state.course,
               ),
               CustomMentor(
                 mentors: state.responseHome.platform!.mentors!,
@@ -58,23 +59,25 @@ class HomeBlocBuilder extends StatelessWidget {
     return SingleChildScrollView(
         child: Column(
       children: [
-        const Skeletonizer(child: HeadingApp()),
-        const Skeletonizer(child: SearchApp()),
-        const Skeletonizer(child: PosterApp()),
-        Skeletonizer(
-            child: CustomCategoriesCourse(
-          categories: [Category(), Category(), Category(), Category()],
-        )),
-        Skeletonizer(
+        const LoadingWidget(child: HeadingApp()),
+        const LoadingWidget(child: SearchApp()),
+        const Skeletonizer(
+            child: Skeleton.shade(shade: true, child: PosterApp())),
+        const Skeletonizer(
+            child: Skeleton.shade(
+                child: CustomCategoriesCourse(
+          categories: [],
+        ))),
+        LoadingWidget(
             child: CustomPoluparCourse(
           course: [Course()],
           categories: [Category(), Category(), Category(), Category()],
         )),
-        Skeletonizer(
+        LoadingWidget(
             child: CustomWidgetCourse(
           courses: [Course(), Course(), Course(), Course()],
         )),
-        Skeletonizer(
+        LoadingWidget(
             child: CustomMentor(
           mentors: [Mentor(), Mentor(), Mentor(), Mentor()],
         ))

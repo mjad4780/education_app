@@ -16,35 +16,35 @@ Map<String, dynamic> responsehome = {
         "id": 201,
         "name": "John Doe",
         "bio": "Expert Python developer with 10 years of experience",
-        "profile_image": "https://example.com/john_doe.jpg",
+        "profile_image": "assets/images/avatar.png",
         "title": "graphic_design"
       },
       {
         "id": 202,
         "name": "Jane Smith",
         "bio": "Professional UI/UX designer with 8 years of experience",
-        "profile_image": "https://example.com/jane_smith.jpg",
+        "profile_image": "assets/images/avatar.png",
         "title": "personal_development"
       },
       {
         "id": 203,
         "name": "Alan Turing",
         "bio": "Data scientist specializing in machine learning",
-        "profile_image": "https://example.com/alan_turing.jpg",
+        "profile_image": "assets/images/avatar.png",
         "title": "hr_management"
       },
       {
         "id": 204,
         "name": "Sophia Brown",
         "bio": "Marketing strategist with over 12 years in the field",
-        "profile_image": "https://example.com/sophia_brown.jpg",
+        "profile_image": "assets/images/avatar.png",
         "title": "web_development"
       },
       {
         "id": 205,
         "name": "Michael Johnson",
         "bio": "Entrepreneur and business consultant",
-        "profile_image": "https://example.com/michael_johnson.jpg",
+        "profile_image": "assets/images/avatar.png",
         "title": "3d_design"
       }
     ],

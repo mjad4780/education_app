@@ -67,6 +67,7 @@ dependencies:
   onesignal_flutter: ^5.2.9
   flutter_inappwebview: ^6.1.5
   skeletonizer: ^1.4.3
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

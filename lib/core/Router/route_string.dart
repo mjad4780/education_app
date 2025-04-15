@@ -23,4 +23,5 @@ abstract class StringRoute {
   static const String examReportScreen = "ExamReportScreen";
 //
   static const String searchScreen = "SearchScreen";
+  static const String notificationScreen = "NotificationScreen";
 }

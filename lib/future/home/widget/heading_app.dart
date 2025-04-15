@@ -1,3 +1,4 @@
+import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,8 +31,13 @@ class HeadingApp extends StatelessWidget {
                       fontWeight: FontWeight.w700)),
             ],
           ),
-          SvgPicture.asset(
-            Assets.imagesNOTIFICATIONS,
+          GestureDetector(
+            onTap: () {
+              context.pushName(StringRoute.notificationScreen);
+            },
+            child: SvgPicture.asset(
+              Assets.imagesNOTIFICATIONS,
+            ),
           ),
         ],
       ),
