@@ -47,12 +47,7 @@ List detailascourse = [
     ]
   },
   {
-    "details_id": 102,
-    "description": "Learn the principles of UI and UX design.",
-    "duration": "4 hours",
-    "level": "Intermediate",
-    "isPaid": true,
-    "price": 49.99,
+    "course_detail_id": 102,
     "videos": [
       {
         "id": 1,
@@ -60,7 +55,8 @@ List detailascourse = [
         "duration": "12 minutes",
         "url":
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        "isFree": true
+        "isFree": true,
+        "is_video": true
       },
       {
         "id": 2,
@@ -68,28 +64,25 @@ List detailascourse = [
         "duration": "20 minutes",
         "url":
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-        "isFree": false
+        "isFree": false,
+        "is_video": true
       },
-      {
-        "id": 3,
-        "title": "Prototyping Tools",
-        "duration": "18 minutes",
-        "url":
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "isFree": false
-      }
     ],
     "filles": [
       {
+        "id": 2,
+        "is_video": false,
+        "isFree": false,
         "title": "Document 1",
         "url":
             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        "downloaded": false
       },
       {
+        "id": 2,
+        "is_video": false,
         "title": "Document 3",
         "url": "https://gahp.net/wp-content/uploads/2017/09/sample.pdf",
-        "downloaded": false
+        "isFree": false
       }
     ]
   },
@@ -104,7 +97,6 @@ List detailascourse = [
       {
         "id": 1,
         "title": "Introduction to Data Science",
-        "duration": "15 minutes",
         "url":
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
         "isFree": true
@@ -145,7 +137,7 @@ List detailascourse = [
     "description": "Learn the fundamentals of digital marketing.",
     "duration": "7 hours",
     "level": "Beginner",
-    "isPaid": true,
+    "isFree": true,
     "price": 69.99,
     "videos": [
       {
@@ -159,7 +151,6 @@ List detailascourse = [
       {
         "id": 2,
         "title": "SEO Basics",
-        "duration": "40 minutes",
         "url":
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
         "isFree": false
@@ -178,7 +169,7 @@ List detailascourse = [
         "title": "Document 1",
         "url":
             "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        "downloaded": false
+        "isFree": false
       },
       {
         "title": "Document 3",

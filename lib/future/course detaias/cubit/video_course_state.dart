@@ -26,7 +26,7 @@ final class WatchRebuild extends VideoCourseState {
 final class PlayLoading extends VideoCourseState {}
 
 final class PlaySuccess extends VideoCourseState {
-  final (String?, String?) successString;
+  final (String?, String?, bool?) successString;
 
   PlaySuccess({required this.successString});
 }
@@ -54,7 +54,7 @@ final class DoneDownload extends VideoCourseState {
 final class PlayPdfLoading extends VideoCourseState {}
 
 final class PlayPdfSuccess extends VideoCourseState {
-  final (String?, String?) successString;
+  final (String?, String?, bool?) successString;
 
   PlayPdfSuccess({required this.successString});
 }
@@ -72,8 +72,15 @@ final class ProgressPdf extends VideoCourseState {
 
 ///////////fillter course
 
-final class FillterCourse extends VideoCourseState {
-  final Detailashome fillterCourse;
+final class FillterCourseSuccess extends VideoCourseState {
+  final DetailasCourse fillterCourse;
 
-  FillterCourse(this.fillterCourse);
+  FillterCourseSuccess(this.fillterCourse);
+}
+
+final class VideoCourseDatailasLoading extends VideoCourseState {}
+
+final class VideoCourseDatailasFailer extends VideoCourseState {
+  final String message;
+  VideoCourseDatailasFailer({required this.message});
 }

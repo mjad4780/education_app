@@ -3,31 +3,31 @@ import 'package:collection/collection.dart';
 import 'fille.dart';
 import 'video.dart';
 
-class Detailashome {
+class DetailasCourse {
   int? detailsId;
-  String? description;
-  String? duration;
-  bool? isPaid;
-  String? level;
+  // String? description;
+  // String? duration;
+  // bool? isPaid;
+  // String? level;
   List<Video>? videos;
   List<Fille>? filles;
 
-  Detailashome({
+  DetailasCourse({
     this.detailsId,
-    this.description,
-    this.duration,
-    this.level,
+    // this.description,
+    // this.duration,
+    // this.level,
     this.videos,
     this.filles,
-    this.isPaid,
+    // this.isPaid,
   });
 
-  factory Detailashome.fromJson(Map<String, dynamic> json) => Detailashome(
-        detailsId: json['details_id'] as int?,
-        description: json['description'] as String?,
-        duration: json['duration'] as String?,
-        isPaid: json['isPaid'] as bool?,
-        level: json['level'] as String?,
+  factory DetailasCourse.fromJson(Map<String, dynamic> json) => DetailasCourse(
+        detailsId: json['course_detail_id'] as int?,
+        // description: json['description'] as String?,
+        // duration: json['duration'] as String?,
+        // isPaid: json['isPaid'] as bool?,
+        // level: json['level'] as String?,
         videos: (json['videos'] as List<dynamic>?)
             ?.map((e) => Video.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -38,9 +38,9 @@ class Detailashome {
 
   Map<String, dynamic> toJson() => {
         'details_id': detailsId,
-        'description': description,
-        'duration': duration,
-        'level': level,
+        // 'description': description,
+        // 'duration': duration,
+        // 'level': level,
         'videos': videos?.map((e) => e.toJson()).toList(),
         'filles': filles?.map((e) => e.toJson()).toList(),
       };
@@ -48,7 +48,7 @@ class Detailashome {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Detailashome) return false;
+    if (other is! DetailasCourse) return false;
     final mapEquals = const DeepCollectionEquality().equals;
     return mapEquals(other.toJson(), toJson());
   }
@@ -56,9 +56,9 @@ class Detailashome {
   @override
   int get hashCode =>
       detailsId.hashCode ^
-      description.hashCode ^
-      duration.hashCode ^
-      level.hashCode ^
+      // description.hashCode ^
+      // duration.hashCode ^
+      // level.hashCode ^
       videos.hashCode ^
       filles.hashCode;
 }

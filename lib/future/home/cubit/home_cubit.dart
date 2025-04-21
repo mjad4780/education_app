@@ -3,47 +3,39 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
+import 'package:education/future/home/data/repo/repo_home.dart';
 import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../json.dart';
 import '../data/model/response_home/course.dart';
 import '../data/model/response_home/response_home.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()) {
-    initialize();
-  }
+  HomeCubit(this.repoHome) : super(HomeInitial());
+  final supabase = Supabase.instance.client;
+  final RepoHome repoHome;
   int currentindex = 0;
-
-  // updatecurrentendex(int index) {
-  //   emit(UpdateCurrentIndex(currentindex = index));
-  // }
 
   int currentindexpupalr = 0;
 
-  // updatecurrentendexbuplar(int index) {
-  //   emit(UpdateCurrentIndexPoluapr(currentindexpupalr = index));
-  // }
-
   ResponseHome? responseHome;
-  getData() {
+  getData() async {
+    _savedCourses.clear();
+    _savedCourses.addAll(getIt<CacheHelper>().getSavedCourses());
+    log(_savedCourses.length.toString());
     filltercourses.clear();
     emit(LoadingHome());
-    Future.delayed(const Duration(seconds: 10), () {
-      responseHome = ResponseHome.fromMap(responsehome);
-      if (responseHome != null) {
-        for (var element in responseHome!.platform!.courses!) {
-          if (element.categoryName ==
-              responseHome!.platform!.courses!.first.categoryName) {
-            filltercourses.add(element);
-          }
-        }
-        emit(EmitgetDataHome(responseHome!, filltercourses));
-      }
-      // }
-    });
+    final result = await repoHome.getHomeData();
+    result.fold(
+      (failure) => emit(
+        FailerGetDataHome(failure.message),
+      ),
+      (success) => emit(
+        EmitgetDataHome(responseHome = success),
+      ),
+    );
   }
 
   List<Course> filltercourses = [];
@@ -52,8 +44,8 @@ class HomeCubit extends Cubit<HomeState> {
     filltercourses.clear();
     emit(FailtercourseLoadedState(index: currentindexpupalr = index));
 
-    Future.delayed(const Duration(seconds: 5), () {
-      for (var element in responseHome!.platform!.courses!) {
+    Future.delayed(const Duration(seconds: 3), () {
+      for (var element in responseHome!.courses!) {
         if (element.categoryName == nameGategory) {
           filltercourses.add(element);
         }

@@ -55,13 +55,25 @@ class AuthService {
 
   Future<ResponseService> register(SignUpReqestBody body) async {
     try {
-      await _supabaseService.signUp(body);
-      return ResponseService(
-          true, 'Account created successfully please confirm your signUp');
+      AuthResponse response = await _supabaseService.signUp(body);
+      log('xception${response.session?.accessToken.toString()}');
+      if (response.user?.email == null) {
+        log('ption${response.user?.email.toString()}');
+
+        return ResponseService(false, ' Failer Account   ');
+      } else {
+        log('ptionddddd${response.user?.email.toString()}');
+
+        return ResponseService(
+            true, 'Account created successfully please confirm your signUp');
+      }
     } catch (e) {
       if (e is AuthException) {
+        log('AuthException${e.message}');
         return ResponseService(false, e.message);
       } else {
+        log('Exception${e.toString()}');
+
         return ResponseService(false, e.toString());
       }
     }

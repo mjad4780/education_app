@@ -58,7 +58,6 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
                       context
                           .read<HomeCubit>()
                           .responseHome!
-                          .platform!
                           .categories!
                           .length,
                       (i) => GestureDetector(
@@ -75,7 +74,6 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
                                       context
                                               .read<HomeCubit>()
                                               .responseHome!
-                                              .platform!
                                               .categories![i]
                                               .name ??
                                           '',
@@ -100,7 +98,6 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
                                       context
                                               .read<HomeCubit>()
                                               .responseHome!
-                                              .platform!
                                               .categories![i]
                                               .name ??
                                           '',

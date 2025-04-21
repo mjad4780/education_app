@@ -2,21 +2,33 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-import 'platform.dart';
+import 'category.dart';
+import 'course.dart';
+import 'mentor.dart';
 
 class ResponseHome {
-  Platform? platform;
+  List<Category>? categories;
+  List<Mentor>? mentors;
+  List<Course>? courses;
 
-  ResponseHome({this.platform});
+  ResponseHome({this.categories, this.mentors, this.courses});
 
   factory ResponseHome.fromMap(Map<String, dynamic> data) => ResponseHome(
-        platform: data['platform'] == null
-            ? null
-            : Platform.fromMap(data['platform'] as Map<String, dynamic>),
+        categories: (data['categories'] as List<dynamic>?)
+            ?.map((e) => Category.fromMap(e as Map<String, dynamic>))
+            .toList(),
+        mentors: (data['mentors'] as List<dynamic>?)
+            ?.map((e) => Mentor.fromMap(e as Map<String, dynamic>))
+            .toList(),
+        courses: (data['courses'] as List<dynamic>?)
+            ?.map((e) => Course.fromMap(e as Map<String, dynamic>))
+            .toList(),
       );
 
   Map<String, dynamic> toMap() => {
-        'platform': platform?.toMap(),
+        'categories': categories?.map((e) => e.toMap()).toList(),
+        'mentors': mentors?.map((e) => e.toMap()).toList(),
+        'courses': courses?.map((e) => e.toMap()).toList(),
       };
 
   /// `dart:convert`
@@ -38,7 +50,4 @@ class ResponseHome {
     final mapEquals = const DeepCollectionEquality().equals;
     return mapEquals(other.toMap(), toMap());
   }
-
-  @override
-  int get hashCode => platform.hashCode;
 }

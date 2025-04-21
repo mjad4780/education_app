@@ -25,7 +25,7 @@ class ColorTextStyle {
   const ColorTextStyle._();
 
   static Color geColorMode() {
-    if (getIt<CacheHelper>().getData(key: Keys.themeMode)) {
+    if (getIt<CacheHelper>().getData(key: Keys.themeMode) ?? false) {
       return AppColorDarkMode.moreLightGray;
     } else {
       return AppColorligth.moreLightGray;

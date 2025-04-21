@@ -46,7 +46,7 @@ class SupabaseService implements ISupabaseService {
 
   @override
   Future<String> signedUploadImage(File file) {
-    return _client.storage.from('education_profile').upload(
+    return _client.storage.from('profile').upload(
           reNamePathImage(file.path),
           file,
         );

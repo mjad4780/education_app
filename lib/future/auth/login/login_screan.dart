@@ -128,6 +128,7 @@ class LoginScrean extends StatelessWidget {
                   ],
                 ),
               ),
+              verticalSpace(16),
               const LoginBlocListener(),
               const SignInGoogleBlocListener()
             ],

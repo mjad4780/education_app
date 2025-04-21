@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 void buildErrorBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -38,4 +38,15 @@ void buildSuccessBar(BuildContext context, String message) {
           left: 20),
     ),
   );
+}
+void buildErorr(BuildContext context ){
+  AwesomeDialog(
+            context: context,
+            dialogType: DialogType.info,
+            animType: AnimType.rightSlide,,
+            title: 'Dialog Title',
+            desc: 'Dialog description here.............',
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {},
+            ).show();
 }

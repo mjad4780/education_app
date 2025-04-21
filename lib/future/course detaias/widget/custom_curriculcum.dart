@@ -11,7 +11,7 @@ class CustomCurriculum extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.read<VideoCourseCubit>().headCourse!.paid!
+      height: !context.read<VideoCourseCubit>().headCourse!.isFree!
           ? height(context) / 3.3
           : height(context) / 2.65,
       child: BlocConsumer<VideoCourseCubit, VideoCourseState>(

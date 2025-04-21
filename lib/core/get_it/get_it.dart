@@ -2,6 +2,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/core/service/home_service/supabase_services_Home.dart';
+import 'package:education/future/home/data/repo/repo_home.dart';
 import 'package:education/future/paymop/logic/paymop_cubit.dart';
 import 'package:education/core/service/paymop/service_paymop.dart';
 import 'package:education/future/Qiez/cubit/exam_cubit.dart';
@@ -42,7 +44,10 @@ void setupServise() {
         serverClientId: clientIdWep,
       ));
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
+  getIt.registerLazySingleton<SupabaseServiceHome>(
+      () => SupabaseServiceHome(getIt()));
   getIt.registerLazySingleton<SupabaseService>(() => SupabaseService(getIt()));
+
   getIt.registerLazySingleton<AuthService>(() => AuthService(getIt(), getIt()));
 
   // Dio dio = DioFactory.getDio();
@@ -70,7 +75,7 @@ void setupServise() {
   //VideoCourseCubits
   getIt.registerLazySingleton<VideoService>(() => VideoService(dio));
 
-  getIt.registerLazySingleton<RepoVideo>(() => RepoVideo(getIt()));
+  getIt.registerLazySingleton<RepoVideo>(() => RepoVideo(getIt(), getIt()));
 
   getIt.registerFactory<VideoCourseCubit>(() => VideoCourseCubit(getIt()));
 
@@ -81,7 +86,9 @@ void setupServise() {
   getIt.registerFactory<ExamCubit>(() => ExamCubit(getIt()));
 
   ///home
-  getIt.registerFactory<HomeCubit>(() => HomeCubit());
+  getIt.registerLazySingleton<RepoHome>(() => RepoHome(getIt()));
+
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 
   ///MyCourse
   getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit());

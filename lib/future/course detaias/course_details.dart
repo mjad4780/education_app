@@ -18,12 +18,17 @@ class CourseDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VideoCourseCubit>()..emitgetcourse(course),
+      create: (context) =>
+          getIt<VideoCourseCubit>()..emitgetcourse(course, course.id ?? 0),
       child: Scaffold(
         body: Stack(
           children: [
             const CourseHeader(),
             const CourseDetailsCard(),
+            Positioned(
+                right: 30,
+                top: height(context) * 0.30,
+                child: Text(course.id.toString())),
             Positioned(
               right: 34,
               top: height(context) * 0.30,
@@ -54,6 +59,7 @@ class CourseTitleRow extends StatelessWidget {
               color: const Color(0xFFFF6B00),
             ),
           ),
+          // CircularProgressIndicator()
           const Spacer(),
           SvgPicture.asset(Assets.imagesStar),
           Text(

@@ -152,7 +152,7 @@ class CustomWidgetPoluparCourse extends StatelessWidget {
 
                               // السعر
                               Text(
-                                course[i].paid ?? false
+                                course[i].isFree == false
                                     ? "\$${course[i].price ?? ''}"
                                     : "Free",
                                 style: context.textStyle.titleMedium!.copyWith(

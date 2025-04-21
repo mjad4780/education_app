@@ -92,7 +92,7 @@ class SuccessWidgetItemCourse extends StatelessWidget {
                   Row(
                     children: [
                       const Spacer(),
-                      course.paid ?? false
+                      course.isFree == false
                           ? Text("\$${course.price ?? ''}",
                               style: context.textStyle.titleMedium!.copyWith(
                                 color: context.color.blue,

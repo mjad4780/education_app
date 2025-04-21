@@ -81,7 +81,7 @@ class CourseDetailsCard extends StatelessWidget {
                     const Divider(),
                     const ButtomVideoAndPdfAndExams(),
                     const Spacer(),
-                    context.read<VideoCourseCubit>().headCourse!.paid!
+                    !context.read<VideoCourseCubit>().headCourse!.isFree!
                         ? const EnrollButton()
                         : const SizedBox.shrink(),
                     // verticalSpace(20),

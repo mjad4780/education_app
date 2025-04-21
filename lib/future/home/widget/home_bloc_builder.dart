@@ -22,10 +22,14 @@ class HomeBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) =>
-          current is LoadingHome || current is EmitgetDataHome,
+          current is LoadingHome ||
+          current is EmitgetDataHome ||
+          current is FailerGetDataHome,
       builder: (_, state) {
         if (state is LoadingHome) {
           return loadingHome(state);
+        } else if (state is FailerGetDataHome) {
+          return Center(child: Text(state.messege));
         } else if (state is EmitgetDataHome) {
           return SingleChildScrollView(
               child: Column(
@@ -34,17 +38,17 @@ class HomeBlocBuilder extends StatelessWidget {
               const SearchApp(),
               const PosterApp(),
               CustomCategoriesCourse(
-                categories: state.responseHome.platform!.categories!,
+                categories: state.responseHome.categories!,
               ),
               CustomPoluparCourse(
-                course: state.responseHome.platform!.courses!,
-                categories: state.responseHome.platform!.categories!,
+                course: state.responseHome.courses!,
+                categories: state.responseHome.categories!,
               ),
               CoursesBlocBuilder(
-                courses: state.course,
+                courses: state.responseHome.courses!,
               ),
               CustomMentor(
-                mentors: state.responseHome.platform!.mentors!,
+                mentors: state.responseHome.mentors!,
               )
             ],
           ));

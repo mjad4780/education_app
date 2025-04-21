@@ -20,7 +20,7 @@ class LoginBlocListener extends StatelessWidget {
         if (state is LoginSuccess) {
           context.pop();
           buildSuccessBar(context, state.successString);
-          context.pushNamedAndRemoveUntil(StringRoute.home);
+          context.pushNamedAndRemoveUntil(StringRoute.main);
         } else if (state is LoginFailure) {
           context.pop();
           buildErrorBar(context, state.message);

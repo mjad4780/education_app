@@ -1,32 +1,35 @@
-import 'package:collection/collection.dart';
-
 class Fille {
-  String? title;
-  String? url;
-  bool? downloaded;
+  final int? id;
+  final String? title;
+  final String? url;
+  final bool? isFree;
+  final bool? isVideo;
 
-  Fille({this.title, this.url, this.downloaded});
+  Fille({
+    required this.id,
+    required this.title,
+    required this.url,
+    required this.isFree,
+    required this.isVideo,
+  });
 
-  factory Fille.fromJson(Map<String, dynamic> json) => Fille(
-        title: json['title'] as String?,
-        url: json['url'] as String?,
-        downloaded: json['downloaded'] as bool?,
-      );
-
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'url': url,
-        'downloaded': downloaded,
-      };
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    if (other is! Fille) return false;
-    final mapEquals = const DeepCollectionEquality().equals;
-    return mapEquals(other.toJson(), toJson());
+  factory Fille.fromJson(Map<String, dynamic> json) {
+    return Fille(
+      id: json['id'],
+      title: json['title'],
+      url: json['url'],
+      isFree: json['isFree'],
+      isVideo: json['is_video'],
+    );
   }
 
-  @override
-  int get hashCode => title.hashCode ^ url.hashCode ^ downloaded.hashCode;
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'url': url,
+      'isFree': isFree,
+      'is_video': isVideo,
+    };
+  }
 }
