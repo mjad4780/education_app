@@ -22,40 +22,44 @@ class PoluparScrean extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-              size: 35,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+                size: 35,
+              ),
+              onPressed: () {
+                context.pop();
+              },
             ),
-            onPressed: () {
-              context.pop();
-            },
+            actions: [
+              SvgPicture.asset(Assets.imagesSearchGray),
+              horizontalSpace(13)
+            ],
+            title: Text(context.translate(LangKeys.popularCourses),
+                style: context.textStyle.bodyLarge),
           ),
-          actions: [
-            SvgPicture.asset(Assets.imagesSearchGray),
-            horizontalSpace(13)
-          ],
-          title: Text(context.translate(LangKeys.popularCourses),
-              style: context.textStyle.bodyLarge),
-        ),
-        body: BlocProvider.value(
-          value: maps['cubit'] as HomeCubit,
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CategoriseCoursePopular(
-                    index: maps['index'],
-                  ),
-                  const FilterCoursesBlocBuilder(),
-                ],
+          SliverToBoxAdapter(
+            child: BlocProvider.value(
+              value: maps['cubit'] as HomeCubit,
+              child: CategoriseCoursePopular(
+                index: maps['index'],
               ),
             ),
           ),
-        ));
+          SliverFillRemaining(
+            child: BlocProvider.value(
+              value: maps['cubit'] as HomeCubit,
+              child: const FilterCoursesBlocBuilder(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -5,8 +5,10 @@ import 'package:education/core/service/home_service/supabase_services_Home.dart'
 import 'package:education/core/service/video_hundle/video_service.dart';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/error/failures.dart';
+import 'package:education/core/error/exceptions.dart';
+import 'package:education/core/error/failures.dart';
+import 'package:education/core/get_it/get_it.dart';
+import 'package:education/core/helpers/connectivity_controller.dart';
 
 class RepoVideo {
   final VideoService _services;
@@ -40,8 +42,15 @@ class RepoVideo {
 
   Future<Either<Failure, DetailasCourse>> getCourseDetails(int courseId) async {
     try {
+      if (!getIt<ConnectivityController>().isConnected.value) {
+        return left(ServerFailure('No internet connection'));
+      }
       var response = await _supabase.getCourseDetails(courseId);
-      return right(response);
+      if (response.result) {
+        return right(response.data!);
+      } else {
+        return left(ServerFailure(response.messege));
+      }
     } on CustomException catch (e) {
       log(e.message);
       return left(ServerFailure(e.message));

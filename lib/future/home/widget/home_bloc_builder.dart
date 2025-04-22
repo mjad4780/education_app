@@ -1,3 +1,4 @@
+import 'package:education/core/helpers/failer_widget.dart';
 import 'package:education/future/home/data/model/response_home/category.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:education/future/home/data/model/response_home/mentor.dart';
@@ -20,7 +21,8 @@ class HomeBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {},
       buildWhen: (previous, current) =>
           current is LoadingHome ||
           current is EmitgetDataHome ||
@@ -29,7 +31,11 @@ class HomeBlocBuilder extends StatelessWidget {
         if (state is LoadingHome) {
           return loadingHome(state);
         } else if (state is FailerGetDataHome) {
-          return Center(child: Text(state.messege));
+          return FailerWidget(
+            messege: state.messege,
+            icon: Icons.wifi_off_outlined,
+            onPressed: () => context.read<HomeCubit>().getData(),
+          );
         } else if (state is EmitgetDataHome) {
           return SingleChildScrollView(
               child: Column(
@@ -89,4 +95,3 @@ class HomeBlocBuilder extends StatelessWidget {
     ));
   }
 }
-//loding                 categories: [Category()]

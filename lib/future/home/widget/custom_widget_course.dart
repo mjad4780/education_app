@@ -44,7 +44,7 @@ class CoursesBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (previous, current) =>
-            current is FilterCourseState || current is FailtercourseLoadedState,
+            current is FilterCourseSuccessState || current is FailtercourseLoadedState,
         builder: (context, state) {
           if (state is FailtercourseLoadedState) {
             return LoadingWidget(
@@ -52,7 +52,7 @@ class CoursesBlocBuilder extends StatelessWidget {
               child: CustomWidgetCourse(
                   courses: List.generate(2, (index) => Course())),
             ));
-          } else if (state is FilterCourseState) {
+          } else if (state is FilterCourseSuccessState) {
             return CustomWidgetCourse(
               courses: state.courses,
             );

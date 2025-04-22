@@ -50,8 +50,14 @@ final class FailtercourseLoadedState extends HomeState {
   FailtercourseLoadedState({required this.index});
 }
 
-final class FilterCourseState extends HomeState {
+final class FilterCourseSuccessState extends HomeState {
   final List<Course> courses;
 
-  FilterCourseState(this.courses);
+  FilterCourseSuccessState(this.courses);
+}
+
+final class FailtercourseFailerState extends HomeState {
+  final String messege;
+
+  FailtercourseFailerState({required this.messege});
 }

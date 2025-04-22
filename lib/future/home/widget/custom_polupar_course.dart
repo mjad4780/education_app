@@ -17,7 +17,7 @@ class CustomPoluparCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<HomeCubit, HomeState, int>(
-      selector: (state) => state is UpdateCurrentIndex ? state.index : 0,
+      selector: (state) => state is UpdateCurrentIndex ? state.index : -1,
       builder: (context, index) {
         return Column(
           children: [
@@ -34,7 +34,10 @@ class CustomPoluparCourse extends StatelessWidget {
                         context
                             .read<HomeCubit>()
                             .emitgetfilltergategoriescourse(
-                                categories.first.name ?? '', 0);
+                                index == -1
+                                    ? "all"
+                                    : categories.first.name ?? '',
+                                -1);
                         context.pushName(StringRoute.poluparScrean, arguments: {
                           'index': 0,
                           'cubit': context.read<HomeCubit>(),
@@ -85,19 +88,18 @@ class CategoriesPopular extends StatelessWidget {
             ? state.index
             : context.read<HomeCubit>().currentindexpupalr,
         builder: (context, currentindex) {
-          return Row(
-              children: List.generate(
-            categories.length,
-            (int i) => GestureDetector(
+          return Row(children: [
+            // All button at the start
+            GestureDetector(
               onTap: () {
                 context.read<HomeCubit>().emitgetfilltergategoriescourse(
-                    categories[i].name ?? '', i);
+                    'all', -1); // Using -1 to indicate "all" selection
               },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                 padding: const EdgeInsets.all(6),
                 decoration: ShapeDecoration(
-                  color: currentindex == i
+                  color: currentindex == -1
                       ? const Color(0xFF167F71)
                       : context.color.white,
                   shape: RoundedRectangleBorder(
@@ -106,20 +108,53 @@ class CategoriesPopular extends StatelessWidget {
                 ),
                 constraints: const BoxConstraints(maxHeight: 55),
                 child: Center(
-                  child: Text(
-                      context.translate(
-                        categories[i].name ?? 'caregories ',
-                      ),
+                  child: Text(context.translate('all'),
                       textAlign: TextAlign.center,
                       style: context.textStyle.displaySmall!.copyWith(
-                          color: currentindex == i
+                          color: currentindex == -1
                               ? context.color.white
                               : Colors.black,
                           fontWeight: FontWeight.w700)),
                 ),
               ),
             ),
-          ));
+            // Original categories list
+            ...List.generate(
+              categories.length,
+              (int i) => GestureDetector(
+                onTap: () {
+                  context.read<HomeCubit>().emitgetfilltergategoriescourse(
+                      categories[i].name ?? '', i);
+                },
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                  padding: const EdgeInsets.all(6),
+                  decoration: ShapeDecoration(
+                    color: currentindex == i
+                        ? const Color(0xFF167F71)
+                        : context.color.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  constraints: const BoxConstraints(maxHeight: 55),
+                  child: Center(
+                    child: Text(
+                        context.translate(
+                          categories[i].name ?? 'categories ',
+                        ),
+                        textAlign: TextAlign.center,
+                        style: context.textStyle.displaySmall!.copyWith(
+                            color: currentindex == i
+                                ? context.color.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w700)),
+                  ),
+                ),
+              ),
+            )
+          ]);
         });
   }
 }

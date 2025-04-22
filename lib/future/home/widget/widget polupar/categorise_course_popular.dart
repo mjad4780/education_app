@@ -43,7 +43,7 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
   Widget build(BuildContext context) {
     return BlocSelector<HomeCubit, HomeState, int>(
       selector: (state) =>
-          state is FilterCourseState || state is FailtercourseLoadedState
+          state is FilterCourseSuccessState || state is FailtercourseLoadedState
               ? context.read<HomeCubit>().currentindexpupalr
               : widget.index >= 0
                   ? context.read<HomeCubit>().currentindexpupalr
@@ -53,67 +53,71 @@ class _CategoriseCoursePopularState extends State<CategoriseCoursePopular> {
             controller: _scrollController, // ربط ScrollController هنا
             scrollDirection: Axis.horizontal,
             child: Builder(builder: (context) {
-              return Row(
-                  children: List.generate(
-                      context
-                          .read<HomeCubit>()
-                          .responseHome!
-                          .categories!
-                          .length,
-                      (i) => GestureDetector(
-                            onTap: () {
-                              // context
-                              //     .read<HomeCubit>()
-                              //     .updatecurrentendexbuplar(i);
-                              // log(i.toString());
-                              // log(currentindex.toString());
-
-                              context
-                                  .read<HomeCubit>()
-                                  .emitgetfilltergategoriescourse(
-                                      context
-                                              .read<HomeCubit>()
-                                              .responseHome!
-                                              .categories![i]
-                                              .name ??
-                                          '',
-                                      i);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(11.0),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                constraints: const BoxConstraints(
-                                    minHeight: 55, minWidth: 70),
-                                alignment:
-                                    Alignment.center, // جعل المحتوى في المنتصف
-                                decoration: BoxDecoration(
-                                    color: currentindex == i
-                                        ? context.color.teal
-                                        : const Color(0xFFE8F1FF),
-                                    borderRadius: BorderRadius.circular(22)),
-                                child: Text(
-                                    context.translate(
-                                      context
-                                              .read<HomeCubit>()
-                                              .responseHome!
-                                              .categories![i]
-                                              .name ??
-                                          '',
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    style: context.textStyle.displaySmall!
-                                        .copyWith(
-                                            color: currentindex == i
-                                                ? const Color(0xFFE8F1FF)
-                                                : context.color.black,
-                                            fontWeight: FontWeight.w700)),
-                              ),
-                            ),
-                          )));
+              return Row(children: [
+                ButtomNameCategories(
+                  i: -1,
+                  currentindex: currentindex,
+                ),
+                ...List.generate(
+                    context.read<HomeCubit>().responseHome!.categories!.length,
+                    (i) => ButtomNameCategories(
+                          i: i,
+                          currentindex: currentindex,
+                        ))
+              ]);
             }));
       },
+    );
+  }
+}
+
+class ButtomNameCategories extends StatelessWidget {
+  const ButtomNameCategories(
+      {super.key, required this.i, required this.currentindex});
+  final int i;
+  final int currentindex;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.read<HomeCubit>().emitgetfilltergategoriescourse(
+            i == -1
+                ? 'all'
+                : context.read<HomeCubit>().responseHome!.categories![i].name ??
+                    '',
+            i);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(11.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          constraints: const BoxConstraints(minHeight: 55, minWidth: 70),
+          alignment: Alignment.center, // جعل المحتوى في المنتصف
+          decoration: BoxDecoration(
+              color: currentindex == i
+                  ? context.color.teal
+                  : const Color(0xFFE8F1FF),
+              borderRadius: BorderRadius.circular(22)),
+          child: Text(
+              context.translate(
+                i == -1
+                    ? 'all'
+                    : context
+                            .read<HomeCubit>()
+                            .responseHome!
+                            .categories![i]
+                            .name ??
+                        '',
+              ),
+              textAlign: TextAlign.center,
+              style: context.textStyle.displaySmall!.copyWith(
+                  color: currentindex == i
+                      ? const Color(0xFFE8F1FF)
+                      : context.color.black,
+                  fontWeight: FontWeight.w700)),
+        ),
+      ),
     );
   }
 }

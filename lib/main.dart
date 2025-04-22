@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:education/app/education_app.dart';
+import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/key.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,13 @@ void main() async {
   );
   Bloc.observer = MyBlocObserver();
   setupServise();
+  await ConnectivityController.instance.init();
+
   await getIt<CacheHelper>().init();
+  await getIt<ConnectivityController>().init();
+
   await ScreenUtil.ensureScreenSize();
+
   await Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,

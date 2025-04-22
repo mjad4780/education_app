@@ -16,9 +16,9 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.repoHome) : super(HomeInitial());
   final supabase = Supabase.instance.client;
   final RepoHome repoHome;
-  int currentindex = 0;
+  // int currentindex = 0;
 
-  int currentindexpupalr = 0;
+  int currentindexpupalr = -1;
 
   ResponseHome? responseHome;
   getData() async {
@@ -42,16 +42,26 @@ class HomeCubit extends Cubit<HomeState> {
 
   emitgetfilltergategoriescourse(String nameGategory, int index) {
     filltercourses.clear();
+    log(responseHome!.courses!.length.toString());
     emit(FailtercourseLoadedState(index: currentindexpupalr = index));
 
     Future.delayed(const Duration(seconds: 3), () {
+      if (nameGategory == "all") {
+        log('all${filltercourses.length}');
+
+        filltercourses.addAll(responseHome!.courses!);
+        log(responseHome!.courses!.length.toString());
+      }
+
       for (var element in responseHome!.courses!) {
         if (element.categoryName == nameGategory) {
+          log('fillter');
           filltercourses.add(element);
+          log('fillter${filltercourses.length}');
         }
       }
       currentindexpupalr = index;
-      emit(FilterCourseState(filltercourses));
+      emit(FilterCourseSuccessState(filltercourses));
     });
   }
 

@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/core/service/home_service/supabase_services_Home.dart';
 import 'package:education/future/home/data/repo/repo_home.dart';
 import 'package:education/future/paymop/logic/paymop_cubit.dart';
@@ -86,7 +87,12 @@ void setupServise() {
   getIt.registerFactory<ExamCubit>(() => ExamCubit(getIt()));
 
   ///home
-  getIt.registerLazySingleton<RepoHome>(() => RepoHome(getIt()));
+  getIt.registerLazySingleton<ConnectivityController>(
+      () => ConnectivityController.instance);
+
+  getIt.registerLazySingleton<RepoHome>(() => RepoHome(
+        getIt(),
+      ));
 
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 

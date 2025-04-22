@@ -106,7 +106,7 @@ class VideoService {
   Future<(String?, String?, bool?)> handleRequestVideoOrPdf(String url,
       String fileName, Function(int, int)? onReceiveProgress) async {
     try {
-      final permissionResult = await checkPermissionStorage();
+      ResponseService permissionResult = await checkPermissionStorage();
       if (!permissionResult.result) {
         return ('permission_error', permissionResult.messege, false);
       }
