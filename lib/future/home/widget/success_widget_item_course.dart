@@ -4,6 +4,7 @@ import 'package:education/core/helpers/spacing.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:education/future/home/widget/icons_save.dart';
 import 'package:education/utility/images_aseets.dart';
+import 'package:education/widget/custom_cache_networking_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -25,19 +26,28 @@ class SuccessWidgetItemCourse extends StatelessWidget {
             //     course
             //             .image ??
             //         ''),
+
             Container(
               width: width(context) / 2,
               height: height(context) / 8,
-              decoration: const ShapeDecoration(
-                color: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x14000000),
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
+              child: SmartNetworkImage(
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(20),
+                  ),
+                  // fit: BoxFit.fill,
+                  imageUrl: course.imageUrl ?? ''),
             ),
+
             Container(
               width: width(context) / 2,
               height: height(context) / 8,

@@ -47,17 +47,13 @@ class HomeCubit extends Cubit<HomeState> {
 
     Future.delayed(const Duration(seconds: 3), () {
       if (nameGategory == "all") {
-        log('all${filltercourses.length}');
-
         filltercourses.addAll(responseHome!.courses!);
         log(responseHome!.courses!.length.toString());
       }
 
       for (var element in responseHome!.courses!) {
         if (element.categoryName == nameGategory) {
-          log('fillter');
           filltercourses.add(element);
-          log('fillter${filltercourses.length}');
         }
       }
       currentindexpupalr = index;

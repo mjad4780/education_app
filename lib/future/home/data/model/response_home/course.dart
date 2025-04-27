@@ -14,7 +14,9 @@ class Course {
   final int? duration;
   final String? level;
   final String? description;
+  final int? countVideo;
   Course({
+    this.countVideo,
     this.level,
     this.description,
     this.duration,
@@ -28,6 +30,7 @@ class Course {
   });
 
   factory Course.fromMap(Map<String, dynamic> data) => Course(
+        countVideo: data['count_video'],
         id: data['id'],
         title: data['title'],
         categoryName: data['category_name'],
@@ -69,43 +72,43 @@ class Course {
   }
 }
 
-class CourseModel {
-  final int id;
+// class CourseModel {
+//   final int id;
 
-  final String title;
-  final int categoryId;
-  final int mentorId;
-  final double price;
-  final bool isFree;
-  final String imageUrl;
-  final int duration;
-  final String level;
-  final String description;
-  CourseModel({
-    required this.level,
-    required this.description,
-    required this.duration,
-    required this.id,
-    required this.title,
-    required this.categoryId,
-    required this.mentorId,
-    required this.price,
-    required this.isFree,
-    required this.imageUrl,
-  });
+//   final String title;
+//   final int categoryId;
+//   final int mentorId;
+//   final double price;
+//   final bool isFree;
+//   final String imageUrl;
+//   final int duration;
+//   final String level;
+//   final String description;
+//   CourseModel({
+//     required this.level,
+//     required this.description,
+//     required this.duration,
+//     required this.id,
+//     required this.title,
+//     required this.categoryId,
+//     required this.mentorId,
+//     required this.price,
+//     required this.isFree,
+//     required this.imageUrl,
+//   });
 
-  factory CourseModel.fromJson(Map<String, dynamic> json) {
-    return CourseModel(
-      id: json['id'],
-      title: json['title'],
-      categoryId: json['category_id'],
-      mentorId: json['mentor_id'],
-      price: json['price'].toDouble(),
-      isFree: json['is_free'],
-      imageUrl: json['image_url'],
-      description: json['description'],
-      duration: json['duration'],
-      level: json['level'],
-    );
-  }
-}
+//   factory CourseModel.fromJson(Map<String, dynamic> json) {
+//     return CourseModel(
+//       id: json['id'],
+//       title: json['title'],
+//       categoryId: json['category_id'],
+//       mentorId: json['mentor_id'],
+//       price: json['price'].toDouble(),
+//       isFree: json['is_free'],
+//       imageUrl: json['image_url'],
+//       description: json['description'],
+//       duration: json['duration'],
+//       level: json['level'],
+//     );
+//   }
+// }

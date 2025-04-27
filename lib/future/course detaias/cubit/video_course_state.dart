@@ -6,6 +6,12 @@ final class VideoCourseInitial extends VideoCourseState {}
 
 final class VideoCourseLoading extends VideoCourseState {}
 
+final class WatchVideoCourse extends VideoCourseState {
+  final int videoId;
+
+  WatchVideoCourse(this.videoId);
+}
+
 final class VideoCourseSuccess extends VideoCourseState {
   VideoCourseSuccess();
 }
@@ -83,4 +89,20 @@ final class VideoCourseDatailasLoading extends VideoCourseState {}
 final class VideoCourseDatailasFailer extends VideoCourseState {
   final String message;
   VideoCourseDatailasFailer({required this.message});
+}
+
+//updateCourse
+final class UpdateCourseLoading extends VideoCourseState {
+  UpdateCourseLoading();
+}
+
+final class UpdateCourseSuccess extends VideoCourseState {
+  final String messageSuccess;
+
+  UpdateCourseSuccess(this.messageSuccess);
+}
+
+final class UpdateCourseFailer extends VideoCourseState {
+  final String message;
+  UpdateCourseFailer({required this.message});
 }

@@ -1,3 +1,4 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,6 +30,9 @@ class SaveIcons extends StatelessWidget {
           child: SvgPicture.asset(
             isSaved ? Assets.imagesActiveSave : Assets.noActiveSave,
             height: 21,
+            theme: SvgTheme(
+                currentColor:
+                    isSaved ? context.color.teal : const Color(0xFF000000)),
           ),
         );
       },

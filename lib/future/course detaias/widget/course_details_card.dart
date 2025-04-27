@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,8 +32,8 @@ class CourseHeader extends StatelessWidget {
 }
 
 class CourseDetailsCard extends StatelessWidget {
-  const CourseDetailsCard({super.key});
-
+  const CourseDetailsCard({super.key, required this.detailasCourse});
+  final DetailasCourse detailasCourse;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -47,50 +48,36 @@ class CourseDetailsCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(27),
           ),
-          child: BlocBuilder<VideoCourseCubit, VideoCourseState>(
-            // buildWhen: (previous, current) => current is FillterCourse,
-            builder: (context, state) {
-              return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    verticalSpace(25),
-                    const CourseTitleRow(),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            context
-                                    .read<VideoCourseCubit>()
-                                    .headCourse!
-                                    .title ??
-                                '',
-                            overflow: TextOverflow.ellipsis,
-                            style: context.textStyle.headlineMedium!.copyWith(
-                              color: const Color(0xFF202244),
-                            ),
-                          ),
-                        ),
-                      ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            const CourseTitleRow(),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    context.read<VideoCourseCubit>().headCourse!.title ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    style: context.textStyle.headlineMedium!.copyWith(
+                      color: const Color(0xFF202244),
                     ),
-                    verticalSpace(8),
-                    const CourseStatsRow(),
-                    verticalSpace(10),
-                    const Divider(),
-                    const ButtomVideoAndPdfAndExams(),
-                    const Spacer(),
-                    !context.read<VideoCourseCubit>().headCourse!.isFree!
-                        ? const EnrollButton()
-                        : const SizedBox.shrink(),
-                    // verticalSpace(20),
-                  ]);
-              // : const Center(
-              //     child: CircularProgressIndicator(),
-              //   );
-            },
-          ),
+                  ),
+                ),
+              ),
+            ),
+            verticalSpace(2),
+            const CourseStatsRow(),
+            verticalSpace(2),
+            const Divider(),
+            ButtomVideoAndPdfAndExams(
+              detailasCourse: detailasCourse,
+            ),
+            const Spacer(),
+          ]),
+          // : const Center(
+          //     child: CircularProgressIndicator(),
+          //   );
         ),
       ),
     );

@@ -6,20 +6,20 @@ import 'package:education/core/error/failures.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/core/service/home_service/supabase_services_home.dart';
-import 'package:education/future/home/data/model/response_home/response_home.dart';
+import 'package:education/future/home/data/model/response_home/course.dart';
 
-class RepoHome {
-  final SupabaseServiceHome _supabase;
-  RepoHome(
-    this._supabase,
+class RepoMyCourse {
+  final SupabaseServiceHome supabase;
+  RepoMyCourse(
+    this.supabase,
   );
 
-  Future<Either<Failure, ResponseHome>> getHomeData() async {
+  Future<Either<Failure, List<Course>>> getCompletedCourse() async {
     try {
       if (!getIt<ConnectivityController>().isConnected.value) {
         return left(ServerFailure('No internet connection'));
       }
-      var response = await _supabase.getHomeData();
+      var response = await supabase.getCompletedCourse();
       if (response.result) {
         return right(response.data!);
       } else {

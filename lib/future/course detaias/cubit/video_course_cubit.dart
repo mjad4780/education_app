@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:education/core/get_it/get_it.dart';
+import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +15,12 @@ import '../../home/data/model/response_home/course.dart';
 part 'video_course_state.dart';
 
 class VideoCourseCubit extends Cubit<VideoCourseState> {
-  VideoCourseCubit(this._repoVideo) : super(VideoCourseInitial());
+  VideoCourseCubit(
+    this._repoVideo,
+  ) : super(VideoCourseInitial()) {
+    getIt<CacheHelper>().removeData(key: 'watched_videos');
+  }
+
   late VideoPlayerController videoController;
   ChewieController? chewieController;
   final RepoVideo _repoVideo;
@@ -71,24 +78,36 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
     return File(filePath).existsSync();
   }
 
+//liner progress couese
+  Map<int, bool> watchedVideos =
+      {}; // مفتاحه هو معرف الفيديو وقيمته إذا كان قد شوهد
   String again = '';
+  int? videoId;
   void initializeVideo(String videoPath, {bool isfile = true}) async {
     try {
       again = videoPath;
       if (chewieController != null) {
-        log('unsuccess33333');
-
         videoController.dispose();
         chewieController!.dispose();
       }
       emit(VideoCourseLoading());
       bool isfiles = await videolocal(videoPath);
-      log('is loacl or server $isfiles');
       videoController = isfiles
           ? VideoPlayerController.file(File(videoPath))
           : VideoPlayerController.networkUrl(Uri.parse(videoPath));
 
       await videoController.initialize();
+      videoController.addListener(() {
+        if (videoController.value.position >= videoController.value.duration &&
+            videoId != null) {
+          if (!watchedVideos.containsKey(videoId) || !watchedVideos[videoId]!) {
+            watchedVideos[videoId!] = true;
+            getIt<CacheHelper>().saveWatchedVideos(watchedVideos);
+            emit(WatchVideoCourse(videoId!));
+          }
+        }
+      });
+
       // Set timeout
       Future.delayed(const Duration(seconds: 15), () {
         if (state is VideoCourseLoading) {
@@ -117,6 +136,8 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       emit(VideoCourseFailure(message: 'تحقق من اتصالك بالإنترنت'));
     }
   }
+
+////////////////
 
   watchcourse(int value) {
     emit(WatchRebuild(rebuildCourse = value));
@@ -168,22 +189,49 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   }
 
   ///////////////////////////////////////////test model video
-  List<DetailasCourse> listcourse = [];
   Course? headCourse;
-  DetailasCourse? fillterCourse;
-  emitgetcourse(Course course, int courseId) async {
-    emit(VideoCourseDatailasLoading());
-    // headCourse = course;
+  String initialVideo = '';
+  int totalvideos = 0;
+  Future<void> emitgetdataliascourse(Course course, int courseId) async {
+    try {
+      if (isClosed) return;
 
-    final result = await _repoVideo.getCourseDetails(courseId);
-    result.fold(
-      (failure) => emit(
-        VideoCourseDatailasFailer(message: failure.message),
-      ),
-      (success) => emit(
-        FillterCourseSuccess(success),
-      ),
-    );
+      emit(VideoCourseDatailasLoading());
+      headCourse = course;
+
+      final result = await _repoVideo.getCourseDetails(courseId);
+
+      if (isClosed) return;
+
+      result.fold((failure) {
+        emit(VideoCourseDatailasFailer(message: failure.message));
+      }, (success) {
+        totalvideos = success.videos!.length;
+        videoId = success.videos!.first.id;
+        initialVideo = success.videos!.first.url!;
+        emit(FillterCourseSuccess(success));
+      });
+    } catch (e) {
+      if (!isClosed) {
+        emit(VideoCourseDatailasFailer(message: e.toString()));
+      }
+    }
+  }
+
+//update course
+  updateCourseToFree(int courseId) async {
+    emit(UpdateCourseLoading());
+
+    final result = await _repoVideo.updateCourseToFree(courseId);
+    result.fold((failure) {
+      emit(
+        UpdateCourseFailer(message: failure.message),
+      );
+    }, (success) {
+      emit(
+        UpdateCourseSuccess(success),
+      );
+    });
   }
 
   deleteVideoCache(String title) async {

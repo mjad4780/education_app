@@ -18,7 +18,7 @@ class Fille {
       id: json['id'],
       title: json['title'],
       url: json['url'],
-      isFree: json['isFree'],
+      isFree: json['is_free'],
       isVideo: json['is_video'],
     );
   }

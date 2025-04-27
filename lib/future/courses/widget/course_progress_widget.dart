@@ -10,7 +10,7 @@ class CourseProgressWidget extends StatelessWidget {
     required this.totalVideos,
     required this.completedVideos,
   });
-  double get progress => completedVideos / totalVideos;
+  double get progress => totalVideos == 0 ? 0.0 : completedVideos / totalVideos;
 
   // قائمة الألوان بناءً على نسبة التقدم
   static final List<Color> progressColors = [
@@ -23,8 +23,9 @@ class CourseProgressWidget extends StatelessWidget {
 
   // اختيار اللون بناءً على نسبة التقدم
   Color _getProgressColor(double progress) {
+    if (progress.isNaN || progress.isInfinite) return Colors.red;
     int index = (progress * (progressColors.length - 1)).floor();
-    return progressColors[index];
+    return progressColors[index.clamp(0, progressColors.length - 1)];
   }
 
   @override

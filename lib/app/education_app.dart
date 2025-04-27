@@ -11,6 +11,8 @@ import '../core/Router/route.dart';
 import '../core/language/app_localizations_setup.dart';
 import '../core/style/theme/app_theme.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 class EducationApp extends StatelessWidget {
   const EducationApp({super.key});
 
@@ -32,6 +34,7 @@ class EducationApp extends StatelessWidget {
                   : themeDark(),
               locale: Locale(context.read<EducationCubit>().currentLangCode),
               supportedLocales: AppLocalizationsSetup.supportedLocales,
+              navigatorObservers: [routeObserver],
               localizationsDelegates:
                   AppLocalizationsSetup.localizationsDelegates,
               localeResolutionCallback:

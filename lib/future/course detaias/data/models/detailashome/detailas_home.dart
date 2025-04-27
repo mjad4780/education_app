@@ -31,7 +31,7 @@ class DetailasCourse {
         videos: (json['videos'] as List<dynamic>?)
             ?.map((e) => Video.fromJson(e as Map<String, dynamic>))
             .toList(),
-        filles: (json['filles'] as List<dynamic>?)
+        filles: (json['files'] as List<dynamic>?)
             ?.map((e) => Fille.fromJson(e as Map<String, dynamic>))
             .toList(),
       );

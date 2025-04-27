@@ -1,6 +1,7 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/video_course_cubit.dart';
 
@@ -28,7 +29,7 @@ class CustomButtomDetaliasVIdeoAndExam extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            constraints: const BoxConstraints(minHeight: 55, minWidth: 70),
+            constraints: BoxConstraints(minHeight: 40.h, minWidth: 60.w),
             alignment: Alignment.center, // جعل المحتوى في المنتصف
             decoration: BoxDecoration(
                 color: state == index

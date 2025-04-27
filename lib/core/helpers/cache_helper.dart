@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheHelper {
@@ -104,5 +106,26 @@ class CacheHelper {
 
   Set<String> getSavedCourses() {
     return sharedPreferences.getStringList(_savedCoursesKey)?.toSet() ?? {};
+  }
+
+  static const String _watchedVideosKey = 'watched_videos';
+
+  Future<void> saveWatchedVideos(Map<int, bool> watchedVideos) async {
+    // تحويل المفاتيح إلى String
+    final stringKeyMap = watchedVideos.map((key, value) => MapEntry(key.toString(), value));
+    await sharedPreferences.setString(
+      _watchedVideosKey,
+      json.encode(stringKeyMap),
+    );
+  }
+
+  Map<int, bool> getWatchedVideos() {
+    final data = sharedPreferences.getString(_watchedVideosKey);
+    if (data != null) {
+      final Map<String, dynamic> stringKeyMap = json.decode(data);
+      // تحويل المفاتيح مرة أخرى إلى int
+      return stringKeyMap.map((key, value) => MapEntry(int.parse(key), value as bool));
+    }
+    return {};
   }
 }

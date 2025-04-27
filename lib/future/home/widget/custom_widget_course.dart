@@ -15,11 +15,53 @@ class CustomWidgetCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (courses.isEmpty) {
-      return const Center(
-          child: Text(
-        "No Courses ",
-        style: TextStyle(color: Colors.red, fontSize: 20),
-      ));
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Using built-in animation for empty state
+            TweenAnimationBuilder(
+              duration: const Duration(seconds: 2),
+              tween: Tween<double>(begin: 0, end: 1),
+              builder: (context, value, child) {
+                return Transform.scale(
+                  scale: value,
+                  child: Icon(
+                    Icons.school_outlined,
+                    size: 100,
+                    color: Colors.grey[400],
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 800),
+              opacity: 1,
+              child: Text(
+                "No Courses Available",
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 1000),
+              opacity: 1,
+              child: Text(
+                "Check back later for new courses",
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     } else {
       return SizedBox(
           width: width(context),
@@ -44,7 +86,8 @@ class CoursesBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
         buildWhen: (previous, current) =>
-            current is FilterCourseSuccessState || current is FailtercourseLoadedState,
+            current is FilterCourseSuccessState ||
+            current is FailtercourseLoadedState,
         builder: (context, state) {
           if (state is FailtercourseLoadedState) {
             return LoadingWidget(

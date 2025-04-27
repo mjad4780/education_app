@@ -48,7 +48,19 @@ void buildErorr(BuildContext context, String title) {
     animType: AnimType.rightSlide,
     title: title,
     desc: 'Dialog description here.............',
-    btnCancelOnPress: () {},
     btnOkOnPress: () {},
   ).show();
+}
+
+void buildSuccess(
+    BuildContext context, String title, void Function()? btnOkOnPress) {
+  AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: title,
+          // desc: '',
+          // dismissOnBackKeyPress: ,
+          btnOkOnPress: btnOkOnPress)
+      .show();
 }

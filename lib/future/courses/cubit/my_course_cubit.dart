@@ -1,14 +1,28 @@
 import 'package:bloc/bloc.dart';
+
+import 'package:education/future/courses/data/repo_my_course.dart';
+import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:meta/meta.dart';
 
 part 'my_course_state.dart';
 
 class MyCourseCubit extends Cubit<MyCourseState> {
-  MyCourseCubit() : super(MyCourseInitial());
+  MyCourseCubit(this.repoMyCourse) : super(MyCourseInitial());
 
-  // bool rebuildCourse = true;
+  final RepoMyCourse repoMyCourse;
 
-  watchcourse(bool value) {
-    emit(WatchRebuild(value));
+  int completedVideos = 0;
+
+  getCompletedCourse() async {
+    emit(MyCourseLoading());
+    final result = await repoMyCourse.getCompletedCourse();
+    result.fold(
+      (failure) => emit(
+        MyCourseFailer(failure.message),
+      ),
+      (success) => emit(
+        MyCourseSuccess(success),
+      ),
+    );
   }
 }

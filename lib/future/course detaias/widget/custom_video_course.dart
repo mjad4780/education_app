@@ -18,18 +18,20 @@ class _VideoAppState extends State<VideoApp> {
   void initState() {
     super.initState();
     videoCourseCubit = context.read<VideoCourseCubit>();
-    if (videoCourseCubit.fillterCourse!.videos!.first.url != null) {
-      videoCourseCubit.initializeVideo(
-        // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        videoCourseCubit.fillterCourse!.videos!.first.url!,
-        isfile: false,
-      );
-    }
+    videoCourseCubit.initializeVideo(
+      // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      videoCourseCubit.initialVideo,
+      isfile: false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VideoCourseCubit, VideoCourseState>(
+      buildWhen: (previous, current) =>
+          current is VideoCourseLoading ||
+          current is VideoCourseSuccess ||
+          current is VideoCourseFailure,
       builder: (context, state) {
         final videoCourseCubit = context.read<VideoCourseCubit>();
 
