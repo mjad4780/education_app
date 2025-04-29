@@ -78,7 +78,7 @@ lib/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/education_app.git
+   git clone https://github.com/mjad4780/education_app.git
    cd education_app
    ```
 
