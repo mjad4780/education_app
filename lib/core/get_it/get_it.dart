@@ -3,7 +3,10 @@
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
-import 'package:education/core/service/home_service/supabase_services_home.dart';
+import 'package:education/core/service/supabase/chat/chat_service.dart';
+import 'package:education/core/service/supabase/home_service/supabase_services_home.dart';
+import 'package:education/future/chats/cubit/chats_cubit.dart';
+import 'package:education/future/chats/data/repo/chat_repo.dart';
 import 'package:education/future/courses/data/repo_my_course.dart';
 import 'package:education/future/home/data/repo/repo_home.dart';
 import 'package:education/future/paymop/logic/paymop_cubit.dart';
@@ -30,8 +33,8 @@ import '../../future/course detaias/data/repo/repo_video.dart';
 import '../../key.dart';
 import '../helpers/cache_helper.dart';
 import '../../future/paymop/data/repo.dart';
-import '../service/auth/auth_servieces.dart';
-import '../service/auth/supabase_services_impl.dart';
+import '../service/supabase/auth/auth_servieces.dart';
+import '../service/supabase/auth/supabase_services_impl.dart';
 import '../service/dio/dio_factory.dart';
 import '../service/notification/send_notification.dart';
 import '../service/video_hundle/video_service.dart';
@@ -46,8 +49,10 @@ void setupServise() {
         serverClientId: clientIdWep,
       ));
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
-
   getIt.registerLazySingleton<SupabaseService>(() => SupabaseService(getIt()));
+  getIt.registerLazySingleton<SupabaseChatService>(
+      () => SupabaseChatService(getIt()));
+
   getIt.registerLazySingleton<ConnectivityController>(
       () => ConnectivityController.instance);
   getIt.registerLazySingleton<AuthService>(() => AuthService(getIt(), getIt()));
@@ -113,4 +118,7 @@ void setupServise() {
   ///notification
   getIt.registerLazySingleton<NotificationService>(
       () => NotificationService(dio));
+  ////chat
+  getIt.registerLazySingleton<ChatRepo>(() => ChatRepo(getIt()));
+  getIt.registerFactory<ChatsCubit>(() => ChatsCubit(getIt()));
 }

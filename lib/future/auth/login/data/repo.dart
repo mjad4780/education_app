@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/service/auth/auth_servieces.dart';
+import '../../../../core/service/supabase/auth/auth_servieces.dart';
 
 class LoginRepo {
   final AuthService _authService;

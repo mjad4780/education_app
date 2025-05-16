@@ -1,3 +1,4 @@
+import 'package:education/core/helpers/failer_widget.dart';
 import 'package:education/future/courses/cubit/my_course_cubit.dart';
 import 'package:education/future/courses/widget/custom_completed_course.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
@@ -29,6 +30,12 @@ class CompletedCourseBlocBuilder extends StatelessWidget {
             return CustomWidgetCompletedCourse(
               valueListenable: valueListenable,
               course: state.courses,
+            );
+          } else if (state is MyCourseFailer) {
+            return FailerWidget(
+              messege: state.message,
+              onPressed: () =>
+                  context.read<MyCourseCubit>().getCompletedCourse(),
             );
           } else {
             return const SizedBox.shrink();

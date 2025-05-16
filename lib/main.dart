@@ -12,6 +12,9 @@ import 'core/helpers/cache_helper.dart';
 import 'core/helpers/observer.dart';
 // import 'future/paymop/data/models/payment_data.dart';
 import 'firebase_options.dart';
+// import 'package:flutter/services.dart';
+
+// const MethodChannel _splashChannel = MethodChannel('com.example.app/splash');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +45,8 @@ void main() async {
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 //   OneSignal.initialize(onesignalId);
 //   OneSignal.Notifications.requestPermission(true);
+  // await _splashChannel.invokeMethod('hideSplash');
+
   runApp(
       DevicePreview(enabled: true, builder: (context) => const EducationApp()));
 }

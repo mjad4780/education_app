@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../future/auth/sign up/data/model/sign_up_reqest_body.dart';
-import '../../function/re_name_path_image.dart';
+import '../../../../future/auth/sign up/data/model/sign_up_reqest_body.dart';
+import '../../../function/re_name_path_image.dart';
 import 'supabase_services.dart';
 
 class SupabaseService implements ISupabaseService {

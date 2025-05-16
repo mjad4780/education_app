@@ -8,7 +8,7 @@ import 'package:education/future/auth/sign%20up/data/model/sign_up_reqest_body.d
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../utility/constant.dart';
+import '../../../../utility/constant.dart';
 import 'supabase_services_impl.dart';
 
 class AuthService {
