@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:education/core/success/return_response_service.dart';
@@ -38,31 +39,29 @@ class SupabaseChatService {
     }
   }
 
-  ResponseService<Stream<List<Message>>> messagesStream(String otherUserId) {
+  Stream<List<Message>> messagesStream(String otherUserId) {
     final String userId = _supabase.auth.currentUser!.id;
-
-    // أولاً: نجلب كل الرسائل التي يكون فيها المستخدمون طرفي المحادثة
-    final userPair = [
-      [userId, otherUserId],
-      [otherUserId, userId]
-    ];
+    log('userid: $userId');
+    log('userid: $otherUserId');
 
     try {
-      final response = _supabase
+      return _supabase
           .from('messages')
           .stream(primaryKey: ['id'])
-          .inFilter('sender_id,receiver_id', userPair)
-          .order('created_at', ascending: false)
+          .inFilter(
+            'sender_id',
+            [userId, otherUserId],
+          )
+          .order('created_at', ascending: true)
           .map((data) {
+            log('Messages from me to other: $data');
             return data.map((json) => Message.fromJson(json, userId)).toList();
           });
-      return ResponseService(true, '', response);
-    } on PostgrestException catch (e) {
-      log('خطأ في قاعدة البيانات: ${e.message}');
-      return ResponseService(false, 'فشل في جلب البيانات من الخادم');
-    } on Exception catch (e) {
-      log('خطأ غير متوقع: $e');
-      return ResponseService(false, 'حدث خطأ غير متوقع');
+    } catch (e) {
+      log('Error creating stream: $e');
+      final controller = StreamController<List<Message>>();
+      controller.addError(e);
+      return controller.stream;
     }
   }
 
@@ -84,8 +83,6 @@ class SupabaseChatService {
       if (mentorIds.isEmpty) {
         return ResponseService(false, 'لا يوجد مدرسين بكورسات مجانية', []);
       }
-
-      // 3. جلب بيانات المدرسين باستخدام filter + in
       final mentorsData = await _supabase
           .from('mentors')
           .select()

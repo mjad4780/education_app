@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:education/future/chats/data/model/message_model.dart';
@@ -11,7 +12,7 @@ part 'chats_state.dart';
 class ChatsCubit extends Cubit<ChatsState> {
   ChatsCubit(this._chatRepo) : super(ChatsInitial());
   final ChatRepo _chatRepo;
-  StreamSubscription<List<Message>>? _messagesSubscription;
+
   Future<void> getMentorsWithFreeCourses() async {
     emit(ChatsLoading());
     final result = await _chatRepo.getMentorsWithFreeCourses();
@@ -26,32 +27,26 @@ class ChatsCubit extends Cubit<ChatsState> {
     String content,
     bool senderType,
   ) async {
-    emit(ChatsLoading());
+    if (content.trim().isEmpty) return;
+
     final result = await _chatRepo.sendMessage(receiverId, content, senderType);
     result.fold(
-      (failure) => emit(ChatsError(failure.message)),
-      (_) => emit(MessageSentSuccess()),
-    );
-  }
-
-  Future<void> startMessagesStream(String otherUserId) async {
-    // emit(MessagesLoading());
-    final result = await _chatRepo.messagesStream(otherUserId);
-    result.fold(
-      (failure) => emit(ChatsError(failure.message)),
-      (stream) {
-        _messagesSubscription?.cancel();
-        _messagesSubscription = stream.listen(
-          (messages) => emit(MessagesUpdated(messages)),
-          onError: (error) => emit(ChatsError(error.toString())),
-        );
+      (failure) => emit(MessageSentError(failure.message)),
+      (_) {
+        log('Message sent successfully');
       },
     );
   }
 
-  @override
-  Future<void> close() {
-    _messagesSubscription?.cancel();
-    return super.close();
-  }
+  // Simple method to get messages stream
+  // Future getMessagesStream(String otherUserId) async {
+  //   emit(MessagesStreamLoading());
+  //   final result = await _chatRepo.messagesStream(otherUserId);
+  //   return result.fold(
+  //     (failure) {
+  //       emit(MessagesStreamError(failure.message));
+  //     },
+  //     (stream) => emit(MessagesUpdated(stream)),
+  //   );
+  // }
 }

@@ -105,7 +105,7 @@ class AppRoutes {
         );
       case StringRoute.screenChatsDetalias:
         return BaseRoute(
-          page: ScreenChatsDetalias(argument: args as Map<String, dynamic>),
+          page: ScreenChatsDetails(argument: args as Map<String, dynamic>),
           transitionType: RouteTransitionType.slideDown,
         );
       case StringRoute.screenLanguage:

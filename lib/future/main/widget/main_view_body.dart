@@ -47,28 +47,29 @@ class _MainViewBodyState extends State<MainViewBody> {
       controller: _pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: const [
-        _KeepAlivePage(child: HomeScrean()),
-        _KeepAlivePage(child: ScreenCourses()),
-        _KeepAlivePage(child: ScreanChats()),
-        _KeepAlivePage(child: ScreanTransaction()),
-        _KeepAlivePage(child: ScreanProfile())
+        KeepAlivePage(child: HomeScrean()),
+        KeepAlivePage(child: ScreenCourses()),
+        KeepAlivePage(child: ScreanChats()),
+        KeepAlivePage(child: ScreanTransaction()),
+        KeepAlivePage(child: ScreanProfile())
       ],
     );
   }
 }
 
-class _KeepAlivePage extends StatefulWidget {
-  const _KeepAlivePage({
+class KeepAlivePage extends StatefulWidget {
+  const KeepAlivePage({
+    super.key,
     required this.child,
   });
 
   final Widget child;
 
   @override
-  _KeepAlivePageState createState() => _KeepAlivePageState();
+  KeepAlivePageState createState() => KeepAlivePageState();
 }
 
-class _KeepAlivePageState extends State<_KeepAlivePage>
+class KeepAlivePageState extends State<KeepAlivePage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

@@ -2,6 +2,7 @@ import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
 import 'package:education/future/home/data/model/response_home/mentor.dart';
+import 'package:education/widget/custom_cache_networking_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/language/lang_keys.dart';
@@ -70,17 +71,20 @@ class CustomMentor extends StatelessWidget {
                         Expanded(
                           flex: 2,
                           child: Container(
-                            // width: 80,
-                            // height: 70,
-                            decoration: ShapeDecoration(
+                              // width: 80,
+                              // height: 70,
+                              decoration: ShapeDecoration(
                                 color: Colors.black,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        mentors[i].profileImage ?? ''))),
-                          ),
+                                // image: DecorationImage(
+                                //     image: AssetImage(
+                                //         mentors[i].profileImage ?? ''))
+                              ),
+                              child: SmartNetworkImage(
+                                imageUrl: mentors[i].profileImage!,
+                              )),
                         ),
                       // const SizedBox(
                       //   height: 5,

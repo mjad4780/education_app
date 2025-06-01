@@ -10,6 +10,7 @@ class SupabaseServiceHome {
   final SupabaseClient supabase;
   SupabaseServiceHome(this.supabase);
 
+//:get home data
   Future<ResponseService<ResponseHome>> getHomeData() async {
     try {
       final responses = await Future.wait([
@@ -30,6 +31,7 @@ class SupabaseServiceHome {
       return ResponseService(false, "try again ");
     }
   }
+//:get Course Details
 
   Future<ResponseService<DetailasCourse>> getCourseDetails(int courseId) async {
     try {
@@ -54,6 +56,7 @@ class SupabaseServiceHome {
       return ResponseService(false, "try again ");
     }
   }
+//:update CourseTo
 
   Future<ResponseService> updateCourseTo(int courseId) async {
     try {
@@ -69,6 +72,7 @@ class SupabaseServiceHome {
       return ResponseService(false, "تم التحديث بنجاح!");
     }
   }
+//:get Completed Course
 
   Future<ResponseService<List<Course>>> getCompletedCourse() async {
     try {
@@ -83,6 +87,21 @@ class SupabaseServiceHome {
       return ResponseService(true, '', coursesList);
     } on Exception catch (e) {
       log("runtimeType${e.toString()}");
+      return ResponseService(false, "try again ");
+    }
+  }
+
+///////get courses mentors
+  Future<ResponseService<List<Course>>> getCoursesMentor(int mentorId) async {
+    try {
+      final response =
+          await supabase.from('courses').select().eq('mentor_id', mentorId);
+      final coursesList = (response as List).isNotEmpty
+          ? (response as List).map((course) => Course.fromMap(course)).toList()
+          : <Course>[];
+      return ResponseService(true, '', coursesList);
+    } on Exception catch (e) {
+      log("runtimeType${e.runtimeType}");
       return ResponseService(false, "try again ");
     }
   }

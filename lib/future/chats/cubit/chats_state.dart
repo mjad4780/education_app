@@ -32,9 +32,22 @@ final class MentorsLoaded extends ChatsState {
 
 final class MessageSentSuccess extends ChatsState {}
 
-final class MessagesLoading extends ChatsState {}
+final class MessageSentError extends ChatsState {
+  final String message;
+  MessageSentError(this.message);
+}
+
+final class MessageSendLoading extends ChatsState {}
+
+//stream of messages
+final class MessagesStreamLoading extends ChatsState {}
+
+final class MessagesStreamError extends ChatsState {
+  final String message;
+  MessagesStreamError(this.message);
+}
 
 final class MessagesUpdated extends ChatsState {
-  final List<Message> messages;
+  final Stream<List<Message>> messages;
   MessagesUpdated(this.messages);
 }

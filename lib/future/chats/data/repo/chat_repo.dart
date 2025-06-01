@@ -6,7 +6,6 @@ import 'package:education/core/error/failures.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/core/service/supabase/chat/chat_service.dart';
-import 'package:education/future/chats/data/model/message_model.dart';
 import 'package:education/future/home/data/model/response_home/mentor.dart';
 
 class ChatRepo {
@@ -58,21 +57,17 @@ class ChatRepo {
   }
 
   //  gert streem memmagwe
-  Future<Either<Failure, Stream<List<Message>>>> messagesStream(
-      String otherUserId) async {
-    try {
-      if (!getIt<ConnectivityController>().isConnected.value) {
-        return left(ServerFailure('No internet connection'));
-      }
-      var response = _chatService.messagesStream(otherUserId);
-      if (response.result) {
-        return right(response.data!);
-      } else {
-        return left(ServerFailure(response.messege));
-      }
-    } on CustomException catch (e) {
-      log(e.message);
-      return left(ServerFailure(e.message));
-    }
-  }
+  // Future<Either<Failure, Stream<List<Message>>>> messagesStream(
+  //     String otherUserId) async {
+  //   try {
+  //     if (!getIt<ConnectivityController>().isConnected.value) {
+  //       return left(ServerFailure('No internet connection'));
+  //     }
+  //     var response = _chatService.messagesStream(otherUserId);
+  //     return right(response);
+  //   } on CustomException catch (e) {
+  //     log(e.message);
+  //     return left(ServerFailure(e.message));
+  //   }
+  // }
 }

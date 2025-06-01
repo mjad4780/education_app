@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import '../../../core/language/lang_keys.dart';
 
 class CustomButtomChats extends StatelessWidget {
-  const CustomButtomChats({super.key, required this.fileExists});
-  final ValueNotifier<bool> fileExists;
+  const CustomButtomChats({super.key, required this.valueNotifier});
+  final ValueNotifier<bool> valueNotifier;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-        valueListenable: fileExists,
+        valueListenable: valueNotifier,
         builder: (context, fileExistsValue, child) {
           return Row(
             children: [
@@ -19,7 +19,7 @@ class CustomButtomChats extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                  onTap: () => fileExists.value = true,
+                  onTap: () => valueNotifier.value = true,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -47,7 +47,7 @@ class CustomButtomChats extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(11.0),
                 child: GestureDetector(
-                  onTap: () => fileExists.value = false,
+                  onTap: () => valueNotifier.value = false,
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

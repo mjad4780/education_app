@@ -26,7 +26,6 @@ void main() async {
   await ConnectivityController.instance.init();
 
   await getIt<CacheHelper>().init();
-  await getIt<ConnectivityController>().init();
 
   await ScreenUtil.ensureScreenSize();
 
