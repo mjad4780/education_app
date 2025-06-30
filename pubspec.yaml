@@ -70,6 +70,8 @@ dependencies:
   cached_network_image: ^3.4.1
   awesome_dialog: ^3.2.1
   shimmer: ^3.0.0
+  flutter_animated_button: ^2.0.4
+  equatable: ^2.0.7
 
 
 dev_dependencies:

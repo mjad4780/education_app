@@ -3,9 +3,11 @@ import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/Qiez/view/exam_questions.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
+import 'package:education/future/chats/screan_chats.dart';
 import 'package:education/future/home/ui/castegories_screan.dart';
 import 'package:education/future/home/ui/home_scean.dart';
 import 'package:education/future/home/ui/notification_screen.dart';
+import 'package:education/future/mentor%20detalais/widget/screen_detalias_chat_mentors.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
 import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +72,13 @@ class AppRoutes {
           page: const MainView(),
           transitionType: RouteTransitionType.scale,
         );
+      case StringRoute.screanChatsMentors:
+        return BaseRoute(
+          page: ScreenChatMentors(
+            mentorId: args as int,
+          ),
+          transitionType: RouteTransitionType.slideRight,
+        );
       case StringRoute.categories:
         return BaseRoute(
           page: CategoreisScrean(
@@ -112,6 +121,12 @@ class AppRoutes {
         return BaseRoute(
           page: const ScreenLanguage(),
           transitionType: RouteTransitionType.slideLeft,
+        );
+
+      case StringRoute.screanChats:
+        return BaseRoute(
+          page: const ScreanChats(),
+          transitionType: RouteTransitionType.slideRight,
         );
       case StringRoute.notificationScreen:
         return BaseRoute(

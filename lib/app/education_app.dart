@@ -11,7 +11,8 @@ import '../core/Router/route.dart';
 import '../core/language/app_localizations_setup.dart';
 import '../core/style/theme/app_theme.dart';
 
-final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 class EducationApp extends StatelessWidget {
   const EducationApp({super.key});

@@ -26,7 +26,7 @@ class RepoHome {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
+      log(' CustomException ${e.message}');
       return left(ServerFailure(e.message));
     }
   }

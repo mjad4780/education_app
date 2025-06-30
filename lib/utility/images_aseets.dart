@@ -12,6 +12,7 @@ class Assets {
   /// Assets for images01home
   /// assets/images/01home.svg
   static const String images01home = "assets/images/01home.svg";
+  static const String oops = "assets/images/shy.png";
 
   /// Assets for imagesActiveSave
   /// assets/images/active_save.svg

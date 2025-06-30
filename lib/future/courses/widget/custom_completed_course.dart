@@ -6,6 +6,7 @@ import 'package:education/utility/images_aseets.dart';
 import 'package:education/widget/custom_cache_networking_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/helpers/spacing.dart';
@@ -194,7 +195,7 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                                       valueListenable: valueListenable,
                                       builder: (context, values, child) {
                                         return Padding(
-                                          padding: const EdgeInsets.all(6.0),
+                                          padding: const EdgeInsets.all(2.0),
                                           child: Row(
                                             children: [
                                               CourseProgressWidget(
@@ -203,7 +204,7 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                                                     course[i].countVideo ?? 0,
                                               ),
                                               const SizedBox(
-                                                width: 2,
+                                                width: 1,
                                               ),
                                               Text(
                                                   '${course[i].countVideo ?? 0}/$values',
@@ -211,7 +212,7 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                                                   style: context
                                                       .textStyle.displayLarge!
                                                       .copyWith(
-                                                          fontSize: 14,
+                                                          fontSize: 14.sp,
                                                           color: context.color
                                                               .primaryColor))
                                             ],

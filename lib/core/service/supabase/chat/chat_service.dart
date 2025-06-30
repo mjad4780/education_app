@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:education/core/error/error_handler_supabase.dart';
 import 'package:education/core/success/return_response_service.dart';
 import 'package:education/future/chats/data/model/message_model.dart';
 import 'package:education/future/home/data/model/response_home/mentor.dart';
@@ -32,10 +33,9 @@ class SupabaseChatService {
       } else {
         return ResponseService(true, 'success');
       }
-    } on PostgrestException catch (e) {
-      throw ResponseService(false, 'Failed to send message: ${e.message}');
     } catch (e) {
-      throw ResponseService(false, 'Unexpected error: ${e.toString()}');
+      log("Error sending message: ${e.toString()}");
+      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
   }
 
@@ -92,12 +92,10 @@ class SupabaseChatService {
           mentorsData.map((mentor) => Mentor.fromMap(mentor)).toList();
 
       return ResponseService(true, 'تم جلب البيانات بنجاح', mentors);
-    } on PostgrestException catch (e) {
-      log('خطأ في قاعدة البيانات: ${e.message}');
-      return ResponseService(false, 'فشل في جلب البيانات من الخادم');
-    } on Exception catch (e) {
-      log('خطأ غير متوقع: $e');
-      return ResponseService(false, 'حدث خطأ غير متوقع');
+    } catch (e) {
+      log(e.toString());
+      log("runtimeType${e.runtimeType}");
+      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
   }
 }

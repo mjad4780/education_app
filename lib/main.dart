@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:education/app/education_app.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/key.dart';
+import 'package:education/utility/modern_error_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,6 @@ import 'core/helpers/cache_helper.dart';
 import 'core/helpers/observer.dart';
 // import 'future/paymop/data/models/payment_data.dart';
 import 'firebase_options.dart';
-// import 'package:flutter/services.dart';
-
-// const MethodChannel _splashChannel = MethodChannel('com.example.app/splash');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +21,7 @@ void main() async {
   );
   Bloc.observer = MyBlocObserver();
   setupServise();
-  await ConnectivityController.instance.init();
+  await getIt<ConnectivityController>().init();
 
   await getIt<CacheHelper>().init();
 
@@ -33,6 +31,11 @@ void main() async {
     url: supabaseUrl,
     anonKey: supabaseKey,
   );
+  ErrorWidget.builder = (FlutterErrorDetails details) => ModernErrorScreen(
+        errorDetails: details,
+      );
+  // Handle Flutter errors here
+
   // await tesHomeData();
   // await getCourseDetails(101);
   // PaymentData.initialize(

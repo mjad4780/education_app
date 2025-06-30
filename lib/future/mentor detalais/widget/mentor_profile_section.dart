@@ -1,9 +1,17 @@
+import 'dart:developer';
+
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/get_it/get_it.dart';
+import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/mentor%20detalais/widget/mentor_actions_section.dart';
+import 'package:education/utility/constant.dart';
+import 'package:education/widget/custom_cache_networking_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../home/data/model/response_home/mentor.dart';
+import '../logic/cubit/mentor_cubit.dart';
 
 class MentorProfileSection extends StatelessWidget {
   const MentorProfileSection({super.key, required this.mentor});
@@ -11,17 +19,21 @@ class MentorProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn${mentor.followers}');
     return Container(
       color: context.color.white,
-      width: double.infinity,
-      height: height(context) / 2.68,
+      // width: double.infinity,
+      // height: height(context) / 2.68,
       child: Column(
         children: [
           Center(
-            child: CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.black,
-              backgroundImage: AssetImage(mentor.profileImage ?? ''),
+            child: ClipOval(
+              child: SmartNetworkImage(
+                imageUrl: mentor.profileImage ?? '',
+                width: width(context) * 0.28,
+                height: height(context) * 0.14,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           verticalSpace(2),
@@ -45,23 +57,35 @@ class MentorProfileSection extends StatelessWidget {
             children: [
               const Spacer(),
               Text(
-                '26',
+                "${mentor.countCourse ?? 0}",
                 textAlign: TextAlign.center,
                 style: context.textStyle.labelSmall!.copyWith(
                   color: context.color.primaryColor,
                 ),
               ),
               const Spacer(),
-              Text(
-                '15800',
-                textAlign: TextAlign.center,
-                style: context.textStyle.labelSmall!.copyWith(
-                  color: context.color.primaryColor,
-                ),
+              BlocSelector<MentorCubit, MentorState, List>(
+                selector: (state) {
+                  return state is UpdateFollewersSuccess
+                      ? mentor.followers = state.followers
+                      : mentor.followers ?? [];
+                },
+                builder: (context, data) {
+                  // log('count${mentor.followers!.length}');
+                  // log('countnew${data.length}');
+
+                  return Text(
+                    '${data.length} ',
+                    textAlign: TextAlign.center,
+                    style: context.textStyle.labelSmall!.copyWith(
+                      color: context.color.primaryColor,
+                    ),
+                  );
+                },
               ),
               const Spacer(),
               Text(
-                '8750',
+                '6',
                 textAlign: TextAlign.center,
                 style: context.textStyle.labelSmall!.copyWith(
                   color: context.color.primaryColor,
@@ -101,7 +125,11 @@ class MentorProfileSection extends StatelessWidget {
             ],
           ),
           verticalSpace(10),
-          const MentorActionsSection(),
+          MentorActionsSection(
+            mentorId: mentor.id ?? 0,
+            followers: mentor.followers ?? [],
+            followingId: getIt<CacheHelper>().getData(key: Keys.userId),
+          ),
         ],
       ),
     );

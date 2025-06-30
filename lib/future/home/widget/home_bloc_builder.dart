@@ -33,7 +33,7 @@ class HomeBlocBuilder extends StatelessWidget {
         } else if (state is FailerGetDataHome) {
           return FailerWidget(
             messege: state.messege,
-            icon: Icons.wifi_off_outlined,
+            icon: Icons.error,
             onPressed: () => context.read<HomeCubit>().getData(),
           );
         } else if (state is EmitgetDataHome) {

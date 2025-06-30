@@ -14,22 +14,23 @@ class MentorDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<MentorCubit>(),
-      child: Scaffold(
-        appBar: const MentorAppBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              MentorProfileSection(
-                mentor: mentor,
+        create: (context) => getIt<MentorCubit>(),
+        child: Scaffold(
+          appBar: const MentorAppBar(),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: MentorProfileSection(
+                  mentor: mentor,
+                ),
               ),
-              MentorCourseDetailsCard(
-                mentor: mentor,
-              )
+              SliverToBoxAdapter(
+                child: MentorCourseDetailsCard(
+                  mentor: mentor,
+                ),
+              ),
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
