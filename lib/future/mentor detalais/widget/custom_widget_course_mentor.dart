@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
@@ -16,6 +18,7 @@ class CustomWidgetCoursesMentor extends StatelessWidget {
   final List<Course> course;
   @override
   Widget build(BuildContext context) {
+    log(course.length.toString());
     if (course.isEmpty) {
       return Center(
         child: Column(
@@ -53,146 +56,142 @@ class CustomWidgetCoursesMentor extends StatelessWidget {
     }
 
     return SizedBox(
-        height: height(context) / 2.3,
-        // width: width(context) * 0.82,
-        child: ListView.builder(
-            itemCount: course.length,
-            itemBuilder: (context, i) => AnimatedOpacity(
-                  duration: Duration(milliseconds: 300 + (i * 100)),
-                  opacity: 1,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.pushName(
-                        StringRoute.courseDetailsScrean,
-                        arguments: course[i],
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: height(context) / 5,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                height: height(context) / 5,
-                                decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x14000000),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 4),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
+      height: height(context) / 1.2 * course.length,
+      child: ListView.builder(
+          itemCount: course.length,
+          itemBuilder: (context, i) => AnimatedOpacity(
+                duration: Duration(milliseconds: 300 + (i * 100)),
+                opacity: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    context.pushName(
+                      StringRoute.courseDetailsScrean,
+                      arguments: course[i],
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: height(context) / 5,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              height: height(context) / 5,
+                              decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x14000000),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: SmartNetworkImage(
+                                borderRadius: const BorderRadius.horizontal(
+                                  left: Radius.circular(20),
                                 ),
-                                child: SmartNetworkImage(
-                                  borderRadius: const BorderRadius.horizontal(
-                                    left: Radius.circular(20),
-                                  ),
-                                  imageUrl: course[i].imageUrl ?? '',
-                                ),
+                                imageUrl: course[i].imageUrl ?? '',
                               ),
                             ),
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.horizontal(
-                                    right: Radius.circular(20),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x14000000),
-                                      blurRadius: 10,
-                                      offset: Offset(0, 4),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.horizontal(
+                                  right: Radius.circular(20),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              context.translate(
-                                                course[i].categoryName ?? '',
-                                              ),
-                                              style: context
-                                                  .textStyle.labelMedium!
-                                                  .copyWith(
-                                                color:
-                                                    context.color.orangeBright,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x14000000),
+                                    blurRadius: 10,
+                                    offset: Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            context.translate(
+                                              course[i].categoryName ?? '',
                                             ),
+                                            style: context
+                                                .textStyle.labelMedium!
+                                                .copyWith(
+                                              color: context.color.orangeBright,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                        ],
-                                      ),
-                                      Text(
-                                        course[i].title ?? 'title',
-                                        style: context.textStyle.headlineSmall!
-                                            .copyWith(
-                                          color: context.color.primaryColor,
                                         ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                      ],
+                                    ),
+                                    Text(
+                                      course[i].title ?? 'title',
+                                      style: context.textStyle.headlineSmall!
+                                          .copyWith(
+                                        color: context.color.primaryColor,
                                       ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          SvgPicture.asset(Assets.imagesStar),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            '4.2',
-                                            style: context
-                                                .textStyle.displayLarge!
-                                                .copyWith(
-                                              color: context.color.primaryColor,
-                                            ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        SvgPicture.asset(Assets.imagesStar),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '4.2',
+                                          style: context.textStyle.displayLarge!
+                                              .copyWith(
+                                            color: context.color.primaryColor,
                                           ),
-                                          const SizedBox(width: 12),
-                                          Text(
-                                            '|',
-                                            style: context.textStyle.titleLarge!
-                                                .copyWith(
-                                              color: context.color.black,
-                                            ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Text(
+                                          '|',
+                                          style: context.textStyle.titleLarge!
+                                              .copyWith(
+                                            color: context.color.black,
                                           ),
-                                          const SizedBox(width: 12),
-                                          Text(
-                                            '7830 Std',
-                                            style: context
-                                                .textStyle.displayLarge!
-                                                .copyWith(
-                                              color: context.color.primaryColor,
-                                            ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Text(
+                                          '7830 Std',
+                                          style: context.textStyle.displayLarge!
+                                              .copyWith(
+                                            color: context.color.primaryColor,
                                           ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                )));
+                ),
+              )),
+    );
   }
 }

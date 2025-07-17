@@ -52,20 +52,16 @@ class MentorCourseDetailsCard extends StatelessWidget {
                 ),
               ),
             ),
+            verticalSpace(8),
+            ActionTabsMentor(id: mentor.id ?? 0),
             BlocBuilder<MentorCubit, MentorState>(
               buildWhen: (previous, current) => current is WatchRebuild,
               builder: (context, state) {
-                return Column(
-                  children: [
-                    verticalSpace(8),
-                    const ActionTabsMentor(),
-                    context.read<MentorCubit>().rebuildCourse
-                        ? const CustomRatingMentor()
-                        : CoursesMentorsBlocBuilder(
-                            mentor: mentor,
-                          )
-                  ],
-                );
+                return context.read<MentorCubit>().rebuildCourse
+                    ? const CustomRatingMentor()
+                    : CoursesMentorsBlocBuilder(
+                        mentor: mentor,
+                      );
               },
             ),
             verticalSpace(8),

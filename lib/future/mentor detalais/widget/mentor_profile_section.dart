@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
@@ -19,7 +17,6 @@ class MentorProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn${mentor.followers}');
     return Container(
       color: context.color.white,
       // width: double.infinity,
@@ -71,9 +68,6 @@ class MentorProfileSection extends StatelessWidget {
                       : mentor.followers ?? [];
                 },
                 builder: (context, data) {
-                  // log('count${mentor.followers!.length}');
-                  // log('countnew${data.length}');
-
                   return Text(
                     '${data.length} ',
                     textAlign: TextAlign.center,
@@ -126,8 +120,7 @@ class MentorProfileSection extends StatelessWidget {
           ),
           verticalSpace(10),
           MentorActionsSection(
-            mentorId: mentor.id ?? 0,
-            followers: mentor.followers ?? [],
+            mentor: mentor,
             followingId: getIt<CacheHelper>().getData(key: Keys.userId),
           ),
         ],

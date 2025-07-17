@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class MentorDetails extends StatelessWidget {
   final Mentor mentor;
   @override
   Widget build(BuildContext context) {
+    log(mentor.followers.toString());
     return BlocProvider(
         create: (context) => getIt<MentorCubit>(),
         child: Scaffold(
@@ -25,10 +28,10 @@ class MentorDetails extends StatelessWidget {
                 ),
               ),
               SliverToBoxAdapter(
-                child: MentorCourseDetailsCard(
-                  mentor: mentor,
-                ),
-              ),
+                  child: MentorCourseDetailsCard(
+                mentor: mentor,
+              )),
+              // const SliverToBoxAdapter(child: BlocListenerFailerFollow())
             ],
           ),
         ));

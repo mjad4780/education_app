@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/service/supabase/chat/chat_service.dart';
@@ -104,7 +102,6 @@ class _ScreenChatMentorsState extends State<ScreenChatMentors> {
                   child: StreamBuilder<List<Message>>(
                 stream: supabase.messagesStream(widget.mentorId.toString()),
                 builder: (context, snapshot) {
-                  log('mmmmmmmmmmmmmmmmmm');
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return ListView.separated(
                       padding: const EdgeInsets.all(16),

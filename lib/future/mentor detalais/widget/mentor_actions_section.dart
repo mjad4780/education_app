@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/home/data/model/response_home/mentor.dart';
 
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:education/future/mentor%20detalais/widget/buttom_follow.dart';
@@ -13,17 +12,11 @@ import '../../../core/function/build_error_or_success_bar.dart';
 
 class MentorActionsSection extends StatelessWidget {
   const MentorActionsSection(
-      {super.key,
-      required this.followers,
-      required this.followingId,
-      required this.mentorId});
-  final List<String> followers;
-  final int mentorId;
-
+      {super.key, required this.followingId, required this.mentor});
+  final Mentor mentor;
   final String followingId;
   @override
   Widget build(BuildContext context) {
-    log('gh${followers.contains(followingId)}');
     return Row(
       children: [
         const Spacer(
@@ -31,20 +24,40 @@ class MentorActionsSection extends StatelessWidget {
         ),
         AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          child: ButtomFollow(
-            mentorId: mentorId,
-            lastIsFollowing: followers.contains(followingId),
-            // isFollowing: ValueNotifier(followers
-            //     .contains(followingId)), //  followers.contains(followingId),
-            // onPressed: () {
-
-            // },
+          child: BlocConsumer<MentorCubit, MentorState>(
+            listener: (context, state) {
+              if (state is UpdateFollewersFailer) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Failed to update followers')),
+                );
+              } else if (state is UpdateFollewersSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Success to update followers')),
+                );
+                mentor.followers = state.followers;
+              }
+            },
+            buildWhen: (previous, current) =>
+                current is UpdateFollewersFailer ||
+                current is UpdateFollewersSuccess,
+            listenWhen: (previous, current) =>
+                current is UpdateFollewersFailer ||
+                current is UpdateFollewersSuccess,
+            builder: (context, state) {
+              return ButtomFollow(
+                mentorId: mentor.id!,
+                lastIsFollowing:
+                    mentor.followers?.contains(followingId) ?? false,
+              );
+            },
           ),
         ),
         const Spacer(),
         GestureDetector(
           onTap: () {
-            context.read<MentorCubit>().canChatWithMentor(mentorId);
+            context.read<MentorCubit>().canChatWithMentor(
+                  mentor.id!,
+                );
           },
           child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -92,8 +105,10 @@ class MentorActionsSection extends StatelessWidget {
                 },
                 listener: (context, state) {
                   if (state is CheckChatSuccess) {
-                    context.pushName(StringRoute.screanChatsMentors,
-                        arguments: mentorId);
+                    context.pushName(
+                      StringRoute.screanChatsMentors,
+                      arguments: mentor.id!,
+                    );
                   } else if (state is ChaeckChatFailer) {
                     buildErorr(context, state.message);
                   }

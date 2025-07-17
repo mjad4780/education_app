@@ -24,7 +24,7 @@ class _CoursesMentorsBlocBuilderState extends State<CoursesMentorsBlocBuilder> {
   @override
   void initState() {
     super.initState();
-    context.read<MentorCubit>().getCoursesMentor(widget.mentor.id!);
+    context.read<MentorCubit>().getMentorCourse(widget.mentor.id!);
   }
 
   @override

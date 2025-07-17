@@ -10,23 +10,23 @@ class MentorCubit extends Cubit<MentorState> {
   MentorCubit(this.repoCoursesMentor) : super(const MentorInitial());
   bool rebuildCourse = true;
   final RepoCoursesMentor repoCoursesMentor;
-  int countfollwesmentor = 0;
+
   watchcourse(bool value) {
     emit(WatchRebuild(rebuildCourse = value));
   }
 
-  getCoursesMentor(
-    int mentorId,
-  ) async {
+  getMentorCourse(int mentorId) async {
     emit(const MentorCoursesLoading());
     final result = await repoCoursesMentor.getCoursesMentor(mentorId);
     result.fold(
       (failure) => emit(
         MentorCoursesFailer(failure.message),
       ),
-      (success) => emit(
-        MentorCoursesSuccess(success),
-      ),
+      (success) {
+        emit(
+          MentorCoursesSuccess(success),
+        );
+      },
     );
   }
 

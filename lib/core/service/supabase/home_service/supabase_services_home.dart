@@ -123,7 +123,10 @@ class SupabaseServiceHome {
           .eq('id', mentorId)
           .single();
 
-      List<String> currentFollowers = response['followers'] ?? [];
+      List<String> currentFollowers =
+          (response['followers'] as List<dynamic>? ?? [])
+              .map((e) => e.toString())
+              .toList();
 
       log('currentFollowers$currentFollowers');
 
