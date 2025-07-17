@@ -1,6 +1,7 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/chats/cubit/chats_cubit.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:education/future/main/widget/main_view_body.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class ScreanChats extends StatelessWidget {
                   color: Colors.black,
                   size: 35.sp,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.read<MainCubit>().changeIndex(0);
+                },
               ),
               Text(context.translate(LangKeys.inbox),
                   style: context.textStyle.bodyLarge),

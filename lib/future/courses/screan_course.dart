@@ -2,9 +2,9 @@ import 'package:education/app/education_app.dart'; // تأكد من الاستي
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
-import 'package:education/core/helpers/spacing.dart';
 import 'package:education/future/courses/cubit/my_course_cubit.dart';
 import 'package:education/future/courses/widget/complted_course_bloc.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -61,12 +61,10 @@ class _ScreenCoursesState extends State<ScreenCourses> with RouteAware {
                   color: Colors.black,
                   size: 35,
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  context.read<MainCubit>().changeIndex(0);
+                },
               ),
-              actions: [
-                SvgPicture.asset(Assets.imagesSearchGray),
-                horizontalSpace(13)
-              ],
               title: Text(context.translate(LangKeys.myCourses),
                   style: context.textStyle.bodyLarge),
             ),

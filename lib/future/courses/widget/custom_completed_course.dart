@@ -70,7 +70,8 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     child: SizedBox(
                       height: height(context) / 5,
                       child: Row(
@@ -194,29 +195,25 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                                     ValueListenableBuilder<int>(
                                       valueListenable: valueListenable,
                                       builder: (context, values, child) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: Row(
-                                            children: [
-                                              CourseProgressWidget(
-                                                completedVideos: values,
-                                                totalVideos:
-                                                    course[i].countVideo ?? 0,
-                                              ),
-                                              const SizedBox(
-                                                width: 1,
-                                              ),
-                                              Text(
-                                                  '${course[i].countVideo ?? 0}/$values',
-                                                  textAlign: TextAlign.right,
-                                                  style: context
-                                                      .textStyle.displayLarge!
-                                                      .copyWith(
-                                                          fontSize: 14.sp,
-                                                          color: context.color
-                                                              .primaryColor))
-                                            ],
-                                          ),
+                                        return Row(
+                                          children: [
+                                            CourseProgressWidget(
+                                              completedVideos: values,
+                                              totalVideos:
+                                                  course[i].countVideo ?? 0,
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                                '${course[i].countVideo ?? 0}/$values',
+                                                textAlign: TextAlign.right,
+                                                style: context
+                                                    .textStyle.displayLarge!
+                                                    .copyWith(
+                                                        fontSize: 14.sp,
+                                                        color: context.color
+                                                            .primaryColor)),
+                                            const Spacer()
+                                          ],
                                         );
                                       },
                                     ),

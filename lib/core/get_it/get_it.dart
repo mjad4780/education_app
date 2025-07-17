@@ -9,6 +9,7 @@ import 'package:education/future/chats/cubit/chats_cubit.dart';
 import 'package:education/future/chats/data/repo/chat_repo.dart';
 import 'package:education/future/courses/data/repo_my_course.dart';
 import 'package:education/future/home/data/repo/repo_home.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:education/future/mentor%20detalais/data/repo_courses_mentor.dart';
 import 'package:education/future/paymop/logic/paymop_cubit.dart';
 import 'package:education/core/service/paymop/service_paymop.dart';
@@ -128,4 +129,7 @@ void setupServise() {
   ////chat
   getIt.registerLazySingleton<ChatRepo>(() => ChatRepo(getIt()));
   getIt.registerFactory<ChatsCubit>(() => ChatsCubit(getIt()));
+
+//   MAIN
+  getIt.registerFactory<MainCubit>(() => MainCubit());
 }

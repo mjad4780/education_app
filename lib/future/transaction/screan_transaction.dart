@@ -9,15 +9,15 @@ class ScreanTransaction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(33, 0, 14, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Header(),
-            const SizedBox(height: 5),
-            Expanded(
-              child: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Header(),
+          const SizedBox(height: 5),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                     children: List.generate(
                         10,
@@ -27,8 +27,8 @@ class ScreanTransaction extends StatelessWidget {
                             ))),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

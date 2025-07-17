@@ -1,6 +1,8 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/helpers/spacing.dart';
@@ -24,7 +26,9 @@ class ScreanProfile extends StatelessWidget {
                     color: Colors.black,
                     size: 35,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<MainCubit>().changeIndex(0);
+                  },
                 ),
                 Text(context.translate(LangKeys.editProfile),
                     style: context.textStyle.bodyLarge),

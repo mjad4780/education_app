@@ -1,5 +1,7 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,7 +15,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           icon: Icon(
@@ -21,7 +23,9 @@ class Header extends StatelessWidget {
             color: Colors.black,
             size: 35.sp,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.read<MainCubit>().changeIndex(0);
+          },
         ),
         Text(context.translate(LangKeys.transaction),
             style: context.textStyle.bodyLarge),
