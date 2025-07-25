@@ -82,7 +82,7 @@ class CustomMentor extends StatelessWidget {
                                 //     image: AssetImage(
                                 //         mentors[i].profileImage ?? ''))
                               ),
-                              child: SmartNetworkImage(
+                              child: CustomCachedNetworkImage(
                                 imageUrl: mentors[i].profileImage!,
                               )),
                         ),

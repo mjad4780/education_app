@@ -114,7 +114,7 @@ class CustomWidgetPoluparCourse extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              child: SmartNetworkImage(
+                              child: CustomCachedNetworkImage(
                                 borderRadius: const BorderRadius.horizontal(
                                   left: Radius.circular(20),
                                 ),

@@ -58,7 +58,7 @@ class CardChats extends StatelessWidget {
                             children: [
                               if (mentor.profileImage != null)
                                 ClipOval(
-                                  child: SmartNetworkImage(
+                                  child: CustomCachedNetworkImage(
                                     imageUrl: mentor.profileImage!,
                                     width: width(context) * 0.15,
                                     height: height(context) * 0.07,

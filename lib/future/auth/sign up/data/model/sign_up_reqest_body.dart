@@ -2,6 +2,7 @@ class SignUpReqestBody {
   final String email;
   final String password;
   //map
+
   final DataSignUpBody data;
 
   SignUpReqestBody(

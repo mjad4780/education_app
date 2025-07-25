@@ -25,7 +25,7 @@ class MentorProfileSection extends StatelessWidget {
         children: [
           Center(
             child: ClipOval(
-              child: SmartNetworkImage(
+              child: CustomCachedNetworkImage(
                 imageUrl: mentor.profileImage ?? '',
                 width: width(context) * 0.28,
                 height: height(context) * 0.14,

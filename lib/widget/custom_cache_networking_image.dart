@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class SmartNetworkImage extends StatelessWidget {
+class CustomCachedNetworkImage extends StatelessWidget {
   final String imageUrl;
   final double? width;
   final double? height;
@@ -12,7 +12,7 @@ class SmartNetworkImage extends StatelessWidget {
   final bool useOldImageOnUrlChange;
   final BorderRadius? borderRadius;
 
-  const SmartNetworkImage({
+  const CustomCachedNetworkImage({
     super.key,
     required this.imageUrl,
     this.width,

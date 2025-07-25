@@ -6,6 +6,7 @@ import 'package:education/utility/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../core/Router/route.dart';
 import '../core/language/app_localizations_setup.dart';
@@ -43,13 +44,12 @@ class EducationApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Education App',
               onGenerateRoute: AppRoutes.onGenerateRoute,
-              initialRoute: getIt<CacheHelper>()
-                          .getData(key: Keys.onboarding) !=
-                      null
-                  ? getIt<CacheHelper>().getData(key: Keys.isLoggedIn) ?? false
-                      ? StringRoute.main
-                      : StringRoute.login
-                  : StringRoute.onBoarding,
+              initialRoute:
+                  getIt<CacheHelper>().getData(key: Keys.onboarding) != null
+                      ? Supabase.instance.client.auth.currentUser?.email != null
+                          ? StringRoute.main
+                          : StringRoute.login
+                      : StringRoute.onBoarding,
             ),
           );
         },

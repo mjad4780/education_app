@@ -32,6 +32,7 @@ import '../../future/auth/login/data/repo.dart';
 import '../../future/auth/sign up/data/sign_up_repo.dart';
 import '../../future/auth/sign up/logic/cubit/sign_up_cubit.dart';
 import '../../future/course detaias/data/repo/repo_video.dart';
+import '../../future/profile/data/repo/profile_repo.dart';
 import '../../key.dart';
 import '../helpers/cache_helper.dart';
 import '../../future/paymop/data/repo.dart';
@@ -82,7 +83,9 @@ void setupServise() {
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
 
   // profile
-  getIt.registerFactory<ProfileCubit>(() => ProfileCubit());
+  getIt.registerLazySingleton<ProfileRepoImpl>(() => ProfileRepoImpl(getIt()));
+
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
   //mentor
   getIt.registerLazySingleton<RepoCoursesMentor>(() => RepoCoursesMentor(

@@ -174,9 +174,8 @@ class AppRoutes {
 
       case StringRoute.screenEditProfile:
         return BaseRoute(
-          page: BlocProvider(
-            create: (context) => getIt<ProfileCubit>(),
-            child: const ScreenEditProfile(),
+          page: ScreenEditProfile(
+            data: args as Map<String, dynamic>,
           ),
           transitionType: RouteTransitionType.slideRight,
         );

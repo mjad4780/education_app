@@ -14,6 +14,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? isObscureText;
   final Widget? suffixIcon;
   final Widget? prfixIcon;
+  final String? initialValue;
 
   final Color? backgroundColor;
   final TextEditingController? controller;
@@ -35,6 +36,7 @@ class AppTextFormField extends StatelessWidget {
     required this.validator,
     this.keyboardType,
     this.autofillHints,
+    this.initialValue,
   });
 
   @override
@@ -43,7 +45,7 @@ class AppTextFormField extends StatelessWidget {
       autofillHints: autofillHints,
       keyboardType: keyboardType,
       controller: controller,
-
+      initialValue: initialValue,
       decoration: InputDecoration(
         prefixIcon: prfixIcon,
         isDense: true,

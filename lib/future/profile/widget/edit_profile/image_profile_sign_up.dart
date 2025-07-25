@@ -8,7 +8,8 @@ import '../../../../utility/images_aseets.dart';
 import '../../../../widget/product_image_card.dart';
 
 class ImageEditProfileBloc extends StatelessWidget {
-  const ImageEditProfileBloc({super.key});
+  const ImageEditProfileBloc({super.key, this.urlImage});
+  final String? urlImage;
   @override
   Widget build(BuildContext context) {
     return BlocSelector<ProfileCubit, ProfileState, File?>(
@@ -17,6 +18,7 @@ class ImageEditProfileBloc extends StatelessWidget {
           : context.read<ProfileCubit>().file,
       builder: (context, profileImage) {
         return ImageProfile(
+          imageUrlForUpdateImage: urlImage,
           imageSvg: Assets.photos,
           imageFile: profileImage,
           labelText: 'image',

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:education/core/error/error_handler_supabase.dart';
 import 'package:education/core/get_it/get_it.dart';
@@ -9,6 +10,8 @@ import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:education/future/home/data/model/response_home/response_home.dart';
 import 'package:education/utility/constant.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../../future/profile/data/model/profile_model.dart';
 
 class SupabaseServiceHome {
   final SupabaseClient supabase;
@@ -175,6 +178,132 @@ class SupabaseServiceHome {
       log(e.toString());
       return ResponseService(
           false, ErrorHandlerSupabase.getErrorMessage(e), false);
+    }
+  }
+
+// update user
+
+  Future<ResponseService<bool>> updateUser(
+      UserAttributes user, File? file, String path) async {
+    try {
+      var pathProfile = await updateImageProfile(file, path);
+      if (pathProfile.data != null && pathProfile.data == true) {
+        await supabase.auth.updateUser(
+          user,
+          emailRedirectTo: user.email,
+        );
+
+        return ResponseService(true, 'success update user ', true);
+      } else {
+        return ResponseService(false, 'error update user ', false);
+      }
+      // تحقق من وجود كورسات مجانية للمدرس
+    } catch (e) {
+      log(e.toString());
+      return ResponseService(
+          false, ErrorHandlerSupabase.getErrorMessage(e), false);
+    }
+  }
+
+  Future<ResponseService<String?>> updateImageProfile(
+      File? file, String? path) async {
+    try {
+      if (file != null && path == null) {
+        log('upload');
+
+        // إنشاء اسم ملف فريد
+        String fileName =
+            '${DateTime.now().millisecondsSinceEpoch}${file.path.split('.').last}';
+
+        await supabase.storage.from('profile').upload(fileName, file);
+        String urlImage =
+            supabase.storage.from('profile').getPublicUrl(fileName);
+
+        return ResponseService(true, ' success upload image ', urlImage);
+      } else if (file != null && path != null) {
+        final uri = Uri.parse(path);
+        var filePath =
+            uri.path.split('/').last; // يعطي "users/user1/avatar.jpg"
+
+        await supabase.storage.from('profile').update(filePath, file);
+        String urlImage =
+            supabase.storage.from('profile').getPublicUrl(filePath);
+
+        return ResponseService(true, ' success upload image ', urlImage);
+      } else {
+        return ResponseService(false, ' No image ', null);
+      }
+    } catch (e) {
+      log(e.toString());
+      return ResponseService(
+          false, ErrorHandlerSupabase.getErrorMessage(e), null);
+    }
+  }
+
+  // implement function get user from supabase
+  Future<ResponseService<User?>> getUser() async {
+    try {
+      final user = supabase.auth.currentUser;
+
+      if (user != null) {
+        log({'appMetadata': user.appMetadata}.toString());
+        log({'userMetadata': user.userMetadata}.toString());
+
+        return ResponseService(true, 'تم جلب المستخدم بنجاح', user);
+      } else {
+        return ResponseService(false, 'لم يتم العثور على مستخدم', null);
+      }
+    } catch (e) {
+      log(e.toString());
+      return ResponseService(
+          false, ErrorHandlerSupabase.getErrorMessage(e), null);
+    }
+  }
+
+// implement update user and edit image profile from supabase
+
+  Future<ResponseService<User?>> updateUserAndImageProfile({
+    required ProfileModel profileModel,
+  }) async {
+    try {
+      String? uploadedImageUrl;
+      if (profileModel.imageFile != null) {
+        final uploadResult = await updateImageProfile(
+            profileModel.imageFile, profileModel.imagePath);
+        if (uploadResult.result == true && uploadResult.data != null) {
+          uploadedImageUrl = uploadResult.data;
+        } else {
+          return ResponseService(
+            false,
+            'Failed to upload image ${uploadResult.messege}',
+          );
+        }
+      }
+      log(' old url ${profileModel.imagePath ?? ''}');
+      log(' new url ${uploadedImageUrl ?? ''}    ');
+
+      final user = supabase.auth.currentUser;
+      if (user == null) {
+        return ResponseService(
+          false,
+          'المستخدم غير موجود',
+        );
+      }
+
+      final updateAttributes = UserAttributes(
+        data: profileModel.data
+            ?.toJson(uploadedImageUrl ?? profileModel.imagePath),
+      );
+
+      var result = await supabase.auth.updateUser(updateAttributes);
+
+      return ResponseService(true, 'تم تحديث المستخدم بنجاح', result.user);
+    } catch (e) {
+      log(e.toString());
+      return ResponseService(
+        false,
+        ErrorHandlerSupabase.getErrorMessage(e),
+      );
     }
   }
 }
