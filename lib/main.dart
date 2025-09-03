@@ -49,6 +49,24 @@ void main() async {
 //   OneSignal.Notifications.requestPermission(true);
   // await _splashChannel.invokeMethod('hideSplash');
 
-  runApp(
-      DevicePreview(enabled: true, builder: (context) => const EducationApp()));
+  runApp(DevicePreview(
+      enabled: false, builder: (context) => const EducationApp()));
+}
+
+class Name extends StatelessWidget {
+  const Name({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Name'),
+        ),
+        body: const Center(
+          child: Text('Name'),
+        ),
+      ),
+    );
+  }
 }

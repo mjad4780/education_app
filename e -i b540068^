@@ -1,0 +1,59 @@
+[33m17563d2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m YSE
+[33m31cd212[m YES
+[33mc8282be[m Remove Firebase App ID and CLI token from Fastfile for security reasons
+[33mb24aee6[m ..
+[33m55f70e5[m update fastlane
+[33mb540068[m  configure Fastlane for Firebase App Distribution, and enhance project structure
+[33m8225d25[m[33m ([m[1;31morigin/master[m[33m)[m done get user and edit user and edit image profile
+[33m59a9dc5[m Implement MainCubit for managing bottom navigation state and update related screens
+[33m21d5304[m done screen mentor detailas
+[33m4c8c583[m - Added ErrorHandlerSupabase class to manage error messages from Supabase and network issues. - Developed ScreenChatMentors for chat functionality with mentors, including message sending and display.
+[33me2a61f1[m done screen chat logic and ui  and test
+[33me2115e4[m - Added ChatsCubit to manage chat states and interactions. - Implemented a message stream to listen for incoming messages. - Integrated Supabase services for chat operations.
+[33m1b055f1[m - Updated course details UI to handle empty states and improve animations. - Added shimmer loading effect for course details. - Removed redundant logging and improved error handling. - Improved navigation and state persistence in `MainViewBody`.
+[33m34c41d7[m hundle  get home and fillter courses and hundle offline mode
+[33m2e945db[m Add Supabase service for home data retrieval and implement repository and Implement HomeCubit to fetch home data from Supabase and handle loading and error states
+[33m68939c2[m feat: add notification screen and enhance routing animations
+[33m7f608ba[m done dix erorr ui categories course in screen Popular and icon save course logic  and ui
+[33m4834fda[m test 3.29.0
+[33mf0e16c6[m done logic and ui save course in home used local base
+[33m91d3cc1[m vv
+[33mabd1ce8[m gg
+[33m2402c2f[m ccccc
+[33mc72d4e2[m c
+[33mb35ee40[m gg
+[33m9bcc7f1[m f
+[33m3bf1b06[m ff
+[33m0e6d5c6[m Update README.md
+[33mcfbb602[m Merge branch 'main' of https://github.com/mjad4780/education_app
+[33m7875abc[m refactor
+[33m191ea4b[m Update README.md
+[33mb05874e[m Update README.md
+[33m6bd1dfa[m refactor viedo
+[33m50b5c5e[m install  ZegoCloud and ui and logic video call
+[33mb5d1deb[m done ui and logic and test paymop and send notifacation
+[33mdc693ee[m  done ui and logic paymob
+[33m0cc15b0[m create home cubit and fix erorr ui and scroll
+[33m4c644a0[m fix erorr exams and refactor
+[33m1a20b73[m fix erorr video and filles
+[33m94ea1bc[m done refactor ui and logic Exams
+[33m14aa8a3[m done ui and logic exam and report and answers
+[33m56dd114[m done logic video cache and pdf and download video and pdf  and play video
+[33md3f1ddc[m done refactor ui and some logic
+[33m2127063[m done ui video and cubit and test video asstes
+[33m532e049[m done ui edit profile and notification
+[33m1ba7a27[m done ui profile
+[33md9909ae[m done ui chats and call
+[33m84468d9[m done ui my coures  completed and ongoing
+[33m47e0474[m done ui profile mentor
+[33mab34f99[m refactor ui course details
+[33m2b1b944[m done ui course detailas and polupar Course ui
+[33m2805933[m done categories screan ui
+[33m504d11a[m done ui homa  and  butttom nav bar
+[33mbc20293[m test auth
+[33mc917344[m finsh ui and logic all auth and test
+[33mb1e7227[m done cubit login and signUp and image signup
+[33md1347d6[m done ui login and sign up
+[33md7715fa[m finsh onboarding ui and logic and theme dark and ight  and translate ar to en
+[33mc18fefe[m finsh lunsher icon and  splash screan and all styles amd all colors
+[33m011907b[m first commit

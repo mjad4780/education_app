@@ -1,0 +1,44 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Clean, Build APK, and upload to Firebase App Distribution"
+  lane :test do
+
+
+    #     # تحميل Secret من environment (GitHub Actions أو أي env)
+    # firebase_token = ENV['FIREBASE_TOKEN']
+    # if firebase_token.nil? || firebase_token.empty?
+    #   UI.user_error!("FIREBASE_TOKEN غير موجود. تأكد من إضافة Secret في GitHub.")
+    # end
+    # 1. تنظيف المشروع
+    sh "flutter clean"
+
+    # 2. بناء الـ APK (نسخة Release)
+    sh "flutter build apk --release --split-per-abi"
+
+    # 3. رفع على Firebase App Distribution
+    firebase_app_distribution(
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-x86_64-release.apk",
+      android_artifact_type: "APK",
+      groups: "testers",
+      release_notes: "Lots of amazing new features to test out!",
+
+
+    )
+  end
+end
