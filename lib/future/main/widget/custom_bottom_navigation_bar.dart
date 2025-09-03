@@ -1,18 +1,16 @@
+import 'package:education/future/main/cubit/main_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../data/model/bottom_navigation_bar_entity.dart';
 import 'in_active_item.dart';
 
-class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key, required this.onItemTapped});
-  final ValueChanged<int> onItemTapped;
-  @override
-  State<CustomBottomNavigationBar> createState() =>
-      _CustomBottomNavigationBarState();
-}
-
-class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int selectedIndex = 0;
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.i,
+  });
+  final int i;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,11 +39,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           var entity = e.value;
 
           return Expanded(
-            flex: index == selectedIndex ? 3 : 2,
+            flex: index == i ? 3 : 2,
             child: GestureDetector(
-              onTap: () => widget.onItemTapped(selectedIndex = index),
+              onTap: () => context.read<MainCubit>().changeIndex(index),
               child: ItemNav(
-                active: selectedIndex == index,
+                active: i == index,
                 image: entity.activeImage,
               ),
             ),

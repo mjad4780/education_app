@@ -19,7 +19,6 @@ class RepoPaymop {
       if (response.result == true) {
         return right(response.messege);
       } else {
-        log('dd${response.messege}');
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
@@ -52,7 +51,6 @@ class RepoPaymop {
       if (response.result == true) {
         return right(response.messege);
       } else {
-        log('dd${response.messege}');
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {

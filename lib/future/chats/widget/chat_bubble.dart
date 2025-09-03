@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 class ChatBubble extends StatelessWidget {
   final String message;
   final bool isCurrentUser;
+  final DateTime dateTime;
+
   const ChatBubble(
-      {super.key, required this.isCurrentUser, required this.message});
+      {super.key,
+      required this.isCurrentUser,
+      required this.message,
+      required this.dateTime});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,7 @@ class ChatBubble extends StatelessWidget {
                   style: context.textStyle.titleLarge!.copyWith(
                     color: isCurrentUser ? Colors.white : Colors.black,
                   )),
-              Text('12:45',
+              Text(formatTimestamp(dateTime),
                   textAlign: TextAlign.end,
                   style: context.textStyle.displayLarge!.copyWith(
                     color: isCurrentUser ? Colors.white : Colors.black,
@@ -39,5 +44,20 @@ class ChatBubble extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String formatTimestamp(DateTime timestamp) {
+  final now = DateTime.now();
+  final difference = now.difference(timestamp);
+
+  if (difference.inDays > 0) {
+    return '${timestamp.day}/${timestamp.month}';
+  } else if (difference.inHours > 0) {
+    return '${difference.inHours}h ago';
+  } else if (difference.inMinutes > 0) {
+    return '${difference.inMinutes}m ago';
+  } else {
+    return 'now';
   }
 }

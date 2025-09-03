@@ -6,6 +6,12 @@ final class VideoCourseInitial extends VideoCourseState {}
 
 final class VideoCourseLoading extends VideoCourseState {}
 
+final class WatchVideoCourse extends VideoCourseState {
+  final int videoId;
+
+  WatchVideoCourse(this.videoId);
+}
+
 final class VideoCourseSuccess extends VideoCourseState {
   VideoCourseSuccess();
 }
@@ -26,7 +32,7 @@ final class WatchRebuild extends VideoCourseState {
 final class PlayLoading extends VideoCourseState {}
 
 final class PlaySuccess extends VideoCourseState {
-  final (String?, String?) successString;
+  final (String?, String?, bool?) successString;
 
   PlaySuccess({required this.successString});
 }
@@ -54,7 +60,7 @@ final class DoneDownload extends VideoCourseState {
 final class PlayPdfLoading extends VideoCourseState {}
 
 final class PlayPdfSuccess extends VideoCourseState {
-  final (String?, String?) successString;
+  final (String?, String?, bool?) successString;
 
   PlayPdfSuccess({required this.successString});
 }
@@ -72,8 +78,31 @@ final class ProgressPdf extends VideoCourseState {
 
 ///////////fillter course
 
-final class FillterCourse extends VideoCourseState {
-  final Detailashome fillterCourse;
+final class FillterCourseSuccess extends VideoCourseState {
+  final DetailasCourse fillterCourse;
 
-  FillterCourse(this.fillterCourse);
+  FillterCourseSuccess(this.fillterCourse);
+}
+
+final class VideoCourseDatailasLoading extends VideoCourseState {}
+
+final class VideoCourseDatailasFailer extends VideoCourseState {
+  final String message;
+  VideoCourseDatailasFailer({required this.message});
+}
+
+//updateCourse
+final class UpdateCourseLoading extends VideoCourseState {
+  UpdateCourseLoading();
+}
+
+final class UpdateCourseSuccess extends VideoCourseState {
+  final String messageSuccess;
+
+  UpdateCourseSuccess(this.messageSuccess);
+}
+
+final class UpdateCourseFailer extends VideoCourseState {
+  final String message;
+  UpdateCourseFailer({required this.message});
 }

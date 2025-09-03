@@ -25,7 +25,6 @@
     <application
         android:label="education"
         android:name="${applicationName}"
-       android:requestLegacyExternalStorage="true"
 
         android:icon="@mipmap/ic_launcher">
         <activity

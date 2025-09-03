@@ -14,16 +14,34 @@ class VideoService {
   VideoService(this.dio);
 
   // التحقق من أذونات التخزين
-  Future<ResponseService?> checkPermissionStorage() async {
+  Future<ResponseService> checkPermissionStorage() async {
     try {
-      if (!await Permission.storage.request().isGranted) {
-        return ResponseService(false, "Storage permission not granted");
+      if (await Permission.storage.isRestricted) {
+        return ResponseService(false, "Permission restricted by policy");
       }
+
+      PermissionStatus status = await Permission.storage.status;
+
+      if (status.isGranted) {
+        return ResponseService(true, "Already granted");
+      } else if (status.isDenied) {
+        status = await Permission.storage.request();
+
+        if (status.isGranted) {
+          return ResponseService(true, "Granted after request");
+        } else if (status.isPermanentlyDenied) {
+          await openAppSettings();
+          return ResponseService(false, "Open settings to enable");
+        } else {
+          return ResponseService(false, "Permission denied");
+        }
+      }
+
+      return ResponseService(false, "Unexpected status");
     } catch (e) {
-      log("Error checking permissions: ${e.toString()}");
-      return ResponseService(false, "Error checking permissions");
+      log("Permission error: $e");
+      return ResponseService(false, "Error: ${e.toString()}");
     }
-    return null;
   }
 
   // التحقق إذا كان الملف موجودًا محليًا
@@ -85,25 +103,25 @@ class VideoService {
   }
 
   // فتح الملف أو تحميله إذا لم يكن موجودًا
-  Future<(String?, String?)> handleRequestVideoOrPdf(String url,
+  Future<(String?, String?, bool?)> handleRequestVideoOrPdf(String url,
       String fileName, Function(int, int)? onReceiveProgress) async {
     try {
-      final permissionResult = await checkPermissionStorage();
-      if (permissionResult != null && !permissionResult.result) {
-        return ('permission_error', permissionResult.messege);
+      ResponseService permissionResult = await checkPermissionStorage();
+      if (!permissionResult.result) {
+        return ('permission_error', permissionResult.messege, false);
       }
 
       String? filePath = await checkLocalFile(fileName);
       filePath ??= await downloadFile(url, fileName, onReceiveProgress)
           .then((value) => value.result ? value.messege : null);
       if (filePath == null) {
-        return (null, "Failed to download file");
+        return (null, "Failed to download file", false);
       }
 
-      return (fileTypes(url), filePath);
+      return (fileTypes(url), filePath, true);
     } catch (e) {
       log("Error handling request: ${e.toString()}");
-      return ('error', "Unexpected error occurred");
+      return ('error', "Unexpected error occurred", false);
     }
   }
 }

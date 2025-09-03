@@ -19,19 +19,74 @@ class _VideoAppState extends State<VideoApp> {
     super.initState();
     videoCourseCubit = context.read<VideoCourseCubit>();
     videoCourseCubit.initializeVideo(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-        isAsset: false);
+      // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      videoCourseCubit.initialVideo,
+      isfile: false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VideoCourseCubit, VideoCourseState>(
-      builder: (context, isInitialized) {
-        return videoCourseCubit.chewieController != null &&
-                videoCourseCubit.videoController.value.isInitialized
-            ? Chewie(controller: videoCourseCubit.chewieController!)
-            : const Center(child: CircularProgressIndicator());
+      buildWhen: (previous, current) =>
+          current is VideoCourseLoading ||
+          current is VideoCourseSuccess ||
+          current is VideoCourseFailure,
+      builder: (context, state) {
+        final videoCourseCubit = context.read<VideoCourseCubit>();
+
+        // Handle different states
+        if (state is VideoCourseFailure) {
+          return _buildErrorWidget(state.message, context);
+        }
+
+        // Check if video is initialized
+        else if (videoCourseCubit.chewieController != null &&
+            // videoCourseCubit.videoController.value.isInitialized &&
+            state is VideoCourseSuccess) {
+          return Chewie(controller: videoCourseCubit.chewieController!);
+        } else if (state is VideoCourseLoading) {
+          return const Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(color: Colors.blue),
+                SizedBox(height: 16),
+                Text('جاري تحميل الفيديو...'),
+              ],
+            ),
+          );
+        } else {
+          // Still loading
+          return _buildErrorWidget('', context);
+        }
       },
+    );
+  }
+
+  Widget _buildErrorWidget(String message, BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.error_outline, size: 48, color: Colors.red.shade400),
+          const SizedBox(height: 16),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton.icon(
+            onPressed: () {
+              videoCourseCubit.initializeVideo(videoCourseCubit.again,
+                  isfile: false);
+            },
+            icon: const Icon(Icons.refresh),
+            label: const Text('حاول مجددًا'),
+          ),
+        ],
+      ),
     );
   }
 

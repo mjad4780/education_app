@@ -53,5 +53,3 @@ const Map<String, dynamic> ahmeder = {
     },
   ]
 };
-
-const Map<String, dynamic> o = {};

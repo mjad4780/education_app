@@ -10,3 +10,25 @@ final class WatchRebuild extends MyCourseState {
 
   WatchRebuild(this.rebuild);
 }
+
+//get course completed
+final class MyCourseLoading extends MyCourseState {}
+
+final class MyCourseSuccess extends MyCourseState {
+  final List<Course> courses;
+
+  MyCourseSuccess(this.courses);
+}
+
+final class MyCourseFailer extends MyCourseState {
+  final String message;
+
+  MyCourseFailer(this.message);
+}
+
+//update course
+final class MyCourseUpdated extends MyCourseState {
+  final int completed;
+
+  MyCourseUpdated(this.completed);
+}

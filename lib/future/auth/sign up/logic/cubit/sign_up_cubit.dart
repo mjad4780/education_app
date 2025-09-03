@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -38,10 +39,12 @@ class SignUpCubit extends Cubit<SignUpState> {
 
     emit(SignupLoading());
     final result = await signUpRepo.signedUploadImage(file!);
-    result.fold(
-        (failure) => emit(
-              SignupFailure(message: failure.message),
-            ), (success) async {
+    result.fold((failure) {
+      log(failure.message);
+      emit(
+        SignupFailure(message: failure.message),
+      );
+    }, (success) async {
       body = SignUpReqestBody(
           email.text,
           password.text,
@@ -54,9 +57,13 @@ class SignUpCubit extends Cubit<SignUpState> {
           ));
       final result = await signUpRepo.signUp(body!);
       result.fold(
-        (failure) => emit(
-          SignupFailure(message: failure.message),
-        ),
+        (failure) {
+          log(failure.message);
+
+          emit(
+            SignupFailure(message: failure.message),
+          );
+        },
         (success) => emit(
           SignupSuccess(successString: success),
         ),
@@ -65,9 +72,19 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   chooseimagegaler() async {
-    file = await imageuploadgallery();
-    emit(ProfileImageSignUp(profileImage: file!));
+    file = await imageuploadcamer();
+    if (file != null) {
+      emit(ProfileImageSignUp(profileImage: file!));
+    }
+  }
 
-    if (file != null) {}
+  @override
+  Future<void> close() {
+    // name.dispose();
+    // lastname.dispose();
+    // phone.dispose();
+    // email.dispose();
+    // password.dispose();
+    return super.close();
   }
 }

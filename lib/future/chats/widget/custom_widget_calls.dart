@@ -21,7 +21,7 @@ class CustomWidgetCalls extends StatelessWidget {
           padding: const EdgeInsets.all(5.0),
           child: Column(
               children: List.generate(
-            20,
+            2,
             (index) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(

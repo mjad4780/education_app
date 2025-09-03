@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
+import '../data/model/response_home/category.dart';
 
 class CustomCategoriesCourse extends StatelessWidget {
-  const CustomCategoriesCourse({super.key});
-
+  const CustomCategoriesCourse({super.key, required this.categories});
+  final List<Category> categories;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +25,11 @@ class CustomCategoriesCourse extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => context.pushName(StringRoute.categories),
+                    onTap: () => context.pushName(StringRoute.categories,
+                        arguments: {
+                          'cubit': context.read<HomeCubit>(),
+                          'categories': categories
+                        }),
                     child: Text(context.translate(LangKeys.seeAll),
                         textAlign: TextAlign.right,
                         style: context.textStyle.titleLarge!.copyWith(
@@ -40,36 +45,26 @@ class CustomCategoriesCourse extends StatelessWidget {
             ],
           ),
         ),
-        BlocBuilder<HomeCubit, HomeState>(
-          buildWhen: (previous, current) => current is EmitgetDataHome,
-          builder: (context, state) {
-            return SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: context
-                      .read<HomeCubit>()
-                      .responseHome!
-                      .platform!
-                      .categories!
-                      .length,
-                  itemBuilder: (context, i) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        context.translate(context
-                                .read<HomeCubit>()
-                                .responseHome!
-                                .platform!
-                                .categories![i]
-                                .name ??
-                            ''),
-                        style: context.textStyle.headlineLarge!
-                            .copyWith(color: context.color.blue)),
-                  ),
-                ));
-          },
-        ),
+        SizedBox(
+            width: double.infinity,
+            height: 40,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, i) => GestureDetector(
+                onTap: () => context.pushName(StringRoute.categories,
+                    arguments: {
+                      'cubit': context.read<HomeCubit>(),
+                      'categories': categories
+                    }),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(context.translate(categories[i].name ?? ''),
+                      style: context.textStyle.headlineLarge!
+                          .copyWith(color: context.color.blue)),
+                ),
+              ),
+            ))
       ],
     );
   }

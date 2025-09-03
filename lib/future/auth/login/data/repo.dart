@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/service/auth/auth_servieces.dart';
+import '../../../../core/service/supabase/auth/auth_servieces.dart';
 
 class LoginRepo {
   final AuthService _authService;
@@ -15,7 +15,6 @@ class LoginRepo {
       if (response.result == true) {
         return right(response.messege);
       } else {
-        log('dd${response.messege}');
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {

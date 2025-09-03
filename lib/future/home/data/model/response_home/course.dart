@@ -3,46 +3,52 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 
 class Course {
-  int? id;
-  String? title;
-  String? categoryName;
-  int? mentorId;
-  int? price;
-  bool? paid;
-  bool? save;
-  String? image;
+  final int? id;
 
+  final String? title;
+  final String? categoryName;
+  final int? mentorId;
+  final double? price;
+  final bool? isFree;
+  final String? imageUrl;
+  final int? duration;
+  final String? level;
+  final String? description;
+  final int? countVideo;
   Course({
+    this.countVideo,
+    this.level,
+    this.description,
+    this.duration,
     this.id,
     this.title,
     this.categoryName,
     this.mentorId,
     this.price,
-    this.paid,
-    this.save,
-    this.image,
+    this.isFree,
+    this.imageUrl,
   });
 
   factory Course.fromMap(Map<String, dynamic> data) => Course(
-        id: data['id'] as int?,
-        title: data['title'] as String?,
-        categoryName: data['category_name'] as String?,
-        mentorId: data['mentor_id'] as int?,
-        price: data['price'] as int?,
-        paid: data['paid'] as bool?,
-        save: data['save'] as bool?,
-        image: data['image'] as String?,
+        countVideo: data['count_video'],
+        id: data['id'],
+        title: data['title'],
+        categoryName: data['category_name'],
+        mentorId: data['mentor_id'],
+        price: data['price'].toDouble(),
+        isFree: data['is_free'],
+        imageUrl: data['image_url'],
+        description: data['description'],
+        duration: data['duration'],
+        level: data['level'],
       );
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'title': title,
         'category_name': categoryName,
+        'mentor_name': mentorId,
         'mentor_id': mentorId,
-        'price': price,
-        'paid': paid,
-        'save': save,
-        'image': image,
       };
 
   /// `dart:convert`
@@ -64,15 +70,45 @@ class Course {
     final mapEquals = const DeepCollectionEquality().equals;
     return mapEquals(other.toMap(), toMap());
   }
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode ^
-      categoryName.hashCode ^
-      mentorId.hashCode ^
-      price.hashCode ^
-      paid.hashCode ^
-      save.hashCode ^
-      image.hashCode;
 }
+
+// class CourseModel {
+//   final int id;
+
+//   final String title;
+//   final int categoryId;
+//   final int mentorId;
+//   final double price;
+//   final bool isFree;
+//   final String imageUrl;
+//   final int duration;
+//   final String level;
+//   final String description;
+//   CourseModel({
+//     required this.level,
+//     required this.description,
+//     required this.duration,
+//     required this.id,
+//     required this.title,
+//     required this.categoryId,
+//     required this.mentorId,
+//     required this.price,
+//     required this.isFree,
+//     required this.imageUrl,
+//   });
+
+//   factory CourseModel.fromJson(Map<String, dynamic> json) {
+//     return CourseModel(
+//       id: json['id'],
+//       title: json['title'],
+//       categoryId: json['category_id'],
+//       mentorId: json['mentor_id'],
+//       price: json['price'].toDouble(),
+//       isFree: json['is_free'],
+//       imageUrl: json['image_url'],
+//       description: json['description'],
+//       duration: json['duration'],
+//       level: json['level'],
+//     );
+//   }
+// }

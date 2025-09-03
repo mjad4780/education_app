@@ -2,6 +2,15 @@
 
 import 'package:dio/dio.dart';
 import 'package:education/app/education_cubit/education_cubit.dart';
+import 'package:education/core/helpers/connectivity_controller.dart';
+import 'package:education/core/service/supabase/chat/chat_service.dart';
+import 'package:education/core/service/supabase/home_service/supabase_services_home.dart';
+import 'package:education/future/chats/cubit/chats_cubit.dart';
+import 'package:education/future/chats/data/repo/chat_repo.dart';
+import 'package:education/future/courses/data/repo_my_course.dart';
+import 'package:education/future/home/data/repo/repo_home.dart';
+import 'package:education/future/main/cubit/main_cubit.dart';
+import 'package:education/future/mentor%20detalais/data/repo_courses_mentor.dart';
 import 'package:education/future/paymop/logic/paymop_cubit.dart';
 import 'package:education/core/service/paymop/service_paymop.dart';
 import 'package:education/future/Qiez/cubit/exam_cubit.dart';
@@ -23,11 +32,12 @@ import '../../future/auth/login/data/repo.dart';
 import '../../future/auth/sign up/data/sign_up_repo.dart';
 import '../../future/auth/sign up/logic/cubit/sign_up_cubit.dart';
 import '../../future/course detaias/data/repo/repo_video.dart';
+import '../../future/profile/data/repo/profile_repo.dart';
 import '../../key.dart';
 import '../helpers/cache_helper.dart';
 import '../../future/paymop/data/repo.dart';
-import '../service/auth/auth_servieces.dart';
-import '../service/auth/supabase_services_impl.dart';
+import '../service/supabase/auth/auth_servieces.dart';
+import '../service/supabase/auth/supabase_services_impl.dart';
 import '../service/dio/dio_factory.dart';
 import '../service/notification/send_notification.dart';
 import '../service/video_hundle/video_service.dart';
@@ -43,10 +53,21 @@ void setupServise() {
       ));
   getIt.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
   getIt.registerLazySingleton<SupabaseService>(() => SupabaseService(getIt()));
-  getIt.registerLazySingleton<AuthService>(() => AuthService(getIt(), getIt()));
+  getIt.registerLazySingleton<SupabaseChatService>(
+      () => SupabaseChatService(getIt()));
 
+  getIt.registerLazySingleton<ConnectivityController>(
+      () => ConnectivityController.instance);
+  getIt.registerLazySingleton<AuthService>(() => AuthService(getIt(), getIt()));
+  getIt.registerLazySingleton<SupabaseServiceHome>(
+      () => SupabaseServiceHome(getIt()));
+
+  getIt.registerLazySingleton<RepoMyCourse>(() => RepoMyCourse(getIt()));
+
+  getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit(getIt()));
   // Dio dio = DioFactory.getDio();
   // getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
+  // getIt.registerLazySingleton<SupabaseServiceHome>(() => SupabaseServiceHome(getIt()));
   getIt.registerSingleton<CacheHelper>(CacheHelper());
 
   getIt.registerFactory<EducationCubit>(() => EducationCubit());
@@ -62,17 +83,27 @@ void setupServise() {
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
 
   // profile
-  getIt.registerFactory<ProfileCubit>(() => ProfileCubit());
+  getIt.registerLazySingleton<ProfileRepoImpl>(() => ProfileRepoImpl(getIt()));
+
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
   //mentor
-  getIt.registerFactory<MentorCubit>(() => MentorCubit());
+  getIt.registerLazySingleton<RepoCoursesMentor>(() => RepoCoursesMentor(
+        getIt(),
+      ));
+
+  getIt.registerFactory<MentorCubit>(() => MentorCubit(
+        getIt(),
+      ));
 
   //VideoCourseCubits
   getIt.registerLazySingleton<VideoService>(() => VideoService(dio));
 
-  getIt.registerLazySingleton<RepoVideo>(() => RepoVideo(getIt()));
+  getIt.registerLazySingleton<RepoVideo>(() => RepoVideo(getIt(), getIt()));
 
-  getIt.registerFactory<VideoCourseCubit>(() => VideoCourseCubit(getIt()));
+  getIt.registerFactory<VideoCourseCubit>(() => VideoCourseCubit(
+        getIt(),
+      ));
 
   /// exams
   getIt.registerLazySingleton<CountdownController>(
@@ -81,10 +112,14 @@ void setupServise() {
   getIt.registerFactory<ExamCubit>(() => ExamCubit(getIt()));
 
   ///home
-  getIt.registerFactory<HomeCubit>(() => HomeCubit());
+
+  getIt.registerLazySingleton<RepoHome>(() => RepoHome(
+        getIt(),
+      ));
+
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 
   ///MyCourse
-  getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit());
 
   ///paymop
   getIt.registerLazySingleton<ServicePaymop>(() => ServicePaymop(dio));
@@ -94,4 +129,10 @@ void setupServise() {
   ///notification
   getIt.registerLazySingleton<NotificationService>(
       () => NotificationService(dio));
+  ////chat
+  getIt.registerLazySingleton<ChatRepo>(() => ChatRepo(getIt()));
+  getIt.registerFactory<ChatsCubit>(() => ChatsCubit(getIt()));
+
+//   MAIN
+  getIt.registerFactory<MainCubit>(() => MainCubit());
 }

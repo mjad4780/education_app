@@ -8,11 +8,24 @@ class Mentor {
   String? bio;
   String? profileImage;
   String? title;
+  int? countCourse;
+  List<String>? followers;
 
-  Mentor({this.id, this.name, this.bio, this.profileImage, this.title});
+  Mentor(
+      {this.id,
+      this.name,
+      this.bio,
+      this.countCourse,
+      this.profileImage,
+      this.title,
+      this.followers});
 
   factory Mentor.fromMap(Map<String, dynamic> data) => Mentor(
+        followers: (data['followers'] as List<dynamic>?)
+            ?.map((e) => e as String)
+            .toList(),
         id: data['id'] as int?,
+        countCourse: data['count_course'] as int?,
         name: data['name'] as String?,
         bio: data['bio'] as String?,
         title: data['title'] as String?,
@@ -20,9 +33,11 @@ class Mentor {
       );
 
   Map<String, dynamic> toMap() => {
+        'followers': followers,
         'id': id,
         'name': name,
         'bio': bio,
+        'count_course': countCourse,
         'title': title,
         'profile_image': profileImage,
       };

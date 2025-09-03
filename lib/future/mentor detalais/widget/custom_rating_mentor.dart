@@ -11,7 +11,7 @@ class CustomRatingMentor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height(context) / 2.7,
+      height: height(context) / 2.3,
       width: width(context) * 0.82,
       child: ListView.builder(
           itemCount: 4,

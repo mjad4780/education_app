@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/mentor%20detalais/widget/courses_mentor_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,7 +8,6 @@ import '../../../core/helpers/spacing.dart';
 import '../../home/data/model/response_home/mentor.dart';
 import '../logic/cubit/mentor_cubit.dart';
 import 'action_tabs_mentor.dart';
-import 'custom_my_course_mentor.dart';
 import 'custom_rating_mentor.dart';
 
 class MentorCourseDetailsCard extends StatelessWidget {
@@ -19,8 +19,8 @@ class MentorCourseDetailsCard extends StatelessWidget {
     return Card(
       color: context.color.white,
       child: Container(
-        height: height(context) / 1.9,
-        width: width(context) * 0.82,
+        // height: height(context) / 1.9,
+        // width: width(context) * 0.82,
         decoration: ShapeDecoration(
           color: context.color.white,
           shape: RoundedRectangleBorder(
@@ -52,20 +52,16 @@ class MentorCourseDetailsCard extends StatelessWidget {
                 ),
               ),
             ),
+            verticalSpace(8),
+            ActionTabsMentor(id: mentor.id ?? 0),
             BlocBuilder<MentorCubit, MentorState>(
               buildWhen: (previous, current) => current is WatchRebuild,
               builder: (context, state) {
-                return Expanded(
-                  child: Column(
-                    children: [
-                      verticalSpace(8),
-                      const ActionTabsMentor(),
-                      context.read<MentorCubit>().rebuildCourse
-                          ? const CustomRatingMentor()
-                          : const CustomMyCourseMentor()
-                    ],
-                  ),
-                );
+                return context.read<MentorCubit>().rebuildCourse
+                    ? const CustomRatingMentor()
+                    : CoursesMentorsBlocBuilder(
+                        mentor: mentor,
+                      );
               },
             ),
             verticalSpace(8),

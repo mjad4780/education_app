@@ -12,7 +12,12 @@ abstract class StringRoute {
   static const String poluparScrean = 'PoluparScrean';
   static const String mentorScreen = 'MentorScreen';
   static const String mentorDetalias = 'MentorDetalias';
+  //chat
+  static const String screanChats = "ScreanChats";
+  static const String screanChatsMentors = "ScreanChatsMentors";
+
   static const String screenChatsDetalias = "ScreenChatsDetalias";
+  //
   static const String screenEditProfile = "ScreenEditProfile";
   static const String screenLanguage = "ScreenLanguage";
   static const String pdfViewerScreen = "PdfViewerScreen";
@@ -23,4 +28,5 @@ abstract class StringRoute {
   static const String examReportScreen = "ExamReportScreen";
 //
   static const String searchScreen = "SearchScreen";
+  static const String notificationScreen = "NotificationScreen";
 }

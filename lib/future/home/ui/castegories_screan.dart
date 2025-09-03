@@ -1,6 +1,9 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
+// import 'package:education/future/home/data/model/response_home/category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/language/lang_keys.dart';
@@ -9,7 +12,8 @@ import '../../../widget/app_text_form_field.dart';
 import '../data/model/categories_model.dart';
 
 class CategoreisScrean extends StatelessWidget {
-  const CategoreisScrean({super.key});
+  const CategoreisScrean({super.key, required this.data});
+  final Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class CategoreisScrean extends StatelessWidget {
             //     ),
             //   ),
             // );
-            // context.pop();
+            context.pop();
           },
         ),
         title: Text("All Category", style: context.textStyle.bodyLarge),
@@ -60,37 +64,43 @@ class CategoreisScrean extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            children: List.generate(
-              (categoriesCourse.length / 2).ceil(),
-              (index) {
-                int firstIndex = index * 2;
-                int secondIndex = firstIndex + 1;
+          BlocProvider.value(
+              value: data['cubit'] as HomeCubit,
+              child: Column(
+                children: List.generate(
+                  (categoriesCourse.length / 2).ceil(),
+                  (index) {
+                    int firstIndex = index * 2;
+                    int secondIndex = firstIndex + 1;
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 27),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ImageCategories(
-                          index: firstIndex,
-                          image: categoriesCourse[firstIndex],
-                        ),
-                      ),
-                      if (secondIndex <
-                          categoriesCourse.length) // Check to avoid overflow
-                        Expanded(
-                          child: ImageCategories(
-                            index: secondIndex,
-                            image: categoriesCourse[secondIndex],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 27),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ImageCategories(
+                              title: data['categories'][firstIndex].name!,
+                              index: firstIndex,
+                              image: categoriesCourse[firstIndex],
+                            ),
                           ),
-                        ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          )
+                          if (secondIndex <
+                              categoriesCourse
+                                  .length) // Check to avoid overflow
+                            Expanded(
+                              child: ImageCategories(
+                                title:
+                                    data['categories'][secondIndex].name ?? '',
+                                index: secondIndex,
+                                image: categoriesCourse[secondIndex],
+                              ),
+                            ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ))
         ],
       )),
     );
@@ -98,16 +108,30 @@ class CategoreisScrean extends StatelessWidget {
 }
 
 class ImageCategories extends StatelessWidget {
-  const ImageCategories({super.key, required this.image, required this.index});
+  const ImageCategories(
+      {super.key,
+      required this.image,
+      required this.index,
+      required this.title});
   final String image;
+  final String title;
+
   final int index;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          context.pushName(StringRoute.poluparScrean, arguments: index);
+          context
+              .read<HomeCubit>()
+              .emitgetfilltergategoriescourse(title, index);
+          context.pushName(StringRoute.poluparScrean, arguments: {
+            'index': index,
+            'cubit': context.read<HomeCubit>(),
+          });
+
         },
         child: SvgPicture.asset(
           image,

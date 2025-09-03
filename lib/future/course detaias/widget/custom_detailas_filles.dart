@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../core/Router/route_string.dart';
@@ -67,8 +68,8 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
                   }
                 },
                 child: Container(
-                  width: 46,
-                  height: 46,
+                  width: 38.w,
+                  height: 38.h,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: const ShapeDecoration(
                     color: Color(0xFFF4F8FE),
@@ -87,29 +88,32 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "Why  ${widget.value.title}",
+              const SizedBox(width: 1),
+              Expanded(
+                child: Column(
+                  mainAxisSize:
+                      MainAxisSize.min, // Added to minimize vertical space
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.value.title!,
+                      overflow: TextOverflow.ellipsis,
                       style: context.textStyle.headlineSmall!.copyWith(
+                        fontSize: 12.sp,
                         color: const Color(0xFF202244),
                       ),
                     ),
-                  ),
-                  Text(
-                    '15 Mins',
-                    style: context.textStyle.displaySmall!.copyWith(
-                      color: const Color(0xFF545454),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
+                    // Text(
+                    //   '15 Mins',
+                    //   style: context.textStyle.displaySmall!.copyWith(
+                    //     color: const Color(0xFF545454),
+                    //     fontWeight: FontWeight.w700,
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
-              const Spacer(),
+              // const Spacer(),
               widget.isDownloading
                   ? BlocSelector<VideoCourseCubit, VideoCourseState, double>(
                       selector: (state) =>
@@ -142,14 +146,14 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
                                         .read<VideoCourseCubit>()
                                         .fillgStatuspdf[widget.value.title] ??
                                     fileExistsValue
-                                ? const Icon(
+                                ? Icon(
                                     Icons.insert_drive_file,
-                                    color: Color(0xFF0961F5),
-                                    size: 30,
+                                    color: const Color(0xFF0961F5),
+                                    size: 23.sp,
                                   )
-                                : const Icon(
+                                : Icon(
                                     Icons.download,
-                                    size: 30,
+                                    size: 23.sp,
                                   ),
                             onPressed: context
                                         .read<VideoCourseCubit>()

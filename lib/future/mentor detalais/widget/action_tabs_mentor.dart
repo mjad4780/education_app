@@ -7,10 +7,8 @@ import '../../../core/helpers/spacing.dart';
 import '../logic/cubit/mentor_cubit.dart';
 
 class ActionTabsMentor extends StatelessWidget {
-  const ActionTabsMentor({
-    super.key,
-  });
-
+  const ActionTabsMentor({super.key, required this.id});
+  final int id;
   @override
   Widget build(BuildContext context) {
     return BlocSelector<MentorCubit, MentorState, bool>(
@@ -23,7 +21,9 @@ class ActionTabsMentor extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  context.read<MentorCubit>().watchcourse(false);
+                  context.read<MentorCubit>().watchcourse(
+                        false,
+                      );
                 },
                 child: Container(
                   height: height(context) / 23,
@@ -48,7 +48,10 @@ class ActionTabsMentor extends StatelessWidget {
             Expanded(
                 child: GestureDetector(
               onTap: () {
-                context.read<MentorCubit>().watchcourse(true);
+                context.read<MentorCubit>().watchcourse(
+                      true,
+                    );
+                // context.read<MentorCubit>().getCoursesMentor(id);
               },
               child: Container(
                 height: height(context) / 23,

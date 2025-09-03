@@ -29,11 +29,10 @@ class SignInGoogleBlocListener extends StatelessWidget {
           );
         } else if (state is SignInGoogleSuccess) {
           context.pop();
-          buildSuccessBar(context, state.successString);
-          context.pushNamedAndRemoveUntil(StringRoute.home);
+          context.pushNamedAndRemoveUntil(StringRoute.main);
         } else if (state is SignInGoogleFailure) {
           context.pop();
-          buildErrorBar(context, state.message);
+          buildErorr(context, state.message);
         } else {}
       },
       child: const SizedBox.shrink(),
