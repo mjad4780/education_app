@@ -1,13 +1,15 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/language/lang_keys.dart';
-import 'package:education/utility/list_categories_courses.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
+import '../data/model/response_home/category.dart';
 
 class CustomCategoriesCourse extends StatelessWidget {
-  const CustomCategoriesCourse({super.key});
-
+  const CustomCategoriesCourse({super.key, required this.categories});
+  final List<Category> categories;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +25,11 @@ class CustomCategoriesCourse extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => context.pushName(StringRoute.categories),
+                    onTap: () => context.pushName(StringRoute.categories,
+                        arguments: {
+                          'cubit': context.read<HomeCubit>(),
+                          'categories': categories
+                        }),
                     child: Text(context.translate(LangKeys.seeAll),
                         textAlign: TextAlign.right,
                         style: context.textStyle.titleLarge!.copyWith(
@@ -42,19 +48,23 @@ class CustomCategoriesCourse extends StatelessWidget {
         SizedBox(
             width: double.infinity,
             height: 40,
-            child: SingleChildScrollView(
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                  children: List.generate(
-                listCategoriesCouse(context).length,
-                (int i) => Padding(
+              itemCount: categories.length,
+              itemBuilder: (context, i) => GestureDetector(
+                onTap: () => context.pushName(StringRoute.categories,
+                    arguments: {
+                      'cubit': context.read<HomeCubit>(),
+                      'categories': categories
+                    }),
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(listCategoriesCouse(context)[i],
+                  child: Text(context.translate(categories[i].name ?? ''),
                       style: context.textStyle.headlineLarge!
                           .copyWith(color: context.color.blue)),
                 ),
-              )),
-            )),
+              ),
+            ))
       ],
     );
   }

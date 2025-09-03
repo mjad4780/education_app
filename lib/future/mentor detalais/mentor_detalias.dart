@@ -1,27 +1,39 @@
+import 'dart:developer';
+
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/future/mentor%20detalais/logic/cubit/mentor_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../home/data/model/response_home/mentor.dart';
 import 'widget/course_details_card.dart';
 import 'widget/mentor_app_bar.dart';
 import 'widget/mentor_profile_section.dart';
 
 class MentorDetails extends StatelessWidget {
-  const MentorDetails({super.key});
-
+  const MentorDetails({super.key, required this.mentor});
+  final Mentor mentor;
   @override
   Widget build(BuildContext context) {
+    log(mentor.followers.toString());
     return BlocProvider(
-      create: (context) => getIt<MentorCubit>(),
-      child: const Scaffold(
-        appBar: MentorAppBar(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [MentorProfileSection(), MentorCourseDetailsCard()],
+        create: (context) => getIt<MentorCubit>(),
+        child: Scaffold(
+          appBar: const MentorAppBar(),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: MentorProfileSection(
+                  mentor: mentor,
+                ),
+              ),
+              SliverToBoxAdapter(
+                  child: MentorCourseDetailsCard(
+                mentor: mentor,
+              )),
+              // const SliverToBoxAdapter(child: BlocListenerFailerFollow())
+            ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

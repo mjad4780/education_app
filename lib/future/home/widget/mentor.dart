@@ -1,12 +1,15 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/future/home/data/model/response_home/mentor.dart';
+import 'package:education/widget/custom_cache_networking_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/language/lang_keys.dart';
 
 class CustomMentor extends StatelessWidget {
-  const CustomMentor({super.key});
+  const CustomMentor({super.key, required this.mentors});
+  final List<Mentor> mentors;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,8 @@ class CustomMentor extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => context.pushName(StringRoute.mentorScreen),
+                    onTap: () => context.pushName(StringRoute.mentorScreen,
+                        arguments: mentors),
                     child: Text(context.translate(LangKeys.seeAll),
                         textAlign: TextAlign.right,
                         style: context.textStyle.titleLarge!.copyWith(
@@ -47,8 +51,10 @@ class CustomMentor extends StatelessWidget {
                 itemSnapping: true,
                 backgroundColor: context.color.greyLight,
                 itemExtent: 120,
-                shrinkExtent: 120,
-                onTap: (value) => context.pushName(StringRoute.mentorDetalias),
+                shrinkExtent: 80,
+                onTap: (value) => context.pushName(StringRoute.mentorDetalias,
+                    arguments: mentors[value]),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(4),
@@ -58,29 +64,38 @@ class CustomMentor extends StatelessWidget {
                   ),
                 ),
                 children: List.generate(
-                  10,
+                  mentors.length,
                   (int i) => Column(
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          // width: 80,
-                          // height: 70,
-                          decoration: ShapeDecoration(
-                            color: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
+                      if (mentors[i].profileImage != null)
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                              // width: 80,
+                              // height: 70,
+                              decoration: ShapeDecoration(
+                                color: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                // image: DecorationImage(
+                                //     image: AssetImage(
+                                //         mentors[i].profileImage ?? ''))
+                              ),
+                              child: CustomCachedNetworkImage(
+                                imageUrl: mentors[i].profileImage!,
+                              )),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      // const SizedBox(
+                      //   height: 5,
+                      // ),
                       Expanded(
-                        child: Text('mohamed',
-                            style: context.textStyle.headlineLarge!
-                                .copyWith(color: context.color.primaryColor)),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(mentors[i].name ?? 'sotry  ',
+                              style: context.textStyle.headlineLarge!
+                                  .copyWith(color: context.color.primaryColor)),
+                        ),
                       ),
                     ],
                   ),

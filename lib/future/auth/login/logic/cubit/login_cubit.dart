@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,12 +42,22 @@ class LoginCubit extends Cubit<LoginState> {
     emit(SignInGoogleLoading());
     final result = await loginRepo.signInWithGoogle();
     result.fold(
-      (failure) => emit(
-        SignInGoogleFailure(message: failure.message),
-      ),
+      (failure) {
+        log(failure.message);
+        emit(
+          SignInGoogleFailure(message: failure.message),
+        );
+      },
       (success) => emit(
         SignInGoogleSuccess(successString: success),
       ),
     );
+  }
+
+  @override
+  Future<void> close() {
+    email.dispose();
+    password.dispose();
+    return super.close();
   }
 }

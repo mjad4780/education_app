@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:education/future/auth/sign%20up/data/model/sign_up_reqest_body.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/service/auth/auth_servieces.dart';
+import '../../../../core/service/supabase/auth/auth_servieces.dart';
 
 class SignUpRepo {
   final AuthService _authService;

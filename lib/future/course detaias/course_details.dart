@@ -1,36 +1,82 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
-import 'package:education/core/helpers/spacing.dart';
+import 'package:education/core/helpers/failer_widget.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
+
+import 'package:education/future/course%20detaias/widget/loading_video.dart';
+import 'package:education/future/course%20detaias/widget/update_course_bloc.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/language/lang_keys.dart';
 import '../../widget/app_text_button.dart';
+import '../home/data/model/response_home/course.dart';
 import 'widget/course_details_card.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
-  const CourseDetailsScreen({super.key});
-
+  const CourseDetailsScreen({super.key, required this.course});
+  final Course course;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<VideoCourseCubit>(),
+      create: (context) => getIt<VideoCourseCubit>()
+        ..emitgetdataliascourse(course, course.id ?? 0),
       child: Scaffold(
-        body: Stack(
-          children: [
-            const CourseHeader(),
-            const CourseDetailsCard(),
-            Positioned(
-              right: 34,
-              top: height(context) * 0.30,
-              child: SvgPicture.asset(Assets.video),
-            ),
-          ],
-        ),
-      ),
+          body: HomeBlocBuilder(
+        course: course,
+      )),
+    );
+  }
+}
+
+class HomeBlocBuilder extends StatelessWidget {
+  const HomeBlocBuilder({super.key, required this.course});
+  final Course course;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<VideoCourseCubit, VideoCourseState>(
+      buildWhen: (previous, current) =>
+          current is VideoCourseDatailasLoading ||
+          current is FillterCourseSuccess ||
+          current is VideoCourseDatailasFailer,
+      builder: (context, state) {
+        if (state is VideoCourseDatailasLoading) {
+          return const CourseDetailsShimmer();
+        } else if (state is VideoCourseDatailasFailer) {
+          return FailerWidget(
+            messege: state.message,
+            onPressed: () => context
+                .read<VideoCourseCubit>()
+                .emitgetdataliascourse(course, course.id ?? 0),
+          );
+        } else if (state is FillterCourseSuccess) {
+          return Stack(
+            children: [
+              const CourseHeader(),
+              CourseDetailsCard(
+                detailasCourse: state.fillterCourse,
+              ),
+              Positioned(
+                bottom: 10,
+                left: 30,
+                right: 30,
+                child: !context.read<VideoCourseCubit>().headCourse!.isFree!
+                    ? EnrollButton(
+                        iD: state.fillterCourse.detailsId!,
+                      )
+                    : const SizedBox.shrink(),
+              ),
+              const Positioned(bottom: 0, child: UpdateCourseListener())
+            ],
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
     );
   }
 }
@@ -41,16 +87,19 @@ class CourseTitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
       child: Row(
         children: [
           Text(
-            'Graphic Design',
+            context.translate(
+                context.read<VideoCourseCubit>().headCourse!.categoryName ??
+                    ''),
             style: context.textStyle.titleSmall!.copyWith(
               fontWeight: FontWeight.w700,
               color: const Color(0xFFFF6B00),
             ),
           ),
+          // CircularProgressIndicator()
           const Spacer(),
           SvgPicture.asset(Assets.imagesStar),
           Text(
@@ -66,14 +115,17 @@ class CourseTitleRow extends StatelessWidget {
 }
 
 class EnrollButton extends StatelessWidget {
-  const EnrollButton({super.key});
-
+  const EnrollButton({super.key, required this.iD});
+  final int iD;
   @override
   Widget build(BuildContext context) {
     return AppTextButton(
-      buttonHeight: 50,
-      buttonText: '${context.translate(LangKeys.enroll)} - 499/-',
-      onPressed: () {},
+      buttonHeight: 40.h,
+      buttonText:
+          '${context.translate(LangKeys.enroll)} \$${context.read<VideoCourseCubit>().headCourse!.price}',
+      onPressed: () {
+        context.read<VideoCourseCubit>().updateCourseToFree(iD);
+      },
       textStyle: context.textStyle.bodyMedium!,
     );
   }

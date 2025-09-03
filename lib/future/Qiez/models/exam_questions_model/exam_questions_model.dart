@@ -208,3 +208,244 @@ class Answers {
     return data;
   }
 }
+
+ExamQuestionModel examQuestionModel = ExamQuestionModel(
+  data: [
+    DataQuestions(
+      id: 1,
+      title: "What is the capital of France?",
+      titleAr: "ما هي عاصمة فرنسا؟",
+      type: "single_choice",
+      illistraton: Illistraton(text: "A map of France."),
+      attachment:
+          Attachment(type: "image", url: "https://example.com/question1.jpg"),
+      multiple: 0,
+      options: [
+        Options(
+            key: "A",
+            title: "Paris",
+            titleAr: "باريس",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "B",
+            title: "Berlin",
+            titleAr: "برلين",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "C",
+            title: "Madrid",
+            titleAr: "مدريد",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "D",
+            title: "Rome",
+            titleAr: "روما",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+      ],
+      answeredCorrect: null,
+      isFlagged: null,
+      studentAnswer: null,
+      answers: [
+        Answers(index: 0, key: "A", answer: "Paris", answerAr: "باريس"),
+      ],
+    ),
+    DataQuestions(
+      id: 2,
+      title: "What is 2 + 2?",
+      titleAr: "ما هو 2 + 2؟",
+      type: "single_choice",
+      illistraton: Illistraton(text: "A simple math question."),
+      attachment: null,
+      multiple: 0,
+      options: [
+        Options(
+            key: "A",
+            title: "3",
+            titleAr: "3",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "B",
+            title: "4",
+            titleAr: "4",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "C",
+            title: "5",
+            titleAr: "5",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "D",
+            title: "6",
+            titleAr: "6",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+      ],
+      answeredCorrect: null,
+      isFlagged: null,
+      studentAnswer: null,
+      answers: [
+        Answers(index: 1, key: "B", answer: "4", answerAr: "4"),
+      ],
+    ),
+    DataQuestions(
+      id: 3,
+      title: "Which planet is known as the Red Planet?",
+      titleAr: "أي كوكب يُعرف بالكوكب الأحمر؟",
+      type: "single_choice",
+      illistraton: Illistraton(text: "A picture of Mars."),
+      attachment:
+          Attachment(type: "image", url: "https://example.com/question3.jpg"),
+      multiple: 0,
+      options: [
+        Options(
+            key: "A",
+            title: "Mars",
+            titleAr: "المريخ",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "B",
+            title: "Venus",
+            titleAr: "الزهرة",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "C",
+            title: "Earth",
+            titleAr: "الأرض",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "D",
+            title: "Jupiter",
+            titleAr: "المشتري",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+      ],
+      answeredCorrect: null,
+      isFlagged: null,
+      studentAnswer: null,
+      answers: [
+        Answers(index: 0, key: "A", answer: "Mars", answerAr: "المريخ"),
+      ],
+    ),
+    DataQuestions(
+      id: 4,
+      title: "What is the largest ocean on Earth?",
+      titleAr: "ما هو أكبر محيط على الأرض؟",
+      type: "single_choice",
+      illistraton: Illistraton(text: "An image of the world's oceans."),
+      attachment:
+          Attachment(type: "image", url: "https://example.com/question4.jpg"),
+      multiple: 0,
+      options: [
+        Options(
+            key: "A",
+            title: "Atlantic Ocean",
+            titleAr: "المحيط الأطلسي",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "B",
+            title: "Indian Ocean",
+            titleAr: "المحيط الهندي",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "C",
+            title: "Pacific Ocean",
+            titleAr: "المحيط الهادئ",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "D",
+            title: "Arctic Ocean",
+            titleAr: "المحيط القطبي الشمالي",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+      ],
+      answeredCorrect: null,
+      isFlagged: null,
+      studentAnswer: null,
+      answers: [
+        Answers(
+            index: 2,
+            key: "C",
+            answer: "Pacific Ocean",
+            answerAr: "المحيط الهادئ"),
+      ],
+    ),
+    DataQuestions(
+      id: 5,
+      title: "Who wrote 'Romeo and Juliet'?",
+      titleAr: "من كتب 'روميو وجولييت'؟",
+      type: "single_choice",
+      illistraton: Illistraton(text: "A picture of Shakespeare."),
+      attachment:
+          Attachment(type: "image", url: "https://example.com/question5.jpg"),
+      multiple: 0,
+      options: [
+        Options(
+            key: "A",
+            title: "Shakespeare",
+            titleAr: "شكسبير",
+            isCorrect: 1,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "B",
+            title: "Dickens",
+            titleAr: "ديكنز",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "C",
+            title: "Hemingway",
+            titleAr: "همينغواي",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+        Options(
+            key: "D",
+            title: "Austen",
+            titleAr: "أوستن",
+            isCorrect: 0,
+            isSelected: 0,
+            attachment: null),
+      ],
+      answeredCorrect: null,
+      isFlagged: null,
+      studentAnswer: null,
+      answers: [
+        Answers(index: 0, key: "A", answer: "Shakespeare", answerAr: "شكسبير"),
+      ],
+    ),
+    // Add 5 more questions similarly...
+  ],
+  statusCode: 200,
+  meta: null,
+);

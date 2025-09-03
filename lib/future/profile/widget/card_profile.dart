@@ -1,6 +1,9 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/language/lang_keys.dart';
@@ -8,7 +11,8 @@ import '../../../utility/images_aseets.dart';
 import 'categories_profile.dart';
 
 class CardProfile extends StatelessWidget {
-  const CardProfile({super.key});
+  const CardProfile({super.key, this.user});
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,10 @@ class CardProfile extends StatelessWidget {
         child: Column(
           children: [
             verticalSpace(70),
-            const Text(
-              'Alex',
+            Text(
+              user?.userMetadata?['name'] ?? '',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFF202244),
                 fontSize: 24,
                 fontFamily: 'Jost',
@@ -34,10 +38,10 @@ class CardProfile extends StatelessWidget {
                 height: 0,
               ),
             ),
-            const Text(
-              'hernandex.redial@gmail.com',
+            Text(
+              user?.email ?? 'email',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFF545454),
                 fontSize: 13,
                 fontFamily: 'Mulish',
@@ -49,7 +53,11 @@ class CardProfile extends StatelessWidget {
             CategoriesProfile(
               image: Assets.iconProfile,
               title: LangKeys.editProfile,
-              onTap: () => context.pushName(StringRoute.screenEditProfile),
+              onTap: () => context.pushName(StringRoute.screenEditProfile,
+                  arguments: {
+                    'cubit': context.read<ProfileCubit>(),
+                    'user': user
+                  }),
             ),
             const CategoriesProfile(
               image: Assets.trans,

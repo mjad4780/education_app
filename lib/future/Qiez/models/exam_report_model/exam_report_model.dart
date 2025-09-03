@@ -70,7 +70,7 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['title'] = this.title;
+    data['title'] = title;
     data['score'] = score;
 
     data['success'] = success;
@@ -112,7 +112,7 @@ class Questions {
       });
       options = <Options>[];
       json['options'].forEach((v) {
-        options!.add(new Options.fromJson(v));
+        options!.add(Options.fromJson(v));
       });
     }
   }
@@ -124,10 +124,10 @@ class Questions {
     if (answers != null) {
       data['answers'] = answers!.map((v) => v.toJson()).toList();
     }
-    if (this.options != null) {
-      data['options'] = this.options!.map((v) => v.toJson()).toList();
+    if (options != null) {
+      data['options'] = options!.map((v) => v.toJson()).toList();
     }
-    data['multiple'] = this.multiple;
+    data['multiple'] = multiple;
     return data;
   }
 }
@@ -193,3 +193,217 @@ class Answers {
     return data;
   }
 }
+
+ExamReport examReports = ExamReport(
+  data: Data(
+    id: 1,
+    score: 80,
+    success: 1,
+    message: "Exam completed successfully.",
+    minScore: 50,
+    startDate: "2024-12-25T10:00:00",
+    endDate: "2024-12-25T11:00:00",
+    totalTime: 60,
+    correctAnswersCount: 4,
+    questions: [
+      Questions(
+        id: 1,
+        title: "What is the capital of France?",
+        options: [
+          Options(
+              key: "A",
+              title: "Paris",
+              titleAr: "باريس",
+              isCorrect: 1,
+              isSelected: 1,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Berlin",
+              titleAr: "برلين",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Madrid",
+              titleAr: "مدريد",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Rome",
+              titleAr: "روما",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 0, key: "A", answer: "Paris", answerAr: "باريس"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 2,
+        title: "What is 2 + 2?",
+        options: [
+          Options(
+              key: "A",
+              title: "3",
+              titleAr: "3",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "4",
+              titleAr: "4",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "5",
+              titleAr: "5",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "6",
+              titleAr: "6",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 1, key: "B", answer: "4", answerAr: "4"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 3,
+        title: "Which planet is known as the Red Planet?",
+        options: [
+          Options(
+              key: "A",
+              title: "Mars",
+              titleAr: "المريخ",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Venus",
+              titleAr: "الزهرة",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Earth",
+              titleAr: "الأرض",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Jupiter",
+              titleAr: "المشتري",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(index: 0, key: "A", answer: "Mars", answerAr: "المريخ"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 4,
+        title: "What is the largest ocean on Earth?",
+        options: [
+          Options(
+              key: "A",
+              title: "Atlantic Ocean",
+              titleAr: "المحيط الأطلسي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Indian Ocean",
+              titleAr: "المحيط الهندي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Pacific Ocean",
+              titleAr: "المحيط الهادئ",
+              isCorrect: 1,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Arctic Ocean",
+              titleAr: "المحيط القطبي الشمالي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(
+              index: 2,
+              key: "C",
+              answer: "Pacific Ocean",
+              answerAr: "المحيط الهادئ"),
+        ],
+        multiple: 0,
+      ),
+      Questions(
+        id: 5,
+        title: "Who wrote 'Romeo and Juliet'?",
+        options: [
+          Options(
+              key: "A",
+              title: "Shakespeare",
+              titleAr: "شكسبير",
+              isCorrect: 1,
+              isSelected: 1,
+              attachment: null),
+          Options(
+              key: "B",
+              title: "Dickens",
+              titleAr: "ديكنز",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "C",
+              title: "Hemingway",
+              titleAr: "همينغواي",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+          Options(
+              key: "D",
+              title: "Austen",
+              titleAr: "أوستن",
+              isCorrect: 0,
+              isSelected: 0,
+              attachment: null),
+        ],
+        answers: [
+          Answers(
+              index: 0, key: "A", answer: "Shakespeare", answerAr: "شكسبير"),
+        ],
+        multiple: 0,
+      ),
+    ],
+    title: "Sample Exam",
+  ),
+  statusCode: 200,
+  meta: null,
+);

@@ -277,3 +277,67 @@ class Breaks {
     return data;
   }
 }
+
+ExamOverviewModel examOverview = ExamOverviewModel(
+  data: Data(
+    id: 1,
+    title: 'دورة 1',
+    price: 100,
+    isFree: 0, // دورة مدفوعة
+    description: 'وصف الدورة رقم 1',
+    image: 'https://example.com/image1.jpg',
+    examsCount: 10,
+    discountPrice: 50,
+    enrollment: Enrollment(
+      isBought: 1,
+      expiredAt: '2025-12-01',
+      boughtAt: '2024-12-25',
+      canAccess: 1,
+    ),
+    exams: [
+      ExamsOverview(
+        id: 1,
+        title: 'امتحان رقم 1',
+        description: 'وصف الامتحان رقم 1',
+        image: null,
+        examTime: 60,
+        examPackage: 'حزمة امتحانات 1',
+        examPackageId: 1,
+        allowedAttempts: 3,
+        allowBack: 1,
+        startTime: '2024-12-01T10:00:00',
+        minScore: 60,
+        showAnswer: 1,
+        desc: 1,
+        questionsCount: 20,
+        pausedAttempts: PausedAttempts(
+          attemptId: 1,
+          questionsCount: 20,
+          unansweredQuestions: 5,
+          remainingTime: '10:00',
+          lastOne: 0,
+          createdAt: '2024-12-01T10:00:00',
+          attemptNumber: 1,
+          packageId: 1,
+        ),
+        previousAttempts: 0,
+        breaks: [
+          Breaks(
+            time: 10,
+            question: 1,
+            message: 'استراحة بين السؤال 1',
+          ),
+          Breaks(
+            time: 20,
+            question: 2,
+            message: 'استراحة بين السؤال 2',
+          ),
+        ],
+        breakExists: true,
+      ),
+    ],
+    wishlist: 10,
+  ),
+  statusCode: 200,
+  meta: null,
+);

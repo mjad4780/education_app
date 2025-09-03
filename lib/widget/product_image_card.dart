@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +49,10 @@ class ImageProfile extends StatelessWidget {
                   ? FileImage(
                       imageFile!,
                     )
-                  : null,
-              child: (imageFile == null)
+                  : (imageUrlForUpdateImage != null)
+                      ? CachedNetworkImageProvider(imageUrlForUpdateImage!)
+                      : null,
+              child: (imageFile == null && imageUrlForUpdateImage == null)
                   ? SvgPicture.asset(
                       Assets.imagesPerson,
                     )
