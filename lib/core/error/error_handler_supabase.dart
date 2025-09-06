@@ -16,7 +16,7 @@ class ErrorHandlerSupabase {
     } else if (error is HandshakeException) {
       return error.message;
     } else if (error is PostgrestException) {
-      return "Server error (${error.code}): ${error.message}";
+      return "Server error: ${error.message}";
     } else if (error is HttpException) {
       return "HTTP request failed: ${error.message}";
     } else if (error is FormatException) {

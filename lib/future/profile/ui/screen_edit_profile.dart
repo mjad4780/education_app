@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/profile/data/model/profile_model.dart';
 import 'package:flutter/material.dart';

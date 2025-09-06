@@ -41,6 +41,15 @@ class CacheHelper {
     return sharedPreferences.get(key);
   }
 
+  List<String> getStringList({required String key}) {
+    return sharedPreferences.getStringList(key)?.toList() ?? [];
+  }
+
+  Future<bool> setStringList(
+      {required String key, required List<String> value}) async {
+    return await sharedPreferences.setStringList(key, value);
+  }
+
 //! remove data using specific key
 
   Future<bool> removeData({required String key}) async {
@@ -112,7 +121,8 @@ class CacheHelper {
 
   Future<void> saveWatchedVideos(Map<int, bool> watchedVideos) async {
     // تحويل المفاتيح إلى String
-    final stringKeyMap = watchedVideos.map((key, value) => MapEntry(key.toString(), value));
+    final stringKeyMap =
+        watchedVideos.map((key, value) => MapEntry(key.toString(), value));
     await sharedPreferences.setString(
       _watchedVideosKey,
       json.encode(stringKeyMap),
@@ -124,7 +134,8 @@ class CacheHelper {
     if (data != null) {
       final Map<String, dynamic> stringKeyMap = json.decode(data);
       // تحويل المفاتيح مرة أخرى إلى int
-      return stringKeyMap.map((key, value) => MapEntry(int.parse(key), value as bool));
+      return stringKeyMap
+          .map((key, value) => MapEntry(int.parse(key), value as bool));
     }
     return {};
   }

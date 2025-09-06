@@ -9,6 +9,7 @@ import '../../../core/helpers/spacing.dart';
 import '../../../core/language/lang_keys.dart';
 import '../../../utility/images_aseets.dart';
 import 'categories_profile.dart';
+import 'custom_widget_log_out_bloc.dart';
 
 class CardProfile extends StatelessWidget {
   const CardProfile({super.key, this.user});
@@ -92,6 +93,27 @@ class CardProfile extends StatelessWidget {
               image: Assets.infite,
               title: LangKeys.inviteFriends,
             ),
+            GestureDetector(
+              onTap: () => context.read<ProfileCubit>().logout(),
+              child: Row(
+                children: [
+                  horizontalSpace(16),
+                  Icon(Icons.logout, color: Colors.red.shade400, size: 25),
+                  horizontalSpace(20),
+                  Text('Log Out', style: context.textStyle.titleMedium!),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            const CustomWidgetLogOutBloc()
           ],
         ),
       ),

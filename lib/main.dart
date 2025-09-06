@@ -2,7 +2,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:education/app/education_app.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/key.dart';
-import 'package:education/utility/modern_error_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +30,9 @@ void main() async {
     url: supabaseUrl,
     anonKey: supabaseKey,
   );
-  ErrorWidget.builder = (FlutterErrorDetails details) => ModernErrorScreen(
-        errorDetails: details,
-      );
+  // ErrorWidget.builder = (FlutterErrorDetails details) => ModernErrorScreen(
+  //       errorDetails: details,
+  //     );
   // Handle Flutter errors here
 
   // await tesHomeData();

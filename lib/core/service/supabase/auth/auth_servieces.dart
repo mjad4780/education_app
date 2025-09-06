@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../utility/constant.dart';
+import '../../../error/error_handler_supabase.dart';
 import 'supabase_services_impl.dart';
 
 class AuthService {
@@ -100,7 +101,7 @@ class AuthService {
     }
   }
 
-  Future<void> logout() async {
+  Future<ResponseService> logout() async {
     try {
       await _supabaseService.signOut();
       await _googleSignIn.signOut();
@@ -109,8 +110,13 @@ class AuthService {
       getIt<CacheHelper>().removeData(key: Keys.loginEmail);
       getIt<CacheHelper>().removeData(key: Keys.userId);
       getIt<CacheHelper>().removeData(key: Keys.password);
+      return ResponseService(true, 'Success');
     } catch (e) {
-      log(e.toString());
+      log('خطأ في قاعدة البيانات: ${e.toString()}');
+      return ResponseService(
+        false,
+        ErrorHandlerSupabase.getErrorMessage(e),
+      );
     }
   }
 

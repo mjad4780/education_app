@@ -56,3 +56,15 @@ final class UpdateUserFailure extends ProfileState {
   final String message;
   UpdateUserFailure({required this.message});
 }
+
+// log out
+class LogoutInitial extends ProfileState {}
+
+class LogoutLoading extends ProfileState {}
+
+class LogoutSuccess extends ProfileState {}
+
+class LogoutFailure extends ProfileState {
+  final String message;
+  LogoutFailure({required this.message});
+}

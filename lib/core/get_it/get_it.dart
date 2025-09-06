@@ -83,7 +83,8 @@ void setupServise() {
   getIt.registerFactory<SignUpCubit>(() => SignUpCubit(getIt()));
 
   // profile
-  getIt.registerLazySingleton<ProfileRepoImpl>(() => ProfileRepoImpl(getIt()));
+  getIt.registerLazySingleton<ProfileRepoImpl>(
+      () => ProfileRepoImpl(getIt(), getIt()));
 
   getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
 
@@ -117,7 +118,7 @@ void setupServise() {
         getIt(),
       ));
 
-  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerLazySingleton<HomeCubit>(() => HomeCubit(getIt()));
 
   ///MyCourse
 

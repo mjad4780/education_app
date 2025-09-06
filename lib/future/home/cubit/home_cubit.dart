@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/home/data/repo/repo_home.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../data/model/response_home/course.dart';
 import '../data/model/response_home/response_home.dart';
@@ -14,9 +15,13 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.repoHome) : super(HomeInitial());
-  final supabase = Supabase.instance.client;
+  static const String _hintKey = 'search_hints';
+  Timer? debounceTimer;
+  final prefs = getIt<CacheHelper>();
   final RepoHome repoHome;
   // int currentindex = 0;
+
+  final TextEditingController query = TextEditingController();
 
   int currentindexpupalr = -1;
 
@@ -91,5 +96,93 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool isCourseSaved(String courseId) {
     return _savedCourses.contains(courseId);
+  }
+
+  //////////////////////////////////////// search course with debounce
+
+  void searchWithDebounce([String? value]) {
+    debounceTimer?.cancel();
+
+    if (query.text.trim().isEmpty) {
+      return;
+    }
+
+    debounceTimer = Timer(const Duration(milliseconds: 3000), () {
+      _performSearch();
+    });
+  }
+
+  Future<void> _performSearch() async {
+    emit(SearchCourseLoadingState());
+
+    try {
+      await Future.delayed(const Duration(seconds: 1)); // simulate API
+      // هنا الفلترة بدل API
+      final allCourses = responseHome?.courses ?? [];
+      List<Course> results = allCourses
+          .where((course) =>
+              course.title != null &&
+              course.title!.toLowerCase().contains(query.text.toLowerCase()))
+          .toList();
+
+      // save query to hints
+      if (results.isEmpty || results == []) {
+        debounceTimer?.cancel();
+        emit(SearchCourseFailerState(
+            messege: "No results found for '${query.text}'"));
+
+        return;
+      } else {
+        debounceTimer?.cancel();
+
+        await addHint(query.text);
+
+        emit(SearchCourseSuccessState(results));
+      }
+    } catch (e) {
+      debounceTimer?.cancel();
+      log(e.toString());
+      emit(SearchCourseFailerState(messege: "Something went wrong: $e"));
+    }
+  }
+
+  void immediateSearch([String? value]) {
+    debounceTimer?.cancel();
+    if (query.text.trim().isNotEmpty) {
+      _performSearch();
+    } else if (value != null && value.trim().isNotEmpty) {
+      query.text = value;
+      _performSearch();
+    }
+  }
+
+  void loadSavedHints() {
+    final current = CacheHelper().getStringList(key: _hintKey);
+    emit(SearchHintTextState(current));
+  }
+
+  Future<void> addHint(String hint) async {
+    final current = CacheHelper().getStringList(key: _hintKey);
+    if (!current.contains(hint)) {
+      current.add(hint);
+      await CacheHelper().removeData(key: _hintKey);
+
+      await CacheHelper().setStringList(key: _hintKey, value: current);
+    }
+    // emit(SearchHintTextState(current));
+  }
+
+  Future<void> removeHint(String hint) async {
+    final current = CacheHelper().getStringList(key: _hintKey);
+    current.remove(hint);
+    await CacheHelper().removeData(key: _hintKey);
+    await CacheHelper().setStringList(key: _hintKey, value: current);
+    emit(SearchHintTextState(current));
+  }
+
+  @override
+  Future<void> close() {
+    debounceTimer?.cancel();
+    return super.close();
   }
 }

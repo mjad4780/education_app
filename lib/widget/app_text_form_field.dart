@@ -20,8 +20,10 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final Function(String?) validator;
+  final void Function(String)? onChanged;
   const AppTextFormField({
     super.key,
+    this.onChanged,
     this.prfixIcon,
     this.contentPadding,
     this.focusedBorder,
@@ -45,6 +47,7 @@ class AppTextFormField extends StatelessWidget {
       autofillHints: autofillHints,
       keyboardType: keyboardType,
       controller: controller,
+      onChanged: onChanged,
       initialValue: initialValue,
       decoration: InputDecoration(
         prefixIcon: prfixIcon,

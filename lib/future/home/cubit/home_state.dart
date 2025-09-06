@@ -61,3 +61,24 @@ final class FailtercourseFailerState extends HomeState {
 
   FailtercourseFailerState({required this.messege});
 }
+
+// search course
+final class SearchCourseSuccessState extends HomeState {
+  final List<Course> courses;
+
+  SearchCourseSuccessState(this.courses);
+}
+
+final class SearchCourseFailerState extends HomeState {
+  final String messege;
+
+  SearchCourseFailerState({required this.messege});
+}
+
+final class SearchCourseLoadingState extends HomeState {}
+
+final class SearchHintTextState extends HomeState {
+  final List<String> hintText;
+
+  SearchHintTextState(this.hintText);
+}
