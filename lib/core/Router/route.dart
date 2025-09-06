@@ -4,12 +4,12 @@ import 'package:education/future/Qiez/view/exam_questions.dart';
 import 'package:education/future/auth/login/login_screan.dart';
 import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
 import 'package:education/future/chats/screan_chats.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:education/future/home/ui/castegories_screan.dart';
 import 'package:education/future/home/ui/home_scean.dart';
 import 'package:education/future/home/ui/notification_screen.dart';
 import 'package:education/future/mentor%20detalais/widget/screen_detalias_chat_mentors.dart';
 import 'package:education/future/onboarding/onboarding_view.dart';
-import 'package:education/future/profile/logic/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../future/Qiez/cubit/exam_cubit.dart';
@@ -168,7 +168,9 @@ class AppRoutes {
         );
       case StringRoute.searchScreen:
         return BaseRoute(
-          page: const SearchScreen(),
+          page: SearchScreen(
+            cubit: args as HomeCubit,
+          ),
           transitionType: RouteTransitionType.slideDown,
         );
 

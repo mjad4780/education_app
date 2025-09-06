@@ -1,7 +1,9 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/language/lang_keys.dart';
@@ -15,7 +17,8 @@ class SearchApp extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 13),
       child: GestureDetector(
-        onTap: () => context.pushName(StringRoute.searchScreen),
+        onTap: () => context.pushName(StringRoute.searchScreen,
+            arguments: context.read<HomeCubit>()),
         child: Container(
           width: 360,
           height: 64,

@@ -12,6 +12,7 @@ import 'core/helpers/cache_helper.dart';
 import 'core/helpers/observer.dart';
 // import 'future/paymop/data/models/payment_data.dart';
 import 'firebase_options.dart';
+import 'future/paymop/data/models/payment_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,12 +38,12 @@ void main() async {
 
   // await tesHomeData();
   // await getCourseDetails(101);
-  // PaymentData.initialize(
-  //   apiKey: apiKeyPaymop,
-  //   iframeId: iframe,
-  //   integrationCardId: cardId,
-  //   integrationMobileWalletId: mobilId,
-  // );
+  PaymentData.initialize(
+    apiKey: apiKeyPaymop,
+    iframeId: iframe,
+    integrationCardId: cardId,
+    integrationMobileWalletId: mobilId,
+  );
 //   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 //   OneSignal.initialize(onesignalId);
 //   OneSignal.Notifications.requestPermission(true);

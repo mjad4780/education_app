@@ -8,15 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/get_it/get_it.dart';
 import '../../../core/language/lang_keys.dart';
 import '../../../utility/images_aseets.dart';
 import '../../../widget/app_text_form_field.dart';
 import '../widget/widget polupar/custom_widget_course_polupar.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
-
+  const SearchScreen({super.key, required this.cubit});
+  final HomeCubit cubit;
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -34,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-        value: getIt<HomeCubit>()..loadSavedHints(),
+        value: widget.cubit..loadSavedHints(),
         child: Builder(builder: (context) {
           return Scaffold(
             appBar: AppBar(

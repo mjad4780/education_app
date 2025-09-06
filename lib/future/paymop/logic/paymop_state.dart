@@ -42,3 +42,19 @@ class PaymentMethodChanged extends PaymopState {
   final PaymentMethod method;
   PaymentMethodChanged(this.method);
 }
+
+/////////////////
+final class UpdateCourseLoading extends PaymopState {
+  UpdateCourseLoading();
+}
+
+final class UpdateCourseSuccess extends PaymopState {
+  final String messageSuccess;
+
+  UpdateCourseSuccess(this.messageSuccess);
+}
+
+final class UpdateCourseFailer extends PaymopState {
+  final String message;
+  UpdateCourseFailer({required this.message});
+}

@@ -26,7 +26,9 @@ class SupabaseChatService {
         'content': content,
         'is_read': false,
         'sender_type': senderType,
+        "conversation_id": conversationIdFor(currentUserId, receiverId)
       }).select();
+      log('Message sent: ${conversationIdFor(currentUserId, receiverId)}');
       // sender_type==true ?student: mentor
       if (response.isEmpty) {
         return ResponseService(false, 'no messsage');
@@ -48,10 +50,11 @@ class SupabaseChatService {
       return _supabase
           .from('messages')
           .stream(primaryKey: ['id'])
-          .inFilter(
-            'sender_id',
-            [userId, otherUserId],
-          )
+          .eq(
+              'conversation_id',
+              conversationIdFor(
+                  userId, otherUserId)) // single server-side filter
+
           .order('created_at', ascending: true)
           .map((data) {
             log('Messages from me to other: $data');
@@ -97,5 +100,11 @@ class SupabaseChatService {
       log("runtimeType${e.runtimeType}");
       return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
+  }
+
+  //////
+  String conversationIdFor(String a, String b) {
+    final ids = [a, b]..sort(); // يرتبهم أبجديًا
+    return '${ids[0]}_${ids[1]}';
   }
 }

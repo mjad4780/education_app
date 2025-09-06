@@ -26,27 +26,27 @@ class SuccessWidgetItemCourse extends StatelessWidget {
             //     course
             //             .image ??
             //         ''),
-
-            Container(
-              width: width(context) / 2,
-              height: height(context) / 8,
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x14000000),
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  )
-                ],
+            if (course.imageUrl != null)
+              Container(
+                width: width(context) / 2,
+                height: height(context) / 8,
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x14000000),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: CustomCachedNetworkImage(
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(20),
+                    ),
+                    // fit: BoxFit.fill,
+                    imageUrl: course.imageUrl!),
               ),
-              child: CustomCachedNetworkImage(
-                  borderRadius: const BorderRadius.horizontal(
-                    left: Radius.circular(20),
-                  ),
-                  // fit: BoxFit.fill,
-                  imageUrl: course.imageUrl ?? ''),
-            ),
 
             Container(
               width: width(context) / 2,

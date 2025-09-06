@@ -87,8 +87,7 @@ class ProfileBody extends StatelessWidget {
                   radius: 50,
                   backgroundImage: CachedNetworkImageProvider(
                       user?.userMetadata?['image'] ??
-                          user?.userMetadata?['avatar_url'] ??
-                          ""),
+                          user?.userMetadata?['avatar_url']),
                 ),
               )),
         // const Positioned(bottom: 10, child: AnimatedLogoutButton()),

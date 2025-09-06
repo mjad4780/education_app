@@ -47,17 +47,17 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   ) async {
     downloadingStatus[fileName] = true;
     progressStatus[fileName] = 0.0;
-    emit(PlayLoading());
+    saveEmit(PlayLoading());
     final result = await _repoVideo.play(url, fileName, (received, total) {
       if (total > 0) {
         progressStatus[fileName] = received / total;
-        emit(Progress(progressStatus[fileName]!));
+        saveEmit(Progress(progressStatus[fileName]!));
       }
     });
     result.fold((failure) {
       downloadingStatus[fileName] = false;
 
-      emit(
+      saveEmit(
         PlayFailure(message: failure.message),
       );
     }, (success) {
@@ -66,7 +66,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       downloadingStatus[fileName] = false;
 
       fillpath = success.$2;
-      emit(
+      saveEmit(
         PlaySuccess(successString: success),
       );
     });
@@ -90,7 +90,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
         videoController.dispose();
         chewieController!.dispose();
       }
-      emit(VideoCourseLoading());
+      saveEmit(VideoCourseLoading());
       bool isfiles = await videolocal(videoPath);
       videoController = isfiles
           ? VideoPlayerController.file(File(videoPath))
@@ -103,7 +103,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
           if (!watchedVideos.containsKey(videoId) || !watchedVideos[videoId]!) {
             watchedVideos[videoId!] = true;
             getIt<CacheHelper>().saveWatchedVideos(watchedVideos);
-            emit(WatchVideoCourse(videoId!));
+            saveEmit(WatchVideoCourse(videoId!));
           }
         }
       });
@@ -111,7 +111,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       // Set timeout
       Future.delayed(const Duration(seconds: 15), () {
         if (state is VideoCourseLoading) {
-          emit(VideoCourseFailure(
+          saveEmit(VideoCourseFailure(
               message:
                   'تحميل الفيديو استغرق وقتًا طويلاً. تحقق من اتصالك بالإنترنت.'));
         }
@@ -130,17 +130,17 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
           );
         },
       );
-      emit(VideoCourseSuccess());
+      saveEmit(VideoCourseSuccess());
     } catch (e) {
       log(e.toString());
-      emit(VideoCourseFailure(message: 'تحقق من اتصالك بالإنترنت'));
+      saveEmit(VideoCourseFailure(message: 'تحقق من اتصالك بالإنترنت'));
     }
   }
 
 ////////////////
 
   watchcourse(int value) {
-    emit(WatchRebuild(rebuildCourse = value));
+    saveEmit(WatchRebuild(rebuildCourse = value));
   }
 
 /////play pdf
@@ -162,17 +162,17 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   ) async {
     downloadingStatuspdf[fileName] = true;
     progressStatuspdf[fileName] = 0.0;
-    emit(PlayPdfLoading());
+    saveEmit(PlayPdfLoading());
     final result = await _repoVideo.play(url, fileName, (received, total) {
       if (total > 0) {
         progressStatuspdf[fileName] = received / total;
-        emit(ProgressPdf(progressStatuspdf[fileName]!));
+        saveEmit(ProgressPdf(progressStatuspdf[fileName]!));
       }
     });
     result.fold((failure) {
       downloadingStatuspdf[fileName] = false;
 
-      emit(
+      saveEmit(
         PlayPdfFailure(message: failure.message),
       );
     }, (success) {
@@ -182,7 +182,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
 
       fillpathpdf = success.$2;
 
-      emit(
+      saveEmit(
         PlayPdfSuccess(successString: success),
       );
     });
@@ -196,7 +196,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
     try {
       if (isClosed) return;
 
-      emit(VideoCourseDatailasLoading());
+      saveEmit(VideoCourseDatailasLoading());
       headCourse = course;
 
       final result = await _repoVideo.getCourseDetails(courseId);
@@ -204,31 +204,35 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       if (isClosed) return;
 
       result.fold((failure) {
-        emit(VideoCourseDatailasFailer(message: failure.message));
+        saveEmit(VideoCourseDatailasFailer(message: failure.message));
       }, (success) {
         totalvideos = success.videos!.length;
         videoId = success.videos!.first.id;
         initialVideo = success.videos!.first.url!;
-        emit(FillterCourseSuccess(success));
+        saveEmit(FillterCourseSuccess(success));
       });
     } catch (e) {
       if (!isClosed) {
-        emit(VideoCourseDatailasFailer(message: e.toString()));
+        saveEmit(VideoCourseDatailasFailer(message: e.toString()));
       }
     }
   }
 
 //update course
   updateCourseToFree(int courseId) async {
-    emit(UpdateCourseLoading());
+    log('UpdateCourseSuccess:bvhnvn}');
+
+    saveEmit(UpdateCourseLoading());
+
+    await Future.delayed(const Duration(seconds: 1)); // simulate API
 
     final result = await _repoVideo.updateCourseToFree(courseId);
     result.fold((failure) {
-      emit(
+      saveEmit(
         UpdateCourseFailer(message: failure.message),
       );
     }, (success) {
-      emit(
+      saveEmit(
         UpdateCourseSuccess(success),
       );
     });
@@ -245,6 +249,12 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       }
     } catch (e) {
       log("Error checking local file: ${e.toString()}");
+    }
+  }
+
+  saveEmit(VideoCourseState state) {
+    if (!isClosed) {
+      emit(state);
     }
   }
 }

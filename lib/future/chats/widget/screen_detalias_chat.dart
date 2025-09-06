@@ -142,6 +142,8 @@ class _ScreenChatsDetailsState extends State<ScreenChatsDetails> {
                 });
                 return ListView.separated(
                   controller: scrollController,
+                  reverse: true, // <---
+
                   padding: const EdgeInsets.all(16),
                   itemCount: messages.length,
                   separatorBuilder: (context, index) =>

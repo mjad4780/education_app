@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../data/models/reponse_body.dart';
 import 'mobile_wallet_view.dart';
+import 'update_course_bloc.dart';
 import 'visa_view.dart';
 
 class PaymentView extends StatelessWidget {
@@ -104,6 +105,7 @@ class PaymentView extends StatelessWidget {
           ),
           const Spacer(),
           _buildConfirmPaymentButton(context),
+          const UpdateCourseListener()
         ],
       ),
     );

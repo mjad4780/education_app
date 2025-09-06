@@ -23,24 +23,27 @@ class _MobileWalletScreenState extends State<MobileWalletScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: InAppWebView(
-        initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
-        onWebViewCreated: (controller) {
-          _appWebViewController = controller;
-          startPayment();
-        },
-        onLoadStop: (controller, request) {
-          if (request != null &&
-              request.queryParameters.containsKey('success') &&
-              request.queryParameters['success'] == 'true') {
-            widget.onSuccess();
-          } else if (request != null &&
-              request.queryParameters.containsKey('success') &&
-              request.queryParameters['success'] == 'false') {
-            widget.onError();
-          }
-        },
-      )),
+        body: Center(
+          child: InAppWebView(
+            initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+            onWebViewCreated: (controller) {
+              _appWebViewController = controller;
+              startPayment();
+            },
+            onLoadStop: (controller, request) {
+              if (request != null &&
+                  request.queryParameters.containsKey('success') &&
+                  request.queryParameters['success'] == 'true') {
+                widget.onSuccess();
+              } else if (request != null &&
+                  request.queryParameters.containsKey('success') &&
+                  request.queryParameters['success'] == 'false') {
+                widget.onError();
+              }
+            },
+          ),
+        ),
+      ),
     );
   }
 

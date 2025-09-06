@@ -75,28 +75,29 @@ class CustomWidgetCoursesMentor extends StatelessWidget {
                       height: height(context) / 5,
                       child: Row(
                         children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              height: height(context) / 5,
-                              decoration: const BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0x14000000),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 4),
-                                    spreadRadius: 0,
-                                  )
-                                ],
-                              ),
-                              child: CustomCachedNetworkImage(
-                                borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(20),
+                          if (course[i].imageUrl != null)
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                height: height(context) / 5,
+                                decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x14000000),
+                                      blurRadius: 10,
+                                      offset: Offset(0, 4),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
                                 ),
-                                imageUrl: course[i].imageUrl ?? '',
+                                child: CustomCachedNetworkImage(
+                                  borderRadius: const BorderRadius.horizontal(
+                                    left: Radius.circular(20),
+                                  ),
+                                  imageUrl: course[i].imageUrl!,
+                                ),
                               ),
                             ),
-                          ),
                           Expanded(
                             flex: 3,
                             child: Container(

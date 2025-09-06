@@ -118,14 +118,14 @@ void setupServise() {
         getIt(),
       ));
 
-  getIt.registerLazySingleton<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 
   ///MyCourse
 
   ///paymop
   getIt.registerLazySingleton<ServicePaymop>(() => ServicePaymop(dio));
   getIt.registerLazySingleton<RepoPaymop>(() => RepoPaymop(getIt()));
-  getIt.registerFactory<PaymopCubit>(() => PaymopCubit(getIt()));
+  getIt.registerLazySingleton<PaymopCubit>(() => PaymopCubit(getIt(), getIt()));
 
   ///notification
   getIt.registerLazySingleton<NotificationService>(

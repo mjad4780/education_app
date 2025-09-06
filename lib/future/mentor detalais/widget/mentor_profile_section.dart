@@ -23,16 +23,17 @@ class MentorProfileSection extends StatelessWidget {
       // height: height(context) / 2.68,
       child: Column(
         children: [
-          Center(
-            child: ClipOval(
-              child: CustomCachedNetworkImage(
-                imageUrl: mentor.profileImage ?? '',
-                width: width(context) * 0.28,
-                height: height(context) * 0.14,
-                fit: BoxFit.cover,
+          if (mentor.profileImage != null)
+            Center(
+              child: ClipOval(
+                child: CustomCachedNetworkImage(
+                  imageUrl: mentor.profileImage!,
+                  width: width(context) * 0.28,
+                  height: height(context) * 0.14,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
           verticalSpace(2),
           Text(
             mentor.name ?? '',

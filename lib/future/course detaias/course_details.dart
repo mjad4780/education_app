@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/failer_widget.dart';
 import 'package:education/future/course%20detaias/cubit/video_course_cubit.dart';
 
 import 'package:education/future/course%20detaias/widget/loading_video.dart';
-import 'package:education/future/course%20detaias/widget/update_course_bloc.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/language/lang_keys.dart';
 import '../../widget/app_text_button.dart';
 import '../home/data/model/response_home/course.dart';
+import '../paymop/logic/paymop_cubit.dart';
+import '../paymop/views/payment_view.dart';
 import 'widget/course_details_card.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
@@ -66,11 +69,12 @@ class HomeBlocBuilder extends StatelessWidget {
                 right: 30,
                 child: !context.read<VideoCourseCubit>().headCourse!.isFree!
                     ? EnrollButton(
+                        price: course.price ?? 0.0,
                         iD: state.fillterCourse.detailsId!,
                       )
                     : const SizedBox.shrink(),
               ),
-              const Positioned(bottom: 0, child: UpdateCourseListener())
+              // const Positioned(bottom: 0, child: UpdateCourseListener())
             ],
           );
         } else {
@@ -115,8 +119,9 @@ class CourseTitleRow extends StatelessWidget {
 }
 
 class EnrollButton extends StatelessWidget {
-  const EnrollButton({super.key, required this.iD});
+  const EnrollButton({super.key, required this.iD, required this.price});
   final int iD;
+  final double price;
   @override
   Widget build(BuildContext context) {
     return AppTextButton(
@@ -124,7 +129,21 @@ class EnrollButton extends StatelessWidget {
       buttonText:
           '${context.translate(LangKeys.enroll)} \$${context.read<VideoCourseCubit>().headCourse!.price}',
       onPressed: () {
-        context.read<VideoCourseCubit>().updateCourseToFree(iD);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaymentView(
+              onPaymentSuccess: () {
+                log('message');
+                getIt<PaymopCubit>().updateCourseToFree(iD);
+              },
+              onPaymentError: () {
+                log('failer');
+              },
+              price: price, // Required: Total price (e.g., 100 for 100 EGP)
+            ),
+          ),
+        );
       },
       textStyle: context.textStyle.bodyMedium!,
     );

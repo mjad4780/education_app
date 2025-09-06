@@ -4,6 +4,8 @@ class Message {
   final bool senderType; // 'student' أو 'mentor'
   final String receiverId;
   final String content;
+  final String conversationId;
+
   final bool isRead;
   final DateTime createdAt;
   final bool isMe;
@@ -14,6 +16,7 @@ class Message {
     required this.senderType,
     required this.receiverId,
     required this.content,
+    required this.conversationId,
     required this.isRead,
     required this.createdAt,
     required this.isMe,
@@ -27,6 +30,7 @@ class Message {
       receiverId: json['receiver_id'] as String,
       content: json['content'] as String,
       isRead: json['is_read'] as bool,
+      conversationId: json['conversation_id'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
       isMe: json['sender_id'] == currentUserId,
     );

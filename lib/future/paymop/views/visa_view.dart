@@ -27,27 +27,27 @@ class _VisaScreenState extends State<VisaScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: null,
-        body: Center(
+          appBar: null,
+          body: Center(
             child: InAppWebView(
-          initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
-          onWebViewCreated: (controller) {
-            _appWebViewController = controller;
-            startPayment();
-          },
-          onLoadStop: (controller, request) {
-            if (request != null &&
-                request.queryParameters.containsKey('success') &&
-                request.queryParameters['success'] == 'true') {
-              widget.onFinished();
-            } else if (request != null &&
-                request.queryParameters.containsKey('success') &&
-                request.queryParameters['success'] == 'false') {
-              widget.onError();
-            }
-          },
-        )),
-      ),
+              initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+              onWebViewCreated: (controller) {
+                _appWebViewController = controller;
+                startPayment();
+              },
+              onLoadStop: (controller, request) {
+                if (request != null &&
+                    request.queryParameters.containsKey('success') &&
+                    request.queryParameters['success'] == 'true') {
+                  widget.onFinished();
+                } else if (request != null &&
+                    request.queryParameters.containsKey('success') &&
+                    request.queryParameters['success'] == 'false') {
+                  widget.onError();
+                }
+              },
+            ),
+          )),
     );
   }
 

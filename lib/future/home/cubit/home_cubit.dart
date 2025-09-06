@@ -25,19 +25,25 @@ class HomeCubit extends Cubit<HomeState> {
 
   int currentindexpupalr = -1;
 
+  saveEmit(HomeState state) {
+    if (!isClosed) {
+      emit(state);
+    }
+  }
+
   ResponseHome? responseHome;
   getData() async {
     _savedCourses.clear();
     _savedCourses.addAll(getIt<CacheHelper>().getSavedCourses());
     log(_savedCourses.length.toString());
     filltercourses.clear();
-    emit(LoadingHome());
+    saveEmit(LoadingHome());
     final result = await repoHome.getHomeData();
     result.fold(
-      (failure) => emit(
+      (failure) => saveEmit(
         FailerGetDataHome(failure.message),
       ),
-      (success) => emit(
+      (success) => saveEmit(
         EmitgetDataHome(responseHome = success),
       ),
     );
@@ -48,7 +54,7 @@ class HomeCubit extends Cubit<HomeState> {
   emitgetfilltergategoriescourse(String nameGategory, int index) {
     filltercourses.clear();
     log(responseHome!.courses!.length.toString());
-    emit(FailtercourseLoadedState(index: currentindexpupalr = index));
+    saveEmit(FailtercourseLoadedState(index: currentindexpupalr = index));
 
     Future.delayed(const Duration(seconds: 3), () {
       if (nameGategory == "all") {
@@ -62,7 +68,7 @@ class HomeCubit extends Cubit<HomeState> {
         }
       }
       currentindexpupalr = index;
-      emit(FilterCourseSuccessState(filltercourses));
+      saveEmit(FilterCourseSuccessState(filltercourses));
     });
   }
 
@@ -73,7 +79,7 @@ class HomeCubit extends Cubit<HomeState> {
     // جلب الكورسات المحفوظة من الذاكرة المحلية عند التهيئة
     _savedCourses.addAll(getIt<CacheHelper>().getSavedCourses());
     log(_savedCourses.length.toString());
-    emit(HomeLoadedState());
+    saveEmit(HomeLoadedState());
   }
 
   Future<void> toggleCourseSave(String courseId) async {
@@ -91,7 +97,7 @@ class HomeCubit extends Cubit<HomeState> {
     await getIt<CacheHelper>().toggleCourseSave(courseId);
 
     // إشعار جميع الويدجت بالتحديث
-    emit(HomeUpdateFavoritesState(courseId));
+    saveEmit(HomeUpdateFavoritesState(courseId));
   }
 
   bool isCourseSaved(String courseId) {
@@ -113,7 +119,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> _performSearch() async {
-    emit(SearchCourseLoadingState());
+    saveEmit(SearchCourseLoadingState());
 
     try {
       await Future.delayed(const Duration(seconds: 1)); // simulate API
@@ -128,7 +134,7 @@ class HomeCubit extends Cubit<HomeState> {
       // save query to hints
       if (results.isEmpty || results == []) {
         debounceTimer?.cancel();
-        emit(SearchCourseFailerState(
+        saveEmit(SearchCourseFailerState(
             messege: "No results found for '${query.text}'"));
 
         return;
@@ -137,12 +143,12 @@ class HomeCubit extends Cubit<HomeState> {
 
         await addHint(query.text);
 
-        emit(SearchCourseSuccessState(results));
+        saveEmit(SearchCourseSuccessState(results));
       }
     } catch (e) {
       debounceTimer?.cancel();
       log(e.toString());
-      emit(SearchCourseFailerState(messege: "Something went wrong: $e"));
+      saveEmit(SearchCourseFailerState(messege: "Something went wrong: $e"));
     }
   }
 
@@ -158,7 +164,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void loadSavedHints() {
     final current = CacheHelper().getStringList(key: _hintKey);
-    emit(SearchHintTextState(current));
+    saveEmit(SearchHintTextState(current));
   }
 
   Future<void> addHint(String hint) async {
@@ -169,7 +175,7 @@ class HomeCubit extends Cubit<HomeState> {
 
       await CacheHelper().setStringList(key: _hintKey, value: current);
     }
-    // emit(SearchHintTextState(current));
+    // saveEmit(SearchHintTextState(current));
   }
 
   Future<void> removeHint(String hint) async {
@@ -177,7 +183,7 @@ class HomeCubit extends Cubit<HomeState> {
     current.remove(hint);
     await CacheHelper().removeData(key: _hintKey);
     await CacheHelper().setStringList(key: _hintKey, value: current);
-    emit(SearchHintTextState(current));
+    saveEmit(SearchHintTextState(current));
   }
 
   @override
