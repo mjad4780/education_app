@@ -47,10 +47,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> updateUserAndImageProfile(ProfileModel profileModel) async {
     emit(UpdateUserLoading());
     final result = await profileRepo.updateUserAndImageProfile(profileModel);
-    result.fold(
-      (failure) => emit(UpdateUserFailure(message: failure.message)),
-      (user) => emit(UpdateUserSuccess(user: user)),
-    );
+    result.fold((failure) {
+      emit(UpdateUserFailure(message: failure.message));
+    }, (user) {
+      emit(UpdateUserSuccess(user: user));
+      file = null;
+    });
   }
 
   Future<void> logout() async {

@@ -1,9 +1,8 @@
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/core/get_it/get_it.dart';
-import 'package:education/core/helpers/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/Router/route_string.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/language/lang_keys.dart';
 import '../../../utility/images_aseets.dart';
@@ -34,8 +33,7 @@ class HeadingApp extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              getIt<CacheHelper>().clearData();
-              // context.pushName(StringRoute.notificationScreen);
+              context.pushName(StringRoute.notificationScreen);
             },
             child: SvgPicture.asset(
               Assets.imagesNOTIFICATIONS,

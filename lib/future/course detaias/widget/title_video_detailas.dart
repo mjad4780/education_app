@@ -1,4 +1,5 @@
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,8 +11,10 @@ import 'dart:io';
 import '../data/models/detailashome/video.dart';
 
 class CustomCurriculum extends StatelessWidget {
-  const CustomCurriculum({super.key, required this.videos});
+  const CustomCurriculum(
+      {super.key, required this.videos, required this.courseId});
   final List<Video> videos;
+  final int courseId;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,6 +39,7 @@ class CustomCurriculum extends StatelessWidget {
                     MainAxisSize.min, // Added to minimize vertical space
                 children: [
                   TitleVideoDetailas(
+                    courseId: courseId,
                     free: videos[index].isFree ?? false,
                     isfillexit: cubit.isfillgStatus(videos[index].title!),
                     video: videos[index],
@@ -62,11 +66,14 @@ class TitleVideoDetailas extends StatefulWidget {
     required this.progress,
     required this.isfillexit,
     required this.free,
+    required this.courseId,
   });
 
   final Video video;
   final bool isDownloading;
   final bool free;
+  final int courseId;
+
   final bool isfillexit;
   final double progress;
 
@@ -96,9 +103,12 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
     return GestureDetector(
       onTap: widget.free
           ? () {
-              context
-                  .read<VideoCourseCubit>()
-                  .initializeVideo(widget.video.url!, isfile: false);
+              context.read<VideoCourseCubit>().initializeVideo(
+                  widget.video.url!,
+                  widget.courseId,
+                  widget.free,
+                  widget.video.id ?? 0,
+                  isfile: false);
             }
           : null,
       child: Padding(
@@ -108,17 +118,17 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
           children: [
             GestureDetector(
               onTap: () async {
-                try {
-                  final directory = await getApplicationDocumentsDirectory();
-                  final filePath = '${directory.path}/${widget.video.title!}';
+                // try {
+                //   final directory = await getApplicationDocumentsDirectory();
+                //   final filePath = '${directory.path}/${widget.video.title!}';
 
-                  if (File(filePath).existsSync()) {
-                    File(filePath).delete();
-                    log('File delete: $filePath');
-                  }
-                } catch (e) {
-                  log("Error checking local file: ${e.toString()}");
-                }
+                //   if (File(filePath).existsSync()) {
+                //     File(filePath).delete();
+                //     log('File delete: $filePath');
+                //   }
+                // } catch (e) {
+                //   log("Error checking local file: ${e.toString()}");
+                // }
               },
               child: Container(
                 width: 38.w,
@@ -167,17 +177,15 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
               ),
             ),
             BlocBuilder<VideoCourseCubit, VideoCourseState>(
-                buildWhen: (previous, current) => current is WatchVideoCourse,
+                // buildWhen: (previous, current) => current is WatchVideoCourse,
                 builder: (context, state) {
-                  final isWatched = context
-                          .read<VideoCourseCubit>()
-                          .watchedVideos[widget.video.id] ??
-                      false;
-
-                  return isWatched
-                      ? const Icon(Icons.check_circle, color: Colors.green)
-                      : const Icon(Icons.video_library, color: Colors.grey);
-                }),
+              bool watched = CacheHelper.isWatched(
+                  widget.courseId.toString(), widget.video.id.toString());
+              log('ccccccccccc$watched');
+              return watched
+                  ? const Icon(Icons.check_circle, color: Colors.green)
+                  : const Icon(Icons.video_library, color: Colors.grey);
+            }),
             widget.isDownloading
                 ? BlocSelector<VideoCourseCubit, VideoCourseState, double>(
                     selector: (state) =>
@@ -239,7 +247,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                 fileExistsValue
             ? () {}
             : () {
-                context.read<VideoCourseCubit>().play(
+                context.read<VideoCourseCubit>().download(
                       widget.video.url!,
                       widget.video.title!,
                     );

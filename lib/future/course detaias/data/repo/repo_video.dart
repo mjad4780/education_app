@@ -18,7 +18,7 @@ class RepoVideo {
   RepoVideo(this._services, this._supabase);
 
   /// تشغيل الفيديو أو عرض ملف PDF
-  Future<Either<Failure, (String?, String?, bool?)>> play(String url,
+  Future<Either<Failure, (String?, String?, bool?)>> download(String url,
       String fileName, Function(int, int)? onReceiveProgress) async {
     try {
       // استدعاء الخدمة لمعالجة الملف
@@ -66,6 +66,24 @@ class RepoVideo {
       var response = await _supabase.getCourseDetails(courseId);
       if (response.result) {
         return right(response.data!);
+      } else {
+        return left(ServerFailure(response.messege));
+      }
+    } on CustomException catch (e) {
+      log(e.message);
+      return left(ServerFailure(e.message));
+    }
+  }
+
+  // function update watched video
+  Future<Either<Failure, String>> updateWatchedVideo(int videoId) async {
+    try {
+      if (!getIt<ConnectivityController>().isConnected.value) {
+        return left(ServerFailure('No internet connection'));
+      }
+      var response = await _supabase.updateWatchedVideo(videoId);
+      if (response.result) {
+        return right(response.messege);
       } else {
         return left(ServerFailure(response.messege));
       }

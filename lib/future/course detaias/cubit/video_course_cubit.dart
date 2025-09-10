@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,7 @@ part 'video_course_state.dart';
 class VideoCourseCubit extends Cubit<VideoCourseState> {
   VideoCourseCubit(
     this._repoVideo,
-  ) : super(VideoCourseInitial()) {
-    getIt<CacheHelper>().removeData(key: 'watched_videos');
-  }
+  ) : super(VideoCourseInitial());
 
   late VideoPlayerController videoController;
   ChewieController? chewieController;
@@ -41,14 +38,14 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       downloadingStatus[fileName] ?? false;
   bool isfillgStatus(String fileName) => fillgStatus[fileName] ?? false;
 
-  Future<void> play(
+  Future<void> download(
     String url,
     String fileName,
   ) async {
     downloadingStatus[fileName] = true;
     progressStatus[fileName] = 0.0;
     saveEmit(PlayLoading());
-    final result = await _repoVideo.play(url, fileName, (received, total) {
+    final result = await _repoVideo.download(url, fileName, (received, total) {
       if (total > 0) {
         progressStatus[fileName] = received / total;
         saveEmit(Progress(progressStatus[fileName]!));
@@ -79,11 +76,11 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   }
 
 //liner progress couese
-  Map<int, bool> watchedVideos =
-      {}; // مفتاحه هو معرف الفيديو وقيمته إذا كان قد شوهد
+
   String again = '';
-  int? videoId;
-  void initializeVideo(String videoPath, {bool isfile = true}) async {
+  void initializeVideo(
+      String videoPath, int? courseId, bool isfree, int videoId,
+      {bool isfile = true}) async {
     try {
       again = videoPath;
       if (chewieController != null) {
@@ -97,14 +94,16 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
           : VideoPlayerController.networkUrl(Uri.parse(videoPath));
 
       await videoController.initialize();
-      videoController.addListener(() {
+      videoController.addListener(() async {
         if (videoController.value.position >= videoController.value.duration &&
-            videoId != null) {
-          if (!watchedVideos.containsKey(videoId) || !watchedVideos[videoId]!) {
-            watchedVideos[videoId!] = true;
-            getIt<CacheHelper>().saveWatchedVideos(watchedVideos);
-            saveEmit(WatchVideoCourse(videoId!));
-          }
+            isfree == true) {
+          await CacheHelper.setWatched(courseId.toString(), videoId.toString());
+          // if (!watchedVideos.containsKey(videoId) || !watchedVideos[videoId]!) {
+          //   watchedVideos[videoId!] = true;
+          //   getIt<CacheHelper>()
+          //       .saveWatchedVideos(videoId.toString(), watchedVideos);
+          saveEmit(WatchVideoCourse(true));
+          // }
         }
       });
 
@@ -163,7 +162,7 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
     downloadingStatuspdf[fileName] = true;
     progressStatuspdf[fileName] = 0.0;
     saveEmit(PlayPdfLoading());
-    final result = await _repoVideo.play(url, fileName, (received, total) {
+    final result = await _repoVideo.download(url, fileName, (received, total) {
       if (total > 0) {
         progressStatuspdf[fileName] = received / total;
         saveEmit(ProgressPdf(progressStatuspdf[fileName]!));
@@ -207,7 +206,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
         saveEmit(VideoCourseDatailasFailer(message: failure.message));
       }, (success) {
         totalvideos = success.videos!.length;
-        videoId = success.videos!.first.id;
         initialVideo = success.videos!.first.url!;
         saveEmit(FillterCourseSuccess(success));
       });

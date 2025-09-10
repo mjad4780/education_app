@@ -1,3 +1,4 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/data/model/response_notification.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: context.color.white,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: ListTile(
         leading: Container(

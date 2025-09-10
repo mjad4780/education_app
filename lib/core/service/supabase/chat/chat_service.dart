@@ -28,8 +28,6 @@ class SupabaseChatService {
         'sender_type': senderType,
         "conversation_id": conversationIdFor(currentUserId, receiverId)
       }).select();
-      log('Message sent: ${conversationIdFor(currentUserId, receiverId)}');
-      // sender_type==true ?student: mentor
       if (response.isEmpty) {
         return ResponseService(false, 'no messsage');
       } else {
@@ -43,8 +41,6 @@ class SupabaseChatService {
 
   Stream<List<Message>> messagesStream(String otherUserId) {
     final String userId = _supabase.auth.currentUser!.id;
-    log('userid: $userId');
-    log('userid: $otherUserId');
 
     try {
       return _supabase
@@ -57,7 +53,7 @@ class SupabaseChatService {
 
           .order('created_at', ascending: true)
           .map((data) {
-            log('Messages from me to other: $data');
+            // log('Messages from me to other: $data');
             return data.map((json) => Message.fromJson(json, userId)).toList();
           });
     } catch (e) {

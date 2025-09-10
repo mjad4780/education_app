@@ -94,7 +94,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
 
     // حفظ في الذاكرة المحلية
-    await getIt<CacheHelper>().toggleCourseSave(courseId);
+    getIt<CacheHelper>().toggleCourseSave(courseId);
 
     // إشعار جميع الويدجت بالتحديث
     saveEmit(HomeUpdateFavoritesState(courseId));
@@ -163,26 +163,26 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void loadSavedHints() {
-    final current = CacheHelper().getStringList(key: _hintKey);
+    final current = getIt<CacheHelper>().getStringList(key: _hintKey);
     saveEmit(SearchHintTextState(current));
   }
 
   Future<void> addHint(String hint) async {
-    final current = CacheHelper().getStringList(key: _hintKey);
+    final current = getIt<CacheHelper>().getStringList(key: _hintKey);
     if (!current.contains(hint)) {
       current.add(hint);
-      await CacheHelper().removeData(key: _hintKey);
+      await getIt<CacheHelper>().removeData(key: _hintKey);
 
-      await CacheHelper().setStringList(key: _hintKey, value: current);
+      await getIt<CacheHelper>().setStringList(key: _hintKey, value: current);
     }
     // saveEmit(SearchHintTextState(current));
   }
 
   Future<void> removeHint(String hint) async {
-    final current = CacheHelper().getStringList(key: _hintKey);
+    final current = getIt<CacheHelper>().getStringList(key: _hintKey);
     current.remove(hint);
-    await CacheHelper().removeData(key: _hintKey);
-    await CacheHelper().setStringList(key: _hintKey, value: current);
+    await getIt<CacheHelper>().removeData(key: _hintKey);
+    await getIt<CacheHelper>().setStringList(key: _hintKey, value: current);
     saveEmit(SearchHintTextState(current));
   }
 

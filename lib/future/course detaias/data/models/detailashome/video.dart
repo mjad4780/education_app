@@ -4,10 +4,12 @@ class Video {
   final String? url;
   final bool? isFree;
   final bool? isVideo;
+  final bool? watched;
 
   Video({
     required this.id,
     required this.title,
+    required this.watched,
     required this.url,
     required this.isFree,
     required this.isVideo,
@@ -20,6 +22,7 @@ class Video {
       url: json['url'],
       isFree: json['is_free'],
       isVideo: json['is_video'],
+      watched: json['watched'],
     );
   }
 

@@ -12,7 +12,14 @@ import 'course_stats_row.dart';
 import 'custom_video_course.dart';
 
 class CourseHeader extends StatelessWidget {
-  const CourseHeader({super.key});
+  const CourseHeader(
+      {super.key,
+      required this.courseId,
+      required this.isfree,
+      required this.videoId});
+  final int courseId;
+  final bool isfree;
+  final int videoId;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,11 @@ class CourseHeader extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(11),
         ),
-        child: const VideoApp(),
+        child: VideoApp(
+          videoId: videoId,
+          isfree: isfree,
+          courseId: courseId,
+        ),
       ),
     );
   }

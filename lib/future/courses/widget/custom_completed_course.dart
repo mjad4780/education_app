@@ -1,10 +1,10 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
+import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/courses/widget/course_progress_widget.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:education/utility/images_aseets.dart';
 import 'package:education/widget/custom_cache_networking_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,10 +12,14 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/helpers/spacing.dart';
 
 class CustomWidgetCompletedCourse extends StatelessWidget {
-  const CustomWidgetCompletedCourse(
-      {super.key, required this.course, required this.valueListenable});
+  const CustomWidgetCompletedCourse({
+    super.key,
+    required this.course,
+    required this.valueNotifier,
+  });
   final List<Course> course;
-  final ValueListenable<int> valueListenable;
+  final ValueNotifier<List<CourseProgress>> valueNotifier;
+
   @override
   Widget build(BuildContext context) {
     if (course.isEmpty) {
@@ -193,31 +197,46 @@ class CustomWidgetCompletedCourse extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                    ValueListenableBuilder<int>(
-                                      valueListenable: valueListenable,
-                                      builder: (context, values, child) {
-                                        return Row(
-                                          children: [
-                                            CourseProgressWidget(
-                                              completedVideos: values,
-                                              totalVideos:
-                                                  course[i].countVideo ?? 0,
-                                            ),
-                                            const Spacer(),
-                                            Text(
-                                                '${course[i].countVideo ?? 0}/$values',
-                                                textAlign: TextAlign.right,
-                                                style: context
-                                                    .textStyle.displayLarge!
-                                                    .copyWith(
-                                                        fontSize: 14.sp,
-                                                        color: context.color
-                                                            .primaryColor)),
-                                            const Spacer()
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                    ValueListenableBuilder<
+                                            List<CourseProgress>>(
+                                        valueListenable: valueNotifier,
+                                        builder: (context, courses, _) {
+                                          // دور على progress اللي ليه نفس id بتاع الكورس
+                                          final courseProgress =
+                                              courses.firstWhere(
+                                            (c) =>
+                                                int.parse(c.courseId) ==
+                                                course[i].id,
+                                            orElse: () => CourseProgress(
+                                                courseId:
+                                                    course[i].id.toString(),
+                                                watchedVideos: []),
+                                          );
+
+                                          var values =
+                                              courseProgress.watchedVideos;
+
+                                          return Row(
+                                            children: [
+                                              CourseProgressWidget(
+                                                completedVideos: values.length,
+                                                totalVideos:
+                                                    course[i].countVideo ?? 0,
+                                              ),
+                                              const Spacer(),
+                                              Text(
+                                                  '${course[i].countVideo ?? 0}/${values.length}',
+                                                  textAlign: TextAlign.right,
+                                                  style: context
+                                                      .textStyle.displayLarge!
+                                                      .copyWith(
+                                                          fontSize: 14.sp,
+                                                          color: context.color
+                                                              .primaryColor)),
+                                              const Spacer()
+                                            ],
+                                          );
+                                        })
                                   ],
                                 ),
                               ),

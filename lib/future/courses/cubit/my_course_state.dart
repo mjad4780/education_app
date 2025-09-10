@@ -32,3 +32,10 @@ final class MyCourseUpdated extends MyCourseState {
 
   MyCourseUpdated(this.completed);
 }
+
+// state  watched return  List<CourseProgress>
+final class UpdateWatched extends MyCourseState {
+  final List<CourseProgress> wateched;
+
+  UpdateWatched(this.wateched);
+}

@@ -1,5 +1,4 @@
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/core/function/build_error_or_success_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,9 +16,7 @@ class PosterApp extends StatelessWidget {
       child: CarouselView(
           itemExtent: 330,
           shrinkExtent: 250,
-          onTap: (value) {
-            buildErorr(context, "xxxxxx");
-          },
+          onTap: (value) {},
           children: List.generate(
               3,
               (int i) => Container(

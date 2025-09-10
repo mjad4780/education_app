@@ -21,32 +21,35 @@ class ScreenCourses extends StatefulWidget {
 }
 
 class _ScreenCoursesState extends State<ScreenCourses> with RouteAware {
-  final ValueNotifier<int> index = ValueNotifier(0);
+  ValueNotifier<List<CourseProgress>> coursesNotifier = ValueNotifier([]);
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
     routeObserver.subscribe(this, ModalRoute.of(context)!);
-    final watched = getIt<CacheHelper>().getWatchedVideos();
 
-    index.value = watched.values.where((v) => v).length;
+    final watched = CacheHelper.getAllCourses();
+
+    coursesNotifier.value = watched;
   }
 
   @override
   void dispose() {
     routeObserver.unsubscribe(this);
+    coursesNotifier.dispose();
     super.dispose();
   }
 
   @override
   void didPopNext() {
-    final watched = getIt<CacheHelper>().getWatchedVideos();
+    final watched = CacheHelper.getAllCourses();
 
-    index.value = watched.values.where((v) => v).length;
+    coursesNotifier.value = watched;
   }
 
   @override
   Widget build(BuildContext context) {
+    // CacheHelper().removeData(key: 'watched_videos');
     return BlocProvider(
       create: (context) => getIt<MyCourseCubit>()..getCompletedCourse(),
       child: Scaffold(
@@ -87,7 +90,7 @@ class _ScreenCoursesState extends State<ScreenCourses> with RouteAware {
             ),
             SliverFillRemaining(
               child: CompletedCourseBlocBuilder(
-                valueListenable: index,
+                valueNotifier: coursesNotifier,
               ),
             ),
           ],

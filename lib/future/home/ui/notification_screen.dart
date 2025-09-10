@@ -1,6 +1,12 @@
+import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/data/model/response_notification.dart';
 import 'package:education/future/home/widget/custom_notification_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../core/helpers/spacing.dart';
+import '../../../core/language/lang_keys.dart';
+import '../../../utility/images_aseets.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -54,7 +60,24 @@ class _NotificationScreenState extends State<NotificationScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 30,
+          ),
+          onPressed: () {
+            context.pop();
+          },
+        ),
+        actions: [
+          SvgPicture.asset(Assets.imagesSearchGray),
+          horizontalSpace(13)
+        ],
+        title: Text(context.translate(LangKeys.notifications),
+            style: context.textStyle.bodyLarge),
       ),
       body: FadeTransition(
         opacity: _animation,

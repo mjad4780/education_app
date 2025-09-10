@@ -4,6 +4,8 @@ import 'package:education/future/courses/data/repo_my_course.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
 import 'package:meta/meta.dart';
 
+import '../../../core/helpers/cache_helper.dart';
+
 part 'my_course_state.dart';
 
 class MyCourseCubit extends Cubit<MyCourseState> {

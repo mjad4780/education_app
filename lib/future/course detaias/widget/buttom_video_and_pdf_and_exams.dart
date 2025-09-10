@@ -46,6 +46,7 @@ class ButtomVideoAndPdfAndExams extends StatelessWidget {
               // detaliasWidget(context, context.read<VideoCourseCubit>())
               context.read<VideoCourseCubit>().rebuildCourse == 0
                   ? CustomCurriculum(
+                      courseId: detailasCourse.detailsId ?? 0,
                       videos: detailasCourse.videos!,
                     )
                   : context.read<VideoCourseCubit>().rebuildCourse == 1

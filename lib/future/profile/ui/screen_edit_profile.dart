@@ -57,6 +57,10 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
     phone.dispose();
     name.dispose();
     lastname.dispose();
+    image = null;
+    if (context.mounted) {
+      context.read<ProfileCubit>().file = null;
+    }
     super.dispose();
   }
 

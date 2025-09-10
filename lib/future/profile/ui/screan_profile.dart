@@ -19,31 +19,40 @@ class ScreanProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ProfileCubit>()..getUser(),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    onPressed: () {
-                      context.read<MainCubit>().changeIndex(0);
-                    },
+      child: Builder(builder: (context) {
+        return RefreshIndicator(
+          onRefresh: () async {
+            await context.read<ProfileCubit>().getUser();
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(), // 👈 مهم
+
+            child: Column(
+              children: [
+                SizedBox(
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                        onPressed: () {
+                          context.read<MainCubit>().changeIndex(0);
+                        },
+                      ),
+                      Text(context.translate(LangKeys.profile),
+                          style: context.textStyle.bodyLarge),
+                    ],
                   ),
-                  Text(context.translate(LangKeys.profile),
-                      style: context.textStyle.bodyLarge),
-                ],
-              ),
+                ),
+                const GetProfileBlocBuilder(),
+              ],
             ),
-            const GetProfileBlocBuilder(),
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

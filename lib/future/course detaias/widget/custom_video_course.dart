@@ -5,7 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/video_course_cubit.dart';
 
 class VideoApp extends StatefulWidget {
-  const VideoApp({super.key});
+  const VideoApp(
+      {super.key,
+      required this.courseId,
+      required this.isfree,
+      required this.videoId});
+  final int courseId;
+  final bool isfree;
+  final int videoId;
 
   @override
   State<VideoApp> createState() => _VideoAppState();
@@ -20,7 +27,8 @@ class _VideoAppState extends State<VideoApp> {
     videoCourseCubit = context.read<VideoCourseCubit>();
     videoCourseCubit.initializeVideo(
       // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      videoCourseCubit.initialVideo,
+      videoCourseCubit.initialVideo, widget.courseId, widget.isfree,
+      widget.videoId,
       isfile: false,
     );
   }
@@ -37,7 +45,10 @@ class _VideoAppState extends State<VideoApp> {
 
         // Handle different states
         if (state is VideoCourseFailure) {
-          return _buildErrorWidget(state.message, context);
+          return _buildErrorWidget(
+            state.message,
+            context,
+          );
         }
 
         // Check if video is initialized
@@ -58,13 +69,19 @@ class _VideoAppState extends State<VideoApp> {
           );
         } else {
           // Still loading
-          return _buildErrorWidget('', context);
+          return _buildErrorWidget(
+            '',
+            context,
+          );
         }
       },
     );
   }
 
-  Widget _buildErrorWidget(String message, BuildContext context) {
+  Widget _buildErrorWidget(
+    String message,
+    BuildContext context,
+  ) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -80,6 +97,7 @@ class _VideoAppState extends State<VideoApp> {
           ElevatedButton.icon(
             onPressed: () {
               videoCourseCubit.initializeVideo(videoCourseCubit.again,
+                  widget.courseId, widget.isfree, widget.videoId,
                   isfile: false);
             },
             icon: const Icon(Icons.refresh),

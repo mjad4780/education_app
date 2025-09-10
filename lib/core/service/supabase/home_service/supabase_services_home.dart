@@ -183,72 +183,12 @@ class SupabaseServiceHome {
 
 // update user
 
-  Future<ResponseService<bool>> updateUser(
-      UserAttributes user, File? file, String path) async {
-    try {
-      var pathProfile = await updateImageProfile(file, path);
-      if (pathProfile.data != null && pathProfile.data == true) {
-        await supabase.auth.updateUser(
-          user,
-          emailRedirectTo: user.email,
-        );
-
-        return ResponseService(true, 'success update user ', true);
-      } else {
-        return ResponseService(false, 'error update user ', false);
-      }
-      // تحقق من وجود كورسات مجانية للمدرس
-    } catch (e) {
-      log(e.toString());
-      return ResponseService(
-          false, ErrorHandlerSupabase.getErrorMessage(e), false);
-    }
-  }
-
-  Future<ResponseService<String?>> updateImageProfile(
-      File? file, String? path) async {
-    try {
-      if (file != null && path == null) {
-        log('upload');
-
-        // إنشاء اسم ملف فريد
-        String fileName =
-            '${DateTime.now().millisecondsSinceEpoch}${file.path.split('.').last}';
-
-        await supabase.storage.from('profile').upload(fileName, file);
-        String urlImage =
-            supabase.storage.from('profile').getPublicUrl(fileName);
-
-        return ResponseService(true, ' success upload image ', urlImage);
-      } else if (file != null && path != null) {
-        final uri = Uri.parse(path);
-        var filePath =
-            uri.path.split('/').last; // يعطي "users/user1/avatar.jpg"
-
-        await supabase.storage.from('profile').update(filePath, file);
-        String urlImage =
-            supabase.storage.from('profile').getPublicUrl(filePath);
-
-        return ResponseService(true, ' success upload image ', urlImage);
-      } else {
-        return ResponseService(false, ' No image ', null);
-      }
-    } catch (e) {
-      log(e.toString());
-      return ResponseService(
-          false, ErrorHandlerSupabase.getErrorMessage(e), null);
-    }
-  }
-
   // implement function get user from supabase
   Future<ResponseService<User?>> getUser() async {
     try {
       final user = supabase.auth.currentUser;
 
       if (user != null) {
-        log({'appMetadata': user.appMetadata}.toString());
-        log({'userMetadata': user.userMetadata}.toString());
-
         return ResponseService(true, 'تم جلب المستخدم بنجاح', user);
       } else {
         return ResponseService(false, 'لم يتم العثور على مستخدم', null);
@@ -267,43 +207,97 @@ class SupabaseServiceHome {
   }) async {
     try {
       String? uploadedImageUrl;
+
       if (profileModel.imageFile != null) {
         final uploadResult = await updateImageProfile(
             profileModel.imageFile, profileModel.imagePath);
+
         if (uploadResult.result == true && uploadResult.data != null) {
           uploadedImageUrl = uploadResult.data;
         } else {
           return ResponseService(
-            false,
-            'Failed to upload image ${uploadResult.messege}',
-          );
+              false, 'Failed to upload image: ${uploadResult.messege}', null);
         }
       }
-      log(' old url ${profileModel.imagePath ?? ''}');
-      log(' new url ${uploadedImageUrl ?? ''}    ');
 
       final user = supabase.auth.currentUser;
       if (user == null) {
-        return ResponseService(
-          false,
-          'المستخدم غير موجود',
-        );
+        return ResponseService(false, 'User not found', null);
       }
 
+      // استخدام الصورة الجديدة إذا تم تحميلها، أو الاحتفاظ بالصورة القديمة
+      final imageUrlToSave = uploadedImageUrl ?? profileModel.imagePath;
+
       final updateAttributes = UserAttributes(
-        data: profileModel.data
-            ?.toJson(uploadedImageUrl ?? profileModel.imagePath),
+        data: profileModel.data?.toJson(imageUrlToSave),
       );
 
       var result = await supabase.auth.updateUser(updateAttributes);
 
-      return ResponseService(true, 'تم تحديث المستخدم بنجاح', result.user);
+      return ResponseService(true, 'User updated successfully', result.user);
     } catch (e) {
-      log(e.toString());
+      log('Error in updateUserAndImageProfile: ${e.toString()}');
       return ResponseService(
-        false,
-        ErrorHandlerSupabase.getErrorMessage(e),
+          false, ErrorHandlerSupabase.getErrorMessage(e), null);
+    }
+  }
+
+  Future<ResponseService<String?>> updateImageProfile(
+      File? file, String? path) async {
+    try {
+      if (file != null && path == null) {
+        // استخراج امتداد الملف بشكل صحيح
+        String fileExtension = file.path.split('.').last;
+        String fileName =
+            '${DateTime.now().millisecondsSinceEpoch}.$fileExtension';
+
+        await supabase.storage.from('profile').upload(fileName, file);
+        String urlImage =
+            supabase.storage.from('profile').getPublicUrl(fileName);
+
+        return ResponseService(true, 'Success uploading image', urlImage);
+      } else if (file != null && path != null) {
+        String fileExtension = file.path.split('.').last;
+
+        // استخراج مسار الملف من URL بشكل موثوق
+        final uri = Uri.parse(path);
+        // المسار الكامل داخل bucket بدون معالجة إضافية
+        var fullPath = uri.path.split('/').last;
+
+        // 🟢 رفع جديد + حذف القديم
+
+        String newFileName =
+            '${DateTime.now().millisecondsSinceEpoch}.$fileExtension';
+        await supabase.storage.from('profile').upload(newFileName, file);
+
+        // حذف الصورة القديمة
+        await supabase.storage.from('profile').remove([fullPath]);
+
+        String urlImage =
+            supabase.storage.from('profile').getPublicUrl(newFileName);
+
+        return ResponseService(true, 'Success uploading new image', urlImage);
+      } else {
+        return ResponseService(false, 'No image provided', null);
+      }
+    } catch (e) {
+      log('Error in updateImageProfile: ${e.toString()}');
+      return ResponseService(
+          false, ErrorHandlerSupabase.getErrorMessage(e), null);
+    }
+  }
+
+  // function update watched video
+  Future<ResponseService> updateWatchedVideo(int courseDetailId) async {
+    try {
+      await supabase.from('course_details').update({'watched': true}).eq(
+        'course_detail_id',
+        courseDetailId,
       );
+      return ResponseService(true, "تم التحديث بنجاح!");
+    } catch (e) {
+      log('خطأ أثناء التحديث: $e');
+      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
   }
 }

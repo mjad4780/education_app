@@ -59,7 +59,11 @@ class HomeBlocBuilder extends StatelessWidget {
         } else if (state is FillterCourseSuccess) {
           return Stack(
             children: [
-              const CourseHeader(),
+              CourseHeader(
+                isfree: course.isFree ?? false,
+                courseId: course.id ?? 0,
+                videoId: state.fillterCourse.videos?.first.id ?? 0,
+              ),
               CourseDetailsCard(
                 detailasCourse: state.fillterCourse,
               ),

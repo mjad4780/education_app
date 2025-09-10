@@ -117,26 +117,112 @@ class CacheHelper {
     return sharedPreferences.getStringList(_savedCoursesKey)?.toSet() ?? {};
   }
 
-  static const String _watchedVideosKey = 'watched_videos';
+  // static const String _watchedVideosKey = 'watched_videos';
 
-  Future<void> saveWatchedVideos(Map<int, bool> watchedVideos) async {
-    // تحويل المفاتيح إلى String
-    final stringKeyMap =
-        watchedVideos.map((key, value) => MapEntry(key.toString(), value));
-    await sharedPreferences.setString(
-      _watchedVideosKey,
-      json.encode(stringKeyMap),
+  // Future<void> saveWatchedVideos(
+  //     String courseId, Map<int, bool> watchedVideos) async {
+  //   final data = sharedPreferences.getString(_watchedVideosKey);
+  //   Map<String, dynamic> allCourses = {};
+
+  //   if (data != null) {
+  //     allCourses = json.decode(data);
+  //   }
+
+  //   // نحول مفاتيح الفيديوهات إلى String
+  //   allCourses[courseId] =
+  //       watchedVideos.map((key, value) => MapEntry(key.toString(), value));
+
+  //   await sharedPreferences.setString(
+  //     _watchedVideosKey,
+  //     json.encode(allCourses),
+  //   );
+  // }
+
+  // Map<int, bool> getWatchedVideos(String courseId) {
+  //   final data = sharedPreferences.getString(_watchedVideosKey);
+  //   if (data != null) {
+  //     final Map<String, dynamic> allCourses = json.decode(data);
+  //     final Map<String, dynamic>? courseVideos = allCourses[courseId];
+
+  //     if (courseVideos != null) {
+  //       return courseVideos
+  //           .map((key, value) => MapEntry(int.parse(key), value as bool));
+  //     }
+  //   }
+  //   return {};
+  // }
+
+  //////////////////////////////////////
+  static const String key = "watched_videos";
+
+  /// إضافة فيديو تم مشاهدته
+  static Future<void> setWatched(String courseId, String videoId) async {
+    final String? data = sharedPreferences.getString(key);
+
+    Map<String, dynamic> allData = data != null ? jsonDecode(data) : {};
+
+    if (!allData.containsKey(courseId)) {
+      allData[courseId] = {};
+    }
+
+    allData[courseId][videoId] = true;
+
+    await sharedPreferences.setString(key, jsonEncode(allData));
+  }
+
+  /// استرجاع كل الكورسات كـ Models
+  static List<CourseProgress> getAllCourses() {
+    final String? data = sharedPreferences.getString(key);
+
+    if (data == null) return [];
+
+    final Map<String, dynamic> raw = jsonDecode(data);
+
+    return raw.entries
+        .map((e) =>
+            CourseProgress.fromJson(e.key, Map<String, dynamic>.from(e.value)))
+        .toList();
+  }
+
+  /// استرجاع كورس واحد
+  static CourseProgress? getCourse(String courseId) {
+    final allCourses = getAllCourses();
+    return allCourses.firstWhere(
+      (c) => c.courseId == courseId,
+      orElse: () => CourseProgress(courseId: courseId, watchedVideos: []),
     );
   }
 
-  Map<int, bool> getWatchedVideos() {
-    final data = sharedPreferences.getString(_watchedVideosKey);
-    if (data != null) {
-      final Map<String, dynamic> stringKeyMap = json.decode(data);
-      // تحويل المفاتيح مرة أخرى إلى int
-      return stringKeyMap
-          .map((key, value) => MapEntry(int.parse(key), value as bool));
-    }
-    return {};
+  /// هل الفيديو متشاهد ولا لا
+  static bool isWatched(String courseId, String videoId) {
+    var course = getCourse(courseId);
+    return course?.watchedVideos.contains(videoId) ?? false;
+
+    // if (!allData.containsKey(courseId)) return false;
+
+    // return allData[courseId][videoId] == true;
+  }
+}
+
+class CourseProgress {
+  final String courseId;
+  final List<String> watchedVideos;
+
+  CourseProgress({
+    required this.courseId,
+    required this.watchedVideos,
+  });
+
+  factory CourseProgress.fromJson(String courseId, Map<String, dynamic> json) {
+    return CourseProgress(
+      courseId: courseId,
+      watchedVideos: json.keys.toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      for (var videoId in watchedVideos) videoId: true,
+    };
   }
 }
