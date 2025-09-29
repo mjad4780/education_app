@@ -1,6 +1,7 @@
 
 
 
+
 # 📚 Education App
 
 A Flutter application for accessing and learning various courses, with quizzes and progress tracking features. Built using the MVVM architecture.
@@ -60,6 +61,15 @@ lib/
 
 ### 🧑‍🏫 Mentor Screen
 <img src="https://github.com/user-attachments/assets/e7e7ba5f-463c-4604-9dbf-eaaea8e62526" width="300">
+
+### 🧑‍🏫 Profile Screen
+<img src="https://github.com/user-attachments/assets/a965fede-7a59-40d0-b91f-ef5b78e2ee10" width="300">
+
+### 🧑‍🏫 Home Screen
+<img src="https://github.com/user-attachments/assets/9beeb8b8-1cff-4e20-ad29-273d19f1e8ae" width="300">
+
+
+
 
 ---
 
