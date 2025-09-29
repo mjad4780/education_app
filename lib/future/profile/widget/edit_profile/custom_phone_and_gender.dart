@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +13,6 @@ class CustomPhoneAndGenderInEditProfile extends StatelessWidget {
   final String? gender;
   @override
   Widget build(BuildContext context) {
-    log('gender: $gender');
     return Column(
       children: [
         Container(

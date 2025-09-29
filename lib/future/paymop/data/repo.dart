@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 
 import '../../../core/error/exceptions.dart';
@@ -22,7 +20,6 @@ class RepoPaymop {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }
@@ -34,11 +31,9 @@ class RepoPaymop {
       if (response.result == true) {
         return right(response.messege);
       } else {
-        log('dd${response.messege}');
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }
@@ -54,7 +49,6 @@ class RepoPaymop {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }

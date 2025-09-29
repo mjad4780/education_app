@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/future/course%20detaias/data/models/detailashome/detailas_home.dart';
@@ -131,7 +130,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
       );
       saveEmit(VideoCourseSuccess());
     } catch (e) {
-      log(e.toString());
       saveEmit(VideoCourseFailure(message: 'تحقق من اتصالك بالإنترنت'));
     }
   }
@@ -191,14 +189,15 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
   Course? headCourse;
   String initialVideo = '';
   int totalvideos = 0;
-  Future<void> emitgetdataliascourse(Course course, int courseId) async {
+  Future<void> emitgetdataliascourse(
+      Course course, int courseId, bool isfree) async {
     try {
       if (isClosed) return;
 
       saveEmit(VideoCourseDatailasLoading());
       headCourse = course;
 
-      final result = await _repoVideo.getCourseDetails(courseId);
+      final result = await _repoVideo.getCourseDetails(courseId, isfree);
 
       if (isClosed) return;
 
@@ -218,8 +217,6 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
 
 //update course
   updateCourseToFree(int courseId) async {
-    log('UpdateCourseSuccess:bvhnvn}');
-
     saveEmit(UpdateCourseLoading());
 
     await Future.delayed(const Duration(seconds: 1)); // simulate API
@@ -243,11 +240,8 @@ class VideoCourseCubit extends Cubit<VideoCourseState> {
 
       if (File(filePath).existsSync()) {
         File(filePath).delete();
-        log('File delete: $filePath');
       }
-    } catch (e) {
-      log("Error checking local file: ${e.toString()}");
-    }
+    } catch (e) {}
   }
 
   saveEmit(VideoCourseState state) {

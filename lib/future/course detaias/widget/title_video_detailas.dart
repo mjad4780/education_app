@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/video_course_cubit.dart';
-import 'dart:developer';
+
 import 'dart:io';
 import '../data/models/detailashome/video.dart';
 
@@ -40,7 +40,7 @@ class CustomCurriculum extends StatelessWidget {
                 children: [
                   TitleVideoDetailas(
                     courseId: courseId,
-                    free: videos[index].isFree ?? false,
+                    free: videos[index].isFree,
                     isfillexit: cubit.isfillgStatus(videos[index].title!),
                     video: videos[index],
                     isDownloading:
@@ -99,7 +99,6 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
 
   @override
   Widget build(BuildContext context) {
-    log(widget.free.toString());
     return GestureDetector(
       onTap: widget.free
           ? () {
@@ -142,7 +141,7 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                 ),
                 child: Center(
                   child: Text(
-                    '${widget.video.id}',
+                    '${widget.video.videoId}',
                     style: context.textStyle.titleSmall!.copyWith(
                       color: const Color(0xFF202244),
                       fontWeight: FontWeight.w600,
@@ -181,7 +180,6 @@ class _TitleVideoDetailasState extends State<TitleVideoDetailas> {
                 builder: (context, state) {
               bool watched = CacheHelper.isWatched(
                   widget.courseId.toString(), widget.video.id.toString());
-              log('ccccccccccc$watched');
               return watched
                   ? const Icon(Icons.check_circle, color: Colors.green)
                   : const Icon(Icons.video_library, color: Colors.grey);

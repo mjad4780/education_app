@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:education/future/chats/data/model/message_model.dart';
@@ -32,9 +31,7 @@ class ChatsCubit extends Cubit<ChatsState> {
     final result = await _chatRepo.sendMessage(receiverId, content, senderType);
     result.fold(
       (failure) => emit(MessageSentError(failure.message)),
-      (_) {
-        log('Message sent successfully');
-      },
+      (_) {},
     );
   }
 

@@ -7,7 +7,6 @@ class DetailasCourse {
   int? detailsId;
   // String? description;
   // String? duration;
-  // bool? isPaid;
   // String? level;
   List<Video>? videos;
   List<Fille>? filles;
@@ -22,14 +21,15 @@ class DetailasCourse {
     // this.isPaid,
   });
 
-  factory DetailasCourse.fromJson(Map<String, dynamic> json) => DetailasCourse(
+  factory DetailasCourse.fromJson(Map<String, dynamic> json, bool? isfree) =>
+      DetailasCourse(
         detailsId: json['course_detail_id'] as int?,
         // description: json['description'] as String?,
         // duration: json['duration'] as String?,
         // isPaid: json['isPaid'] as bool?,
         // level: json['level'] as String?,
         videos: (json['videos'] as List<dynamic>?)
-            ?.map((e) => Video.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => Video.fromJson(e as Map<String, dynamic>, isfree))
             .toList(),
         filles: (json['files'] as List<dynamic>?)
             ?.map((e) => Fille.fromJson(e as Map<String, dynamic>))

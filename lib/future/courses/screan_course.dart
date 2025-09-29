@@ -53,48 +53,55 @@ class _ScreenCoursesState extends State<ScreenCourses> with RouteAware {
     return BlocProvider(
       create: (context) => getIt<MyCourseCubit>()..getCompletedCourse(),
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                  size: 35,
+        body: Builder(builder: (context) {
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<MyCourseCubit>().getCompletedCourse();
+            },
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  leading: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                      size: 35,
+                    ),
+                    onPressed: () async {
+                      context.read<MainCubit>().changeIndex(0);
+                    },
+                  ),
+                  title: Text(context.translate(LangKeys.myCourses),
+                      style: context.textStyle.bodyLarge),
                 ),
-                onPressed: () async {
-                  context.read<MainCubit>().changeIndex(0);
-                },
-              ),
-              title: Text(context.translate(LangKeys.myCourses),
-                  style: context.textStyle.bodyLarge),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25.0, vertical: 13),
-                child: AppTextFormField(
-                  hintText: context.translate(LangKeys.search),
-                  validator: (p0) {},
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    child: SvgPicture.asset(
-                      Assets.imagesSearchBlue,
-                      height: 50,
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25.0, vertical: 13),
+                    child: AppTextFormField(
+                      hintText: context.translate(LangKeys.search),
+                      validator: (p0) {},
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 13),
+                        child: SvgPicture.asset(
+                          Assets.imagesSearchBlue,
+                          height: 50,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+                SliverFillRemaining(
+                  child: CompletedCourseBlocBuilder(
+                    valueNotifier: coursesNotifier,
+                  ),
+                ),
+              ],
             ),
-            SliverFillRemaining(
-              child: CompletedCourseBlocBuilder(
-                valueNotifier: coursesNotifier,
-              ),
-            ),
-          ],
-        ),
+          );
+        }),
       ),
     );
   }

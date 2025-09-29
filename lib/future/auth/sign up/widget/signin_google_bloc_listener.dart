@@ -18,7 +18,7 @@ class SignUpBlocListener extends StatelessWidget {
       listener: (context, state) {
         if (state is SignupSuccess) {
           context.pop();
-          // context.pop();
+          context.pop();
           // buildSuccessBar(context, state.successString);
         } else if (state is SignupFailure) {
           context.pop();

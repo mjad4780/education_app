@@ -35,7 +35,7 @@ class CourseStatsRow extends StatelessWidget {
           ),
         ),
         const Spacer(flex: 4),
-        !context.read<VideoCourseCubit>().headCourse!.isFree!
+        !context.read<VideoCourseCubit>().headCourse!.isFree
             ? Text(
                 "\$${context.read<VideoCourseCubit>().headCourse!.price.toString()} ",
                 style: context.textStyle.bodyLarge!.copyWith(

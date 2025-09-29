@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 // import 'package:education/core/service/home_service/supabase_services_Home.dart';
 import 'package:education/core/service/video_hundle/video_service.dart';
@@ -32,11 +30,9 @@ class RepoVideo {
       // إرجاع النتيجة إذا كانت ناجحة
     } on CustomException catch (e) {
       // تسجيل الخطأ المخصص
-      log("CustomException: ${e.message}");
       return Left(ServerFailure(e.message));
     } catch (e) {
       // تسجيل أي خطأ غير متوقع
-      log("Unexpected error: ${e.toString()}");
       return Left(ServerFailure("An unexpected error occurred"));
     }
   }
@@ -53,42 +49,23 @@ class RepoVideo {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }
 
-  Future<Either<Failure, DetailasCourse>> getCourseDetails(int courseId) async {
+  Future<Either<Failure, DetailasCourse>> getCourseDetails(
+      int courseId, bool isfree) async {
     try {
       if (!getIt<ConnectivityController>().isConnected.value) {
         return left(ServerFailure('No internet connection'));
       }
-      var response = await _supabase.getCourseDetails(courseId);
+      var response = await _supabase.getCourseDetails(courseId, isfree);
       if (response.result) {
         return right(response.data!);
       } else {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
-      return left(ServerFailure(e.message));
-    }
-  }
-
-  // function update watched video
-  Future<Either<Failure, String>> updateWatchedVideo(int videoId) async {
-    try {
-      if (!getIt<ConnectivityController>().isConnected.value) {
-        return left(ServerFailure('No internet connection'));
-      }
-      var response = await _supabase.updateWatchedVideo(videoId);
-      if (response.result) {
-        return right(response.messege);
-      } else {
-        return left(ServerFailure(response.messege));
-      }
-    } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }

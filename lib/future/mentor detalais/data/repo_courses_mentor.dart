@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:education/core/error/exceptions.dart';
 import 'package:education/core/error/failures.dart';
@@ -26,7 +24,6 @@ class RepoCoursesMentor {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }
@@ -48,7 +45,6 @@ class RepoCoursesMentor {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }
@@ -67,7 +63,6 @@ class RepoCoursesMentor {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }

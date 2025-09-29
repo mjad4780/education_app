@@ -40,12 +40,14 @@ class SupabaseServiceHome {
   }
 //:get Course Details
 
-  Future<ResponseService<DetailasCourse>> getCourseDetails(int courseId) async {
+  Future<ResponseService<DetailasCourse>> getCourseDetails(
+      int courseId, bool isfree) async {
     try {
       final response = await supabase
           .from('course_details')
           .select()
-          .eq('course_detail_id', courseId);
+          .eq('course_detail_id', courseId)
+          .order('id', ascending: true);
 
       return ResponseService(
           true,
@@ -56,7 +58,7 @@ class SupabaseServiceHome {
                 response.where((item) => item['is_video'] == false).toList(),
             'videos':
                 response.where((item) => item['is_video'] == true).toList(),
-          }));
+          }, isfree));
     } catch (e) {
       log("dfalier${e.runtimeType}");
       return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
@@ -66,52 +68,38 @@ class SupabaseServiceHome {
 
   Future<ResponseService> updateCourseTo(int courseId) async {
     try {
-      await Future.wait([
-        supabase.from('courses').update({'is_free': true}).eq('id', courseId),
-        supabase
-            .from('course_details')
-            .update({'is_free': true}).eq('course_detail_id', courseId),
-      ]);
-      return ResponseService(true, "تم التحديث بنجاح!");
+      final user = getIt<CacheHelper>().getData(key: Keys.userId);
+      if (user == null) {
+        return ResponseService(false, "يجب تسجيل الدخول أولاً");
+      }
+
+      // أولاً: نجلب القائمة الحالية
+      final currentCourse = await supabase
+          .from('courses')
+          .select('users_course')
+          .eq('id', courseId)
+          .single();
+
+      List<dynamic> currentUsers = currentCourse['users_course'] ?? [];
+
+      // ثانياً: نضيف user_id الجديد إذا لم يكن موجود
+      if (!currentUsers.contains(user.id)) {
+        currentUsers.add(user.id);
+
+        // ثالثاً: نحدث القائمة - هذا يؤثر على المستخدم الحالي فقط
+        await supabase
+            .from('courses')
+            .update({'users_course': currentUsers}).eq('id', courseId);
+
+        return ResponseService(true, "تم الشراء بنجاح!");
+      } else {
+        return ResponseService(true, "لقد قمت بشراء هذا الكورس مسبقاً");
+      }
     } catch (e) {
-      log('خطأ أثناء التحديث: $e');
+      log('خطأ أثناء الشراء: $e');
       return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
   }
-//:get Completed Course
-
-  Future<ResponseService<List<Course>>> getCompletedCourse() async {
-    try {
-      final responses =
-          await supabase.from('courses').select().eq('is_free', true);
-
-      // Convert the response data to List<Course> and handle empty responses
-      final coursesList = (responses as List).isNotEmpty
-          ? (responses as List).map((course) => Course.fromMap(course)).toList()
-          : <Course>[];
-
-      return ResponseService(true, '', coursesList);
-    } catch (e) {
-      log("runtimeType${e.toString()}");
-      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
-    }
-  }
-
-///////get courses mentors
-  Future<ResponseService<List<Course>>> getCoursesMentor(int mentorId) async {
-    try {
-      final response =
-          await supabase.from('courses').select().eq('mentor_id', mentorId);
-      final coursesList = (response as List).isNotEmpty
-          ? (response as List).map((course) => Course.fromMap(course)).toList()
-          : <Course>[];
-      return ResponseService(true, '', coursesList);
-    } catch (e) {
-      log("runtimeType${e.runtimeType}");
-      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
-    }
-  }
-
   //:updata followers
 
   Future<ResponseService<List<String>>> toggleFollower(
@@ -130,8 +118,6 @@ class SupabaseServiceHome {
           (response['followers'] as List<dynamic>? ?? [])
               .map((e) => e.toString())
               .toList();
-
-      log('currentFollowers$currentFollowers');
 
       bool isAdding = !currentFollowers.contains(followerId);
       List<String> newlist = [];
@@ -157,18 +143,64 @@ class SupabaseServiceHome {
           false, ErrorHandlerSupabase.getErrorMessage(e), []);
     }
   }
+
+//:get Completed Course
+
+  Future<ResponseService<List<Course>>> getCompletedCourse() async {
+    try {
+      final String? userId = getIt<CacheHelper>().getData(key: Keys.userId);
+      if (userId == null) return ResponseService(false, 'No user ID found', []);
+
+      final List<dynamic> responses = await supabase
+          .from('courses')
+          .select()
+          .contains('users_course', [userId]);
+
+      final coursesList = (responses).isNotEmpty
+          ? (responses).map((course) => Course.fromMap(course)).toList()
+          : <Course>[];
+
+      return ResponseService(true, '', coursesList);
+    } catch (e) {
+      log("runtimeType${e.toString()}");
+      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
+    }
+  }
+
+///////get courses mentors
+  Future<ResponseService<List<Course>>> getCoursesMentor(int mentorId) async {
+    try {
+      final response =
+          await supabase.from('courses').select().eq('mentor_id', mentorId);
+      final coursesList = (response as List).isNotEmpty
+          ? (response as List).map((course) => Course.fromMap(course)).toList()
+          : <Course>[];
+      return ResponseService(true, '', coursesList);
+    } catch (e) {
+      log("runtimeType${e.runtimeType}");
+      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
+    }
+  }
+
   //chat mentor
 
   Future<ResponseService<bool>> canChatWithMentor(int mentorId) async {
     try {
+      final String? userId = getIt<CacheHelper>().getData(key: Keys.userId);
+      if (userId == null)
+        return ResponseService(false, 'No user ID found', false);
       // تحقق من وجود كورسات مجانية للمدرس
       final freeCourses = await supabase
           .from('courses')
           .select()
           .eq('mentor_id', mentorId)
-          .eq('is_free', true);
-      log('freeCourses: $freeCourses');
-      if (freeCourses.isEmpty) {
+          .single();
+      // .contains('users_course', [userId]);
+
+      List<dynamic> currentUsers = freeCourses['users_course'] ?? [];
+      currentUsers.contains(userId);
+
+      if (!currentUsers.contains(userId)) {
         return ResponseService(
             false, 'لا يمكن التكلم مع هذا المدرس إلا بعد شراء كورس له', false);
       } else {}
@@ -284,20 +316,6 @@ class SupabaseServiceHome {
       log('Error in updateImageProfile: ${e.toString()}');
       return ResponseService(
           false, ErrorHandlerSupabase.getErrorMessage(e), null);
-    }
-  }
-
-  // function update watched video
-  Future<ResponseService> updateWatchedVideo(int courseDetailId) async {
-    try {
-      await supabase.from('course_details').update({'watched': true}).eq(
-        'course_detail_id',
-        courseDetailId,
-      );
-      return ResponseService(true, "تم التحديث بنجاح!");
-    } catch (e) {
-      log('خطأ أثناء التحديث: $e');
-      return ResponseService(false, ErrorHandlerSupabase.getErrorMessage(e));
     }
   }
 }

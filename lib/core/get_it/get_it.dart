@@ -39,7 +39,6 @@ import '../../future/paymop/data/repo.dart';
 import '../service/supabase/auth/auth_servieces.dart';
 import '../service/supabase/auth/supabase_services_impl.dart';
 import '../service/dio/dio_factory.dart';
-import '../service/notification/send_notification.dart';
 import '../service/video_hundle/video_service.dart';
 
 final getIt = GetIt.instance;
@@ -127,9 +126,9 @@ void setupServise() {
   getIt.registerLazySingleton<RepoPaymop>(() => RepoPaymop(getIt()));
   getIt.registerLazySingleton<PaymopCubit>(() => PaymopCubit(getIt(), getIt()));
 
-  ///notification
-  getIt.registerLazySingleton<NotificationService>(
-      () => NotificationService(dio));
+  // ///notification
+  // getIt.registerLazySingleton<NotificationService>(
+  //     () => NotificationService(dio));
   ////chat
   getIt.registerLazySingleton<ChatRepo>(() => ChatRepo(getIt()));
   getIt.registerFactory<ChatsCubit>(() => ChatsCubit(getIt()));

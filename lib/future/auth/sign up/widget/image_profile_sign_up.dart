@@ -12,8 +12,9 @@ class ImageProfileBloc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<SignUpCubit, SignUpState, File?>(
-      selector: (state) =>
-          state is ProfileImageSignUp ? state.profileImage : null,
+      selector: (state) => state is ProfileImageSignUp
+          ? state.profileImage
+          : context.read<SignUpCubit>().file,
       builder: (context, profileImage) {
         return ImageProfile(
           imageSvg: Assets.imagesEditImage,

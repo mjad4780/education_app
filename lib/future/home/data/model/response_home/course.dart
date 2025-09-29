@@ -2,6 +2,10 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
+import '../../../../../core/get_it/get_it.dart';
+import '../../../../../core/helpers/cache_helper.dart';
+import '../../../../../utility/constant.dart';
+
 class Course {
   final int? id;
 
@@ -9,13 +13,14 @@ class Course {
   final String? categoryName;
   final int? mentorId;
   final double? price;
-  final bool? isFree;
   final String? imageUrl;
   final int? duration;
   final String? level;
   final String? description;
   final int? countVideo;
+  final List<String>? usersCourseId;
   Course({
+    this.usersCourseId,
     this.countVideo,
     this.level,
     this.description,
@@ -25,7 +30,6 @@ class Course {
     this.categoryName,
     this.mentorId,
     this.price,
-    this.isFree,
     this.imageUrl,
   });
 
@@ -36,12 +40,21 @@ class Course {
         categoryName: data['category_name'],
         mentorId: data['mentor_id'],
         price: data['price'].toDouble(),
-        isFree: data['is_free'],
+        usersCourseId: List<String>.from(data['users_course'] ?? []),
         imageUrl: data['image_url'],
         description: data['description'],
         duration: data['duration'],
         level: data['level'],
       );
+
+  bool get isFree {
+    try {
+      final String? userId = getIt<CacheHelper>().getData(key: Keys.userId);
+      return userId != null && usersCourseId?.contains(userId) == true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   Map<String, dynamic> toMap() => {
         'id': id,

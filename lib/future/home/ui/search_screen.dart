@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/future/home/cubit/home_cubit.dart';
 import 'package:education/future/home/data/model/response_home/course.dart';
@@ -129,7 +127,6 @@ class _SearchScreenState extends State<SearchScreen> {
                               )),
                             );
                           } else if (state is SearchCourseSuccessState) {
-                            log(state.courses.length.toString());
                             return Expanded(
                                 child: CustomWidgetPoluparCourse(
                               course: state.courses,
