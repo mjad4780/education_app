@@ -1,35 +1,34 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
-import 'package:education/future/Qiez/view/exam_questions.dart';
-import 'package:education/future/auth/login/login_screan.dart';
-import 'package:education/future/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
-import 'package:education/future/chats/screan_chats.dart';
-import 'package:education/future/home/cubit/home_cubit.dart';
-import 'package:education/future/home/ui/castegories_screan.dart';
-import 'package:education/future/home/ui/home_scean.dart';
-import 'package:education/future/home/ui/notification_screen.dart';
-import 'package:education/future/mentor%20detalais/widget/screen_detalias_chat_mentors.dart';
-import 'package:education/future/onboarding/onboarding_view.dart';
+import 'package:education/features/qiez/view/exam_questions.dart';
+import 'package:education/features/auth/login/login_screan.dart';
+import 'package:education/features/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
+import 'package:education/features/chats/screan_chats.dart';
+import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/ui/castegories_screan.dart';
+import 'package:education/features/home/ui/home_scean.dart';
+import 'package:education/features/home/ui/notification_screen.dart';
+import 'package:education/features/mentor_detalais/widget/screen_detalias_chat_mentors.dart';
+import 'package:education/features/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../future/Qiez/cubit/exam_cubit.dart';
-import '../../future/Qiez/view/exam_answers.dart';
-import '../../future/Qiez/view/exam_overview_page.dart';
-import '../../future/Qiez/view/exam_report_screen.dart';
-import '../../future/auth/sign up/sign_up.dart';
-import '../../future/chats/widget/screen_detalias_chat.dart';
-import '../../future/course detaias/course_details.dart';
-import '../../future/course detaias/widget/pdf_view.dart';
-import '../../future/home/data/model/response_home/course.dart';
-import '../../future/home/data/model/response_home/mentor.dart';
-import '../../future/home/ui/mentor_screen.dart';
-import '../../future/home/ui/polupar_screan.dart';
-import '../../future/home/ui/search_screen.dart';
-import '../../future/main/screan_main.dart';
-import '../../future/mentor detalais/mentor_detalias.dart';
-import '../../future/profile/ui/screen_edit_profile.dart';
-import '../../future/profile/ui/screen_language.dart';
-import '../../future/splash/ui/screens/splash_screen.dart';
+import '../../features/qiez/cubit/exam_cubit.dart';
+import '../../features/qiez/view/exam_answers.dart';
+import '../../features/qiez/view/exam_overview_page.dart';
+import '../../features/qiez/view/exam_report_screen.dart';
+import '../../features/auth/sign up/sign_up.dart';
+import '../../features/chats/widget/screen_detalias_chat.dart';
+import '../../features/course_detaias/course_details.dart';
+import '../../features/course_detaias/widget/pdf_view.dart';
+import '../../features/home/data/model/response_home/course.dart';
+import '../../features/home/data/model/response_home/mentor.dart';
+import '../../features/home/ui/mentor_screen.dart';
+import '../../features/home/ui/polupar_screan.dart';
+import '../../features/home/ui/search_screen.dart';
+import '../../features/main/screan_main.dart';
+import '../../features/mentor_detalais/mentor_detalias.dart';
+import '../../features/profile/ui/screen_edit_profile.dart';
+import '../../features/profile/ui/screen_language.dart';
 import 'base_routes.dart';
 
 class AppRoutes {
@@ -59,11 +58,6 @@ class AppRoutes {
       case StringRoute.home:
         return BaseRoute(
           page: const HomeScrean(),
-          transitionType: RouteTransitionType.fade,
-        );
-      case StringRoute.splash:
-        return BaseRoute(
-          page: const SplashScreen(),
           transitionType: RouteTransitionType.fade,
         );
 

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
 import 'package:education/core/success/return_response_service.dart';
-import 'package:education/future/auth/sign%20up/data/model/sign_up_reqest_body.dart';
+import 'package:education/features/auth/sign%20up/data/model/sign_up_reqest_body.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -57,14 +57,9 @@ class AuthService {
   Future<ResponseService> register(SignUpReqestBody body) async {
     try {
       AuthResponse response = await _supabaseService.signUp(body);
-      log('xception${response.session?.accessToken.toString()}');
       if (response.user?.email == null) {
-        log('ption${response.user?.email.toString()}');
-
         return ResponseService(false, ' Failer Account   ');
       } else {
-        log('ptionddddd${response.user?.email.toString()}');
-
         return ResponseService(
             true, 'Account created successfully please confirm your signUp');
       }

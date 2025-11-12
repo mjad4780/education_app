@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../../future/auth/sign up/data/model/sign_up_reqest_body.dart';
+import '../../../../features/auth/sign up/data/model/sign_up_reqest_body.dart';
 import '../../../function/re_name_path_image.dart';
 import 'supabase_services.dart';
 
@@ -45,10 +45,14 @@ class SupabaseService implements ISupabaseService {
   }
 
   @override
-  Future<String> signedUploadImage(File file) {
-    return _client.storage.from('profile').upload(
-          reNamePathImage(file.path),
-          file,
-        );
+  Future<String> signedUploadImage(File file) async {
+    final path = reNamePathImage(file.path);
+
+    await _client.storage.from('profile').upload(path, file);
+
+    // هنا بترجع URL مباشر (لازم البكت يكون public)
+    final String publicUrl = _client.storage.from('profile').getPublicUrl(path);
+
+    return publicUrl;
   }
 }

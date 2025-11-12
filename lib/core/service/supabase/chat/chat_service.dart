@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:education/core/error/error_handler_supabase.dart';
 import 'package:education/core/success/return_response_service.dart';
-import 'package:education/future/chats/data/model/message_model.dart';
-import 'package:education/future/home/data/model/response_home/mentor.dart';
+import 'package:education/features/chats/data/model/message_model.dart';
+import 'package:education/features/home/data/model/response_home/mentor.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseChatService {

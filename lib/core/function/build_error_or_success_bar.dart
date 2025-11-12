@@ -47,7 +47,6 @@ void buildErorr(BuildContext context, String title) {
     dialogType: DialogType.error,
     animType: AnimType.rightSlide,
     title: title,
-    desc: 'Dialog description here.............',
     btnOkOnPress: () {},
   ).show();
 }

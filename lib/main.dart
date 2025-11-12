@@ -12,7 +12,7 @@ import 'core/helpers/cache_helper.dart';
 import 'core/helpers/observer.dart';
 // import 'future/paymop/data/models/payment_data.dart';
 import 'firebase_options.dart';
-import 'future/paymop/data/models/payment_data.dart';
+import 'features/paymop/data/models/payment_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

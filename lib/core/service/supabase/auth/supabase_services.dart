@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../future/auth/sign up/data/model/sign_up_reqest_body.dart';
+import '../../../../features/auth/sign up/data/model/sign_up_reqest_body.dart';
 
 abstract class ISupabaseService {
   Future<AuthResponse> signInWithGoogle(String idToken, String? accessToken);
