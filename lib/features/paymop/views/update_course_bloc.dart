@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +20,8 @@ class UpdateCourseListener extends StatelessWidget {
         if (state is UpdateCourseSuccess) {
           // buildSuccessBar(context, state.successString);
           context.pushNamedAndRemoveUntil(StringRoute.main);
-          log('UpdateCourseSuccess: ${state.messageSuccess}');
         } else if (state is UpdateCourseFailer) {
-        } else {
-          log('messagexxxxxxxx');
-        }
+        } else {}
       },
       child: const SizedBox.shrink(),
     );

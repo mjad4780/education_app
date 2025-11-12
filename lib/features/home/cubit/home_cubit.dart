@@ -35,7 +35,6 @@ class HomeCubit extends Cubit<HomeState> {
   getData() async {
     _savedCourses.clear();
     _savedCourses.addAll(getIt<CacheHelper>().getSavedCourses());
-    log(_savedCourses.length.toString());
     filltercourses.clear();
     saveEmit(LoadingHome());
     final result = await repoHome.getHomeData();
@@ -53,13 +52,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   emitgetfilltergategoriescourse(String nameGategory, int index) {
     filltercourses.clear();
-    log(responseHome!.courses!.length.toString());
     saveEmit(FailtercourseLoadedState(index: currentindexpupalr = index));
 
     Future.delayed(const Duration(seconds: 3), () {
       if (nameGategory == "all") {
         filltercourses.addAll(responseHome!.courses!);
-        log(responseHome!.courses!.length.toString());
       }
 
       for (var element in responseHome!.courses!) {
@@ -78,7 +75,6 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> initialize() async {
     // جلب الكورسات المحفوظة من الذاكرة المحلية عند التهيئة
     _savedCourses.addAll(getIt<CacheHelper>().getSavedCourses());
-    log(_savedCourses.length.toString());
     saveEmit(HomeLoadedState());
   }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/features/home/data/model/response_home/course.dart';
@@ -18,7 +16,6 @@ class CustomWidgetCoursesMentor extends StatelessWidget {
   final List<Course> course;
   @override
   Widget build(BuildContext context) {
-    log(course.length.toString());
     if (course.isEmpty) {
       return Center(
         child: Column(

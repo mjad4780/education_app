@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import '../../../../core/error/error_handler_supabase.dart';
 import '../../../../core/error/exceptions.dart';
@@ -19,7 +17,6 @@ class LoginRepo {
         return left(ServerFailure(response.messege));
       }
     } on CustomException catch (e) {
-      log(e.message);
       return left(ServerFailure(e.message));
     }
   }

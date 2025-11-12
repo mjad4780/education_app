@@ -11,7 +11,14 @@ class HomeScrean extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<HomeCubit>()..getData(),
-      child: const HomeBlocBuilder(),
+      child: Builder(builder: (context) {
+        return RefreshIndicator(
+          onRefresh: () async {
+            context.read<HomeCubit>().getData();
+          },
+          child: const HomeBlocBuilder(),
+        );
+      }),
     );
   }
 }

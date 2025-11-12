@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -40,7 +39,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignupLoading());
     final result = await signUpRepo.signedUploadImage(file!);
     result.fold((failure) {
-      log(failure.message);
       emit(
         SignupFailure(message: failure.message),
       );
@@ -58,8 +56,6 @@ class SignUpCubit extends Cubit<SignUpState> {
       final result = await signUpRepo.signUp(body!);
       result.fold(
         (failure) {
-          log(failure.message);
-
           emit(
             SignupFailure(message: failure.message),
           );

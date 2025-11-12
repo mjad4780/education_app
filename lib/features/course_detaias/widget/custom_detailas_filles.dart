@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:education/core/extensions/extention_navigator.dart';
@@ -55,17 +54,17 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  try {
-                    final directory = await getApplicationDocumentsDirectory();
-                    final filePath = '${directory.path}/${widget.value.title}';
+                  // try {
+                  //   final directory = await getApplicationDocumentsDirectory();
+                  //   final filePath = '${directory.path}/${widget.value.title}';
 
-                    if (File(filePath).existsSync()) {
-                      File(filePath).delete();
-                      log('File delete: $filePath');
-                    }
-                  } catch (e) {
-                    log("Error checking local file: ${e.toString()}");
-                  }
+                  //   if (File(filePath).existsSync()) {
+                  //     File(filePath).delete();
+                  //     log('File delete: $filePath');
+                  //   }
+                  // } catch (e) {
+                  //   log("Error checking local file: ${e.toString()}");
+                  // }
                 },
                 child: Container(
                   width: 38.w,
@@ -160,8 +159,6 @@ class _CustomDetailasFillesState extends State<CustomDetailasFilles> {
                                         .fillgStatuspdf[widget.value.title] ??
                                     fileExistsValue
                                 ? () {
-                                    log('Opening PDF');
-
                                     context.pushName(
                                         StringRoute.pdfViewerScreen,
                                         arguments: filePaths.value);

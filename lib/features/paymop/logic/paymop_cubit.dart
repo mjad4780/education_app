@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:education/features/paymop/data/repo.dart';
 import 'package:flutter/material.dart';
@@ -78,8 +76,6 @@ class PaymopCubit extends Cubit<PaymopState> {
 
   //update course
   updateCourseToFree(int courseId) async {
-    log('UpdateCourseSuccess:bvhnvn}');
-
     emit(UpdateCourseLoading());
 
     await Future.delayed(const Duration(seconds: 1)); // simulate API

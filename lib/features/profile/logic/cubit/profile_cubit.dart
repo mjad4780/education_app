@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:education/features/profile/data/model/profile_model.dart';
@@ -56,7 +55,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> logout() async {
-    log('message');
     emit(LogoutLoading());
     final result = await profileRepo.logout();
     result.fold(

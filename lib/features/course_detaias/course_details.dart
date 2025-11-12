@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/failer_widget.dart';
@@ -26,7 +24,7 @@ class CourseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<VideoCourseCubit>()
-        ..emitgetdataliascourse(course, course.id ?? 0),
+        ..emitgetdataliascourse(course, course.id ?? 0, course.isFree),
       child: Scaffold(
           body: HomeBlocBuilder(
         course: course,
@@ -54,13 +52,13 @@ class HomeBlocBuilder extends StatelessWidget {
             messege: state.message,
             onPressed: () => context
                 .read<VideoCourseCubit>()
-                .emitgetdataliascourse(course, course.id ?? 0),
+                .emitgetdataliascourse(course, course.id ?? 0, course.isFree),
           );
         } else if (state is FillterCourseSuccess) {
           return Stack(
             children: [
               CourseHeader(
-                isfree: course.isFree ?? false,
+                isfree: course.isFree,
                 courseId: course.id ?? 0,
                 videoId: state.fillterCourse.videos?.first.id ?? 0,
               ),
@@ -71,7 +69,7 @@ class HomeBlocBuilder extends StatelessWidget {
                 bottom: 10,
                 left: 30,
                 right: 30,
-                child: !context.read<VideoCourseCubit>().headCourse!.isFree!
+                child: !context.read<VideoCourseCubit>().headCourse!.isFree
                     ? EnrollButton(
                         price: course.price ?? 0.0,
                         iD: state.fillterCourse.detailsId!,
@@ -138,12 +136,9 @@ class EnrollButton extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PaymentView(
               onPaymentSuccess: () {
-                log('message');
                 getIt<PaymopCubit>().updateCourseToFree(iD);
               },
-              onPaymentError: () {
-                log('failer');
-              },
+              onPaymentError: () {},
               price: price, // Required: Total price (e.g., 100 for 100 EGP)
             ),
           ),
