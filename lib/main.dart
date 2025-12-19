@@ -10,9 +10,23 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/get_it/get_it.dart';
 import 'core/helpers/cache_helper.dart';
 import 'core/helpers/observer.dart';
-// import 'future/paymop/data/models/payment_data.dart';
 import 'firebase_options.dart';
 import 'features/paymop/data/models/payment_data.dart';
+// Hi there 👋
+
+// Just a quick note before you dive into the code:
+// Not the entire project has **Localization** or **Theme** fully applied. That was a temporary choice, not a lack of knowledge 😄
+
+// I’m comfortable implementing both properly, but for now I focused more on core logic and delivery speed.
+// If you notice parts that need **refactoring**… yep, that’s some temporary laziness 🙃
+
+// Any suggestions or improvements are more than welcome.
+// Thanks for your time and for reviewing the code 🌟
+
+// Best regards,
+// Mohamed
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,42 +45,23 @@ void main() async {
     url: supabaseUrl,
     anonKey: supabaseKey,
   );
-  // ErrorWidget.builder = (FlutterErrorDetails details) => ModernErrorScreen(
-  //       errorDetails: details,
-  //     );
-  // Handle Flutter errors here
+  ErrorWidget.builder = (FlutterErrorDetails details) => ModernErrorScreen(
+        errorDetails: details,
+      );
 
-  // await tesHomeData();
-  // await getCourseDetails(101);
   PaymentData.initialize(
     apiKey: apiKeyPaymop,
     iframeId: iframe,
     integrationCardId: cardId,
     integrationMobileWalletId: mobilId,
   );
-//   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-//   OneSignal.initialize(onesignalId);
-//   OneSignal.Notifications.requestPermission(true);
-  // await _splashChannel.invokeMethod('hideSplash');
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize(onesignalId);
+  OneSignal.Notifications.requestPermission(true);
+  await _splashChannel.invokeMethod('hideSplash');
 
   runApp(DevicePreview(
       enabled: false, builder: (context) => const EducationApp()));
 }
 
-class Name extends StatelessWidget {
-  const Name({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Name'),
-        ),
-        body: const Center(
-          child: Text('Name'),
-        ),
-      ),
-    );
-  }
-}

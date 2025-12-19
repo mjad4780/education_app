@@ -13,13 +13,6 @@ ThemeData themeDark() {
     useMaterial3: true,
     textTheme: textTheme(),
 
-    // textTheme: TextTheme(
-    //   displaySmall: TextStyle(
-    //     fontSize: 14,
-    //     color: ColorsDark.white,
-    //     fontFamily: FontFamilyHelper.geLocalozedFontFamily(),
-    //   ),
-    // ),
   );
 }
 
@@ -32,12 +25,5 @@ ThemeData themeLight() {
       useMaterial3: true,
       textTheme: textTheme()
 
-      // textTheme: TextTheme(displaySmall: TextStyles.textStyle18
-      //   TextStyle(
-      //     fontSize: 14,
-      //     color: ColorsLight.pinkLight,
-      //     fontFamily: FontFamilyHelper.geLocalozedFontFamily(),
-      //   ),
-      // ),
       );
 }

@@ -6,7 +6,6 @@ import '../style/theme/color_extension.dart';
 extension Navigation on BuildContext {
   MyColors get color => Theme.of(this).extension<MyColors>()!;
 
-  // images
 
   // style
   TextTheme get textStyle => Theme.of(this).textTheme;

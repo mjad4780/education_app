@@ -117,40 +117,7 @@ class CacheHelper {
     return sharedPreferences.getStringList(_savedCoursesKey)?.toSet() ?? {};
   }
 
-  // static const String _watchedVideosKey = 'watched_videos';
 
-  // Future<void> saveWatchedVideos(
-  //     String courseId, Map<int, bool> watchedVideos) async {
-  //   final data = sharedPreferences.getString(_watchedVideosKey);
-  //   Map<String, dynamic> allCourses = {};
-
-  //   if (data != null) {
-  //     allCourses = json.decode(data);
-  //   }
-
-  //   // نحول مفاتيح الفيديوهات إلى String
-  //   allCourses[courseId] =
-  //       watchedVideos.map((key, value) => MapEntry(key.toString(), value));
-
-  //   await sharedPreferences.setString(
-  //     _watchedVideosKey,
-  //     json.encode(allCourses),
-  //   );
-  // }
-
-  // Map<int, bool> getWatchedVideos(String courseId) {
-  //   final data = sharedPreferences.getString(_watchedVideosKey);
-  //   if (data != null) {
-  //     final Map<String, dynamic> allCourses = json.decode(data);
-  //     final Map<String, dynamic>? courseVideos = allCourses[courseId];
-
-  //     if (courseVideos != null) {
-  //       return courseVideos
-  //           .map((key, value) => MapEntry(int.parse(key), value as bool));
-  //     }
-  //   }
-  //   return {};
-  // }
 
   //////////////////////////////////////
   static const String key = "watched_videos";

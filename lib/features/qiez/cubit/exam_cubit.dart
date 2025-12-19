@@ -1,9 +1,8 @@
+import 'package:education/features/qiez/models/exam_overview_model/examOverViewModel.dart';
+import 'package:education/features/qiez/models/exam_questions_model/exam_questions_model.dart';
+import 'package:education/features/qiez/models/exam_report_model/exam_report_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timer_count_down/timer_controller.dart';
-
-import '../models/exam_overview_model/examOverViewModel.dart';
-import '../models/exam_questions_model/exam_questions_model.dart';
-import '../models/exam_report_model/exam_report_model.dart';
 
 part 'exam_state.dart';
 

@@ -6,22 +6,6 @@ import '../../../features/paymop/data/models/payment_data.dart';
 
 class ServicePaymop {
   final Dio dio;
-  // Navigator.push(
-  //             context,
-  //             MaterialPageRoute(
-  //               builder: (context) => PaymentView(
-
-  //                 onPaymentSuccess: () {
-  //                   log('Sucesssss');
-  //                               },
-  //                 onPaymentError: () {
-  //                   log('failer');
-
-  //                 },
-  //                 price: 100, // Required: Total price (e.g., 100 for 100 EGP)
-  //               ),
-  //             ),
-  //           );
 
   ServicePaymop(this.dio);
 
@@ -134,28 +118,3 @@ class ServicePaymop {
   }
 }
 
-// Future<void> getOrderRegisrationId() async {
-//     _setLoadingState(isOrderLoading: true);
-//     try {
-//       final response = await DioHelper.postData(
-//         url: '/ecommerce/orders',
-//         data: {
-//           "auth_token": paymentFirstToken,
-//           "delivery_needed": "false",
-//           "amount_cents": (widget.price * 100).toString(),
-//           "currency": "EGP",
-//           "items": [],
-//         },
-//       );
-//       paymentOrderId = response.data['id'].toString();
-
-//       // Proceed to request payment key
-//       await getPaymentRequest();
-
-//       _setSuccessState(isOrderSuccess: true);
-//     } catch (error) {
-//       _setFailureState(isOrderFailure: true);
-//     } finally {
-//       _setLoadingState(isOrderLoading: false);
-//     }
-//   }

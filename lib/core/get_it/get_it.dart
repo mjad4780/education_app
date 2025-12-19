@@ -64,9 +64,7 @@ void setupServise() {
   getIt.registerLazySingleton<RepoMyCourse>(() => RepoMyCourse(getIt()));
 
   getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit(getIt()));
-  // Dio dio = DioFactory.getDio();
-  // getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
-  // getIt.registerLazySingleton<SupabaseServiceHome>(() => SupabaseServiceHome(getIt()));
+  
   getIt.registerSingleton<CacheHelper>(CacheHelper());
 
   getIt.registerFactory<EducationCubit>(() => EducationCubit());
@@ -127,8 +125,8 @@ void setupServise() {
   getIt.registerLazySingleton<PaymopCubit>(() => PaymopCubit(getIt(), getIt()));
 
   // ///notification
-  // getIt.registerLazySingleton<NotificationService>(
-  //     () => NotificationService(dio));
+  getIt.registerLazySingleton<NotificationService>(
+      () => NotificationService(dio));
   ////chat
   getIt.registerLazySingleton<ChatRepo>(() => ChatRepo(getIt()));
   getIt.registerFactory<ChatsCubit>(() => ChatsCubit(getIt()));
