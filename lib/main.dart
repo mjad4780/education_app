@@ -2,10 +2,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:education/app/education_app.dart';
 import 'package:education/core/helpers/connectivity_controller.dart';
 import 'package:education/key.dart';
+import 'package:education/utility/modern_error_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/get_it/get_it.dart';
 import 'core/helpers/cache_helper.dart';
@@ -22,11 +24,6 @@ import 'features/paymop/data/models/payment_data.dart';
 
 // Any suggestions or improvements are more than welcome.
 // Thanks for your time and for reviewing the code 🌟
-
-// Best regards,
-// Mohamed
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,10 +55,7 @@ void main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize(onesignalId);
   OneSignal.Notifications.requestPermission(true);
-  await _splashChannel.invokeMethod('hideSplash');
 
   runApp(DevicePreview(
       enabled: false, builder: (context) => const EducationApp()));
 }
-
-

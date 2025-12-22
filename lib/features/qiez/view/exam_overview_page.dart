@@ -1,13 +1,13 @@
 import 'package:education/core/extensions/extention_navigator.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/spacing.dart';
+import 'package:education/core/util/color_pacgkege_exams.dart';
 import 'package:education/features/qiez/cubit/exam_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
 import '../../../widget/app_text_button.dart';
-import '../../../core/style/color_pacgkege_exams.dart';
 
 import '../widget/custom_details_card.dart';
 

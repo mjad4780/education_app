@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../../../core/style/color_pacgkege_exams.dart';
+import '../../../../core/util/color_pacgkege_exams.dart';
 
 class QuestionProgress extends StatelessWidget {
   final int index;

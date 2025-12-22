@@ -1,13 +1,19 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
+import 'package:education/features/home/view/castegories_screan.dart';
+import 'package:education/features/home/view/home_scean.dart';
+import 'package:education/features/home/view/mentor_screen.dart';
+import 'package:education/features/home/view/notification_screen.dart';
+import 'package:education/features/home/view/polupar_screan.dart';
+import 'package:education/features/home/view/search_screen.dart';
+import 'package:education/features/profile/view/screen_edit_profile.dart';
+import 'package:education/features/profile/view/screen_language.dart';
 import 'package:education/features/qiez/view/exam_questions.dart';
 import 'package:education/features/auth/login/login_screan.dart';
 import 'package:education/features/auth/sign%20up/logic/cubit/sign_up_cubit.dart';
 import 'package:education/features/chats/screan_chats.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
-import 'package:education/features/home/ui/castegories_screan.dart';
-import 'package:education/features/home/ui/home_scean.dart';
-import 'package:education/features/home/ui/notification_screen.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 import 'package:education/features/mentor_detalais/widget/screen_detalias_chat_mentors.dart';
 import 'package:education/features/onboarding/onboarding_view.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +28,10 @@ import '../../features/course_detaias/course_details.dart';
 import '../../features/course_detaias/widget/pdf_view.dart';
 import '../../features/home/data/model/response_home/course.dart';
 import '../../features/home/data/model/response_home/mentor.dart';
-import '../../features/home/ui/mentor_screen.dart';
-import '../../features/home/ui/polupar_screan.dart';
-import '../../features/home/ui/search_screen.dart';
+
 import '../../features/main/screan_main.dart';
 import '../../features/mentor_detalais/mentor_detalias.dart';
-import '../../features/profile/ui/screen_edit_profile.dart';
-import '../../features/profile/ui/screen_language.dart';
+
 import 'base_routes.dart';
 
 class AppRoutes {

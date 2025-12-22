@@ -1,5 +1,6 @@
 import 'package:education/core/get_it/get_it.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 import 'package:education/features/home/widget/home_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

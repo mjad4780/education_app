@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/Router/route_string.dart';
 import '../../../core/get_it/get_it.dart';
 import '../../../core/helpers/cache_helper.dart';
-import '../../../core/style/text_string.dart';
+import '../../../core/util/text_string.dart';
 import '../../../utility/constant.dart';
 
 class CustomSkipAndTheme extends StatelessWidget {

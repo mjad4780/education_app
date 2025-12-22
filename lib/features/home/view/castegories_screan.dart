@@ -1,6 +1,7 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 // import 'package:education/future/home/data/model/response_home/category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helpers/spacing.dart';
-import '../../../../core/style/color_pacgkege_exams.dart';
+import '../../../../core/util/color_pacgkege_exams.dart';
 import '../../cubit/exam_cubit.dart';
 import '../../models/exam_questions_model/exam_questions_model.dart';
 

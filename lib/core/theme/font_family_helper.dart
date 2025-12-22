@@ -1,9 +1,10 @@
-import 'package:education/core/style/colors.dart';
+import 'package:education/core/get_it/get_it.dart';
+import 'package:education/core/util/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utility/constant.dart';
-import '../../get_it/get_it.dart';
-import '../../helpers/cache_helper.dart';
+
+import '../helpers/cache_helper.dart';
 
 class FontFamilyHelper {
   const FontFamilyHelper._();

@@ -1,6 +1,7 @@
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 import 'package:education/features/home/data/model/response_home/course.dart';
 import 'package:education/features/home/widget/icons_save.dart';
 import 'package:education/widget/custom_cache_networking_image.dart';

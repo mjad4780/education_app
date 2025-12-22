@@ -1,7 +1,8 @@
 import 'package:education/features/qiez/models/exam_report_model/exam_report_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/style/color_pacgkege_exams.dart';
+import '../../../../core/util/color_pacgkege_exams.dart'
+    show iconColor, mainColor;
 import 'single_choice.dart';
 
 class QuestionCard extends StatelessWidget {

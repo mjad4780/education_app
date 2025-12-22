@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../core/function/top_show_dialog.dart';
+import '../../../core/function/build_error_or_success_bar.dart';
 import 'custom_widget_course_mentor.dart';
 
 class CoursesMentorsBlocBuilder extends StatefulWidget {
@@ -32,7 +32,7 @@ class _CoursesMentorsBlocBuilderState extends State<CoursesMentorsBlocBuilder> {
     return BlocConsumer<MentorCubit, MentorState>(
         listener: (context, state) {
           if (state is UpdateFollewersFailer) {
-            showSnackBar(context, state.message);
+            buildErrorBar(context, state.message);
           }
         },
         listenWhen: (previous, current) => current is UpdateFollewersFailer,

@@ -45,12 +45,12 @@ class NotificationService {
       );
 
       if (response.statusCode == 200) {
-        log("تم إرسال الإشعار بنجاح!");
+        // log("تم إرسال الإشعار بنجاح!");
       } else {
-        log("فشل إرسال الإشعار: ${response.data}");
+        // log("فشل إرسال الإشعار: ${response.data}");
       }
     } catch (error) {
-      log('حدث خطأ أثناء إرسال الإشعار: $error');
+      // log('حدث خطأ أثناء إرسال الإشعار: $error');
     }
   }
 }

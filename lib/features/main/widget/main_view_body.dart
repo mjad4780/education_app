@@ -1,10 +1,10 @@
 import 'package:education/features/chats/screan_chats.dart';
 import 'package:education/features/courses/screan_course.dart';
-import 'package:education/features/profile/ui/screan_profile.dart';
 import 'package:education/features/transaction/screan_transaction.dart';
 import 'package:flutter/material.dart';
 
-import '../../home/ui/home_scean.dart';
+import '../../home/view/home_scean.dart';
+import '../../profile/view/screan_profile.dart';
 
 class MainViewBody extends StatefulWidget {
   const MainViewBody({

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/Router/route_string.dart';
-import '../../../core/style/color_pacgkege_exams.dart';
+import 'package:education/core/util/color_pacgkege_exams.dart';
 
 import '../widget/widgets_exam_answers/custom_answers_cards.dart';
 import '../widget/custom_exam_report_header.dart';

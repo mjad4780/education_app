@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../success/return_response_service.dart';
+import '../../helpers/return_response_service.dart';
 import '../../../features/paymop/data/models/reponse_body.dart';
 import '../../../features/paymop/data/models/payment_data.dart';
 
@@ -117,4 +117,3 @@ class ServicePaymop {
     }
   }
 }
-

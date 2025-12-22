@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/style/text_string.dart';
+import '../../../core/util/text_string.dart';
 
 class GettingStart extends StatelessWidget {
   const GettingStart(

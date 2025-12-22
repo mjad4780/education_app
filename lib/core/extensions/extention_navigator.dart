@@ -1,11 +1,10 @@
+import 'package:education/core/extensions/color_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../language/app_localizations.dart';
-import '../style/theme/color_extension.dart';
 
 extension Navigation on BuildContext {
   MyColors get color => Theme.of(this).extension<MyColors>()!;
-
 
   // style
   TextTheme get textStyle => Theme.of(this).textTheme;

@@ -1,5 +1,6 @@
 import 'package:education/core/extensions/extention_navigator.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 import 'package:education/features/home/data/model/response_home/course.dart';
 import 'package:education/utility/loading.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'fonts/font_family_helper.dart';
+import 'font_family_helper.dart';
 
 TextTheme textTheme() {
   return TextTheme(
@@ -96,5 +96,3 @@ TextTheme textTheme() {
     ),
   );
 }
-
-

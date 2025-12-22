@@ -17,7 +17,6 @@ import 'package:education/features/qiez/cubit/exam_cubit.dart';
 import 'package:education/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:education/features/course_detaias/cubit/video_course_cubit.dart';
 import 'package:education/features/courses/cubit/my_course_cubit.dart';
-import 'package:education/features/home/cubit/home_cubit.dart';
 import 'package:education/features/mentor_detalais/logic/cubit/mentor_cubit.dart';
 import 'package:education/features/profile/logic/cubit/profile_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -32,10 +31,12 @@ import '../../features/auth/login/data/repo.dart';
 import '../../features/auth/sign up/data/sign_up_repo.dart';
 import '../../features/auth/sign up/logic/cubit/sign_up_cubit.dart';
 import '../../features/course_detaias/data/repo/repo_video.dart';
+import '../../features/home/logic/home_cubit.dart';
 import '../../features/profile/data/repo/profile_repo.dart';
 import '../../key.dart';
 import '../helpers/cache_helper.dart';
 import '../../features/paymop/data/repo.dart';
+import '../service/notification/send_notification.dart';
 import '../service/supabase/auth/auth_servieces.dart';
 import '../service/supabase/auth/supabase_services_impl.dart';
 import '../service/dio/dio_factory.dart';
@@ -64,7 +65,7 @@ void setupServise() {
   getIt.registerLazySingleton<RepoMyCourse>(() => RepoMyCourse(getIt()));
 
   getIt.registerFactory<MyCourseCubit>(() => MyCourseCubit(getIt()));
-  
+
   getIt.registerSingleton<CacheHelper>(CacheHelper());
 
   getIt.registerFactory<EducationCubit>(() => EducationCubit());

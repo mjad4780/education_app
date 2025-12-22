@@ -2,6 +2,7 @@ import 'package:education/app/education_cubit/education_cubit.dart';
 import 'package:education/core/Router/route_string.dart';
 import 'package:education/core/get_it/get_it.dart';
 import 'package:education/core/helpers/cache_helper.dart';
+import 'package:education/core/theme/app_theme.dart';
 import 'package:education/utility/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../core/Router/route.dart';
 import '../core/language/app_localizations_setup.dart';
-import '../core/style/theme/app_theme.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();

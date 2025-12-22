@@ -1,4 +1,5 @@
-import 'package:education/features/home/cubit/home_cubit.dart';
+import 'package:education/features/home/logic/home_cubit.dart';
+
 import 'package:education/features/home/data/model/response_home/course.dart';
 import 'package:education/features/home/widget/success_widget_item_course.dart';
 import 'package:education/utility/loading.dart';

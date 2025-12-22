@@ -2,7 +2,7 @@ import 'package:education/features/qiez/cubit/exam_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/style/color_pacgkege_exams.dart';
+import '../../../core/util/color_pacgkege_exams.dart';
 import '../models/exam_report_model/exam_report_model.dart';
 import '../widget/widgets_exam_answers/question_list.dart';
 

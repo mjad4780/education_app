@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/helpers/failer_widget.dart';
 import '../logic/cubit/profile_cubit.dart';
-import '../ui/screan_profile.dart';
+import '../view/screan_profile.dart';
 
 class GetProfileBlocBuilder extends StatelessWidget {
   const GetProfileBlocBuilder({super.key});
